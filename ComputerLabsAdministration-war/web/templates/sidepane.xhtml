@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <f:view>
+        <h:form>
+          <ul class="nav nav-pills nav-stacked">
+              <li style="text-align:center;border-bottom: 1px solid #dddddd"><h3><span class="glyphicon glyphicon-list"/> Main Menu</h3></li>
+              
+            <li><h:link value="Submit complaint" outcome="submitComplaint" /></li>
+            <li><h:link value="Advertisement Packages" outcome="advertisementPackages" rendered="#{memberManagedBean.getUserRole(facesContext.externalContext.userPrincipal).equals('Admin')}"/></li>
+            <li><h:link value="Advertisement Approval" outcome="advertisementApproval" rendered="#{memberManagedBean.getUserRole(facesContext.externalContext.userPrincipal).equals('Admin')}"/></li>
+            <li><h:link value="Reports" outcome="reports" rendered="#{memberManagedBean.getUserRole(facesContext.externalContext.userPrincipal).equals('Admin')}"/></li>
+            <li><h:link value="Sell Realestate" outcome="sellRealestate" rendered="#{memberManagedBean.getUserRole(facesContext.externalContext.userPrincipal).equals('Seller')||memberManagedBean.getUserRole(facesContext.externalContext.userPrincipal).equals('Agent')}"/></li>
+            <li><h:link value="Subscribe to Advertisement Package" outcome="subscribeAdvertisementPackage" rendered="#{memberManagedBean.getUserRole(facesContext.externalContext.userPrincipal).equals('Seller')||memberManagedBean.getUserRole(facesContext.externalContext.userPrincipal).equals('Agent')}"/></li>
+            <li><h:commandLink action="#{memberManagedBean.loadMemberDetails(facesContext.externalContext.userPrincipal,'updateProfile')}" value="Update profile" rendered="#{facesContext.externalContext.userPrincipal!=null}"/></li>
+            <li><h:link value="Update property details" outcome="updatePropertyDetails"   rendered="#{memberManagedBean.getUserRole(facesContext.externalContext.userPrincipal).equals('Seller')||memberManagedBean.getUserRole(facesContext.externalContext.userPrincipal).equals('Agent')}"/></li>
+            <li><h:commandLink value="Update property search criteria" action="#{memberManagedBean.loadMemberDetails(facesContext.externalContext.userPrincipal,'updateSearchCriteria')}" rendered="#{memberManagedBean.getUserRole(facesContext.externalContext.userPrincipal).equals('Member')}"/></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+          
+          </ul>
+          <ul class="nav nav-sidebar">
+           
+          </ul>
+        </h:form>
+        
+    </f:view>
+</html>
+

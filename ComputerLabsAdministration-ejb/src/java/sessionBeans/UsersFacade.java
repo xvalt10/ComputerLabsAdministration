@@ -28,4 +28,8 @@ public class UsersFacade extends AbstractFacade<Users> {
         super(Users.class);
     }
     
+    public int findMaxId(){
+    return (Integer)em.createNativeQuery("select MAX(userId) from dbo.Users").getSingleResult();
+    }
+    
 }

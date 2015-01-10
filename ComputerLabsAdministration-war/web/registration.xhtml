@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./templates/basicTemplate.xhtml">
+
+            <ui:define name="content">
+                <f:view>
+
+
+                    <h:form>
+                        <h1><h:outputText value="User registration"/></h1>
+                        <h:panelGrid columns="3">
+                            
+                            <h:outputLabel value="RoleId:" for="roleId" />
+                            <h:selectOneMenu id="roleId" value="#{userManagedBean.user.roleId}" title="RoleId" required="true" requiredMessage="The RoleId field is required." converter='userCategoryConverter'>
+                                <f:selectItem itemValue="1" itemLabel="#{userManagedBean.loadUserRole(1).roleName}"/>
+                                <f:selectItem itemValue="2" itemLabel="#{userManagedBean.loadUserRole(2).roleName}"/>
+                                <f:selectItem itemValue="3" itemLabel="#{userManagedBean.loadUserRole(3).roleName}"/>
+                            </h:selectOneMenu>
+                            <h:message for="roleId"/>
+                            
+                            <h:outputLabel value="Username:" for="username" />
+                            <h:inputText id="username" value="#{userManagedBean.user.username}" title="Username" required="true" requiredMessage="The Username field is required."/>
+                            <h:message for="username"/>
+                            
+                            <h:outputLabel value="Password:" for="password" />
+                            <h:inputText id="password" value="#{userManagedBean.user.password}" title="Password" required="true" requiredMessage="The Password field is required."/>
+                            <h:message for="password"/>
+                            
+                            <h:outputLabel value="Email:" for="email" />
+                            <h:inputText id="email" value="#{userManagedBean.user.email}" title="Email" required="true" requiredMessage="The Email field is required."/>
+                            <h:message for="email"/>
+                            
+                            <h:outputLabel value="MobileNumber:" for="mobileNumber" />
+                            <h:inputText id="mobileNumber" value="#{userManagedBean.user.mobileNumber}" title="MobileNumber" />
+                            <h:message for="mobileNumber"/>
+                            
+                            <h:outputLabel value="Department:" for="department" />
+                            <h:inputText id="department" value="#{userManagedBean.user.department}" title="Department" />
+                            <h:message for="department"/>
+                            
+                            <h:commandButton value="Register User" action="#{userManagedBean.registerUser()}"/>
+                            
+                       </h:panelGrid>
+                    </h:form>
+                    
+
+
+                  
+
+                    
+                </f:view>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

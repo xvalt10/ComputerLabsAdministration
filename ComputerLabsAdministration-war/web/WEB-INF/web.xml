@@ -21,4 +21,47 @@
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>jdbcRealm2</realm-name>
+        <form-login-config>
+            <form-login-page>/faces/login.xhtml</form-login-page>
+            <form-error-page>/faces/loginerror.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/faces/unauthorized.xhtml</location>
+    </error-page>
+    <welcome-file-list>
+        <welcome-file>faces/index.xhtml</welcome-file>
+    </welcome-file-list>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Admin pages</web-resource-name>
+            <url-pattern>/faces/admin/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>role_admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>HOD Pages</web-resource-name>
+            <url-pattern>/faces/hod/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>role_headOfDepartment</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Instructor pages</web-resource-name>
+            <url-pattern>/faces/instructor/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>role_instructor</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
 </web-app>
