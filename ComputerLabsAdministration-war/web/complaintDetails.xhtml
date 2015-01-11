@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./templates/basicTemplate.xhtml">
+
+
+            <ui:define name="content">
+                <f:view>
+
+
+                    <h:form>
+                        <h:panelGroup layout="block" class="page-header" style="margin-top:20px">
+                            <h:outputText value="Complaint Details" class="h2"/>                        </h:panelGroup>
+                        <p:tabView>
+                            <p:tab title="Complaint Description">
+                                <h:panelGrid columns="2">
+                                    <h:outputText value="ComplaintId:"/>
+                                    <h:outputText value="#{complaintsManagedBean.complaint.complaintId}" title="ComplaintId"/>
+                                    <h:outputText value="SubmissionTimestamp:"/>
+                                    <h:outputText value="#{complaintsManagedBean.complaint.submissionTimestamp}" title="SubmissionTimestamp">
+                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                    <h:outputText value="ComplaintBody:"/>
+                                    <h:outputText value="#{complaintsManagedBean.complaint.complaintBody}" title="ComplaintBody"/>
+                                    <h:outputText value="ComplaintTitle:"/>
+                                    <h:outputText value="#{complaintsManagedBean.complaint.complaintTitle}" title="ComplaintTitle"/>
+                                    <h:outputText value="AssignedTo:"/>
+                                    <h:outputText value="#{complaintsManagedBean.complaint.assignedTo.username}" title="AssignedTo"/>
+                                    <h:outputText value="CurrentStatus:"/>
+                                    <h:outputText value="#{complaintsManagedBean.complaint.currentStatus}" title="CurrentStatus"/>
+                                </h:panelGrid>
+
+                            </p:tab>
+
+                            <p:tab title="Complaint Solution">
+
+                                <h:outputText value="Complaint hasn't been solved yet." rendered="#{!complaintsManagedBean.isComplaintSolved()}"/> 
+                               <h:messages infoClass="alert alert-success" globalOnly="True"/>
+                                <h:panelGrid columns="2" rendered="#{(userManagedBean.isUserInRole('admin')||userManagedBean.isUserInRole('technicalStaff')) &amp;&amp; !complaintsManagedBean.isComplaintSolved()}">
+                                    
+                                    <h:outputLabel value="SolutionTitle:" for="solutionTitle" />
+                                    <h:inputText id="solutionTitle" value="#{complaintsManagedBean.complaint.solutionTitle}" title="SolutionTitle" required="true"/>
+                                    <h:outputLabel value="SolutionBody:" for="solutionBody" />
+                                    <h:inputTextarea id="solutionBody" cols='50' rows="10" value="#{complaintsManagedBean.complaint.solutionBody}" required="true" title="SolutionBody" />
+                                    <h:outputLabel value="CurrentStatus:" for="currentStatus" />
+                                    <h:inputText id="currentStatus" value="#{complaintsManagedBean.complaint.currentStatus}" title="CurrentStatus" />
+
+                                    <h:commandButton value='Close ticket' action='#{complaintsManagedBean.closeComplaint()}'/>
+
+                                </h:panelGrid>
+                                
+                                <h:panelGrid columns="2" rendered="#{complaintsManagedBean.isComplaintSolved()}">
+                                    <h:outputText value="SolutionTitle:"/>
+                                    <h:outputText value="#{complaintsManagedBean.complaint.solutionTitle==null}" title="SolutionTitle"/>
+                                    <h:outputText value="SolutionBody:"/>
+                                    <h:outputText value="#{complaintsManagedBean.complaint.solutionBody}" title="SolutionBody"/>
+                                </h:panelGrid>
+                            </p:tab>
+                        </p:tabView>
+
+                    </h:form>
+
+
+
+
+
+                </f:view>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

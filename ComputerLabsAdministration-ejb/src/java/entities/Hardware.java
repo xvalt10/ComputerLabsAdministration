@@ -12,7 +12,11 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -39,10 +43,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Hardware.findByType", query = "SELECT h FROM Hardware h WHERE h.type = :type"),
     @NamedQuery(name = "Hardware.findByCurrentState", query = "SELECT h FROM Hardware h WHERE h.currentState = :currentState")})
 public class Hardware implements Serializable {
+    
+    
+    
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "hardwareId")
     private Integer hardwareId;
     @Basic(optional = false)
@@ -65,6 +71,9 @@ public class Hardware implements Serializable {
     private String currentState;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "computerId")
     private Collection<InstalledSoftware> installedSoftwareCollection;
+    @JoinColumn(name = "classRoomId", referencedColumnName = "classRoomId")
+    @ManyToOne(optional = false)
+    private Classrooms classRoomId;
 
     public Hardware() {
     }
@@ -152,6 +161,14 @@ public class Hardware implements Serializable {
     @Override
     public String toString() {
         return "entities.Hardware[ hardwareId=" + hardwareId + " ]";
+    }
+
+    public Classrooms getClassRoomId() {
+        return classRoomId;
+    }
+
+    public void setClassRoomId(Classrooms classRoomId) {
+        this.classRoomId = classRoomId;
     }
     
 }

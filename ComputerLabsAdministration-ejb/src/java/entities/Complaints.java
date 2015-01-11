@@ -10,6 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -37,12 +39,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Complaints.findByComplaintTitle", query = "SELECT c FROM Complaints c WHERE c.complaintTitle = :complaintTitle"),
     @NamedQuery(name = "Complaints.findBySolutionTitle", query = "SELECT c FROM Complaints c WHERE c.solutionTitle = :solutionTitle"),
     @NamedQuery(name = "Complaints.findBySolutionBody", query = "SELECT c FROM Complaints c WHERE c.solutionBody = :solutionBody"),
+    @NamedQuery(name = "Complaints.findBySubmittedBy", query = "SELECT c FROM Complaints c WHERE c.submittedBy = :submittedBy"),
+    @NamedQuery(name = "Complaints.findByAssignedTo", query = "SELECT c FROM Complaints c WHERE c.assignedTo = :assignedTo"),
     @NamedQuery(name = "Complaints.findByCurrentStatus", query = "SELECT c FROM Complaints c WHERE c.currentStatus = :currentStatus")})
 public class Complaints implements Serializable {
+    
     private static final long serialVersionUID = 1L;
+    
     @Id
-    @Basic(optional = false)
-    @NotNull
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "complaintId")
     private Integer complaintId;
     @Basic(optional = false)

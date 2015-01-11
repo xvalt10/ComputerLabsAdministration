@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,12 +29,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Schedule.findAll", query = "SELECT s FROM Schedule s"),
+    @NamedQuery(name = "Schedule.findByTimeslotId", query = "SELECT s FROM Schedule s WHERE s.timeslotId = :timeslotId"),
     @NamedQuery(name = "Schedule.findByScheduleId", query = "SELECT s FROM Schedule s WHERE s.scheduleId = :scheduleId")})
 public class Schedule implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "scheduleId")
     private Integer scheduleId;
     @JoinColumn(name = "labId", referencedColumnName = "labId")

@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./templates/basicTemplate.xhtml">
+
+            <ui:define name="content">
+                <f:view>
+
+
+                    <h:form>
+                        <h1><h:outputText value="#{param.typeOfComplaints}"/></h1>
+                        <h:dataTable value="#{complaintsManagedBean.complaints}" var="item" class="table table-striped">
+                            
+                            <h:column>
+                                <f:facet name="header">
+                                        <h:outputText value="ComplaintId"/>
+                                </f:facet><h:commandLink action="#{complaintsManagedBean.loadComplaintDetails(item.complaintId)}">
+                                <h:outputText value="#{item.complaintId}"/></h:commandLink>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="SubmissionTimestamp"/>
+                                </f:facet>
+                                <h:outputText value="#{item.submissionTimestamp}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+                            </h:column>
+                           
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="ComplaintTitle"/>
+                                </f:facet>
+                                <h:outputText value="#{item.complaintTitle}"/>
+                            </h:column>
+                         
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="CurrentStatus"/>
+                                </f:facet>
+                                <h:outputText value="#{item.currentStatus}"/>
+                            </h:column>
+                          
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="AssignedTo"/>
+                                </f:facet>
+                                <h:outputText value="#{item.assignedTo.username}"/>
+                            </h:column>
+                            
+                        </h:dataTable>
+                    </h:form>
+                </f:view>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

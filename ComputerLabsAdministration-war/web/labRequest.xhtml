@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:outputScript library="js" name="jquery.js"/>
+    <script>
+        $(document).ready(function () {
+            $(".timeslot").on('click', function () {
+                $(".timeslot-selected").removeClass("timeslot-selected");
+                $(this).addClass("timeslot-selected");
+
+            });
+
+        });
+
+    </script>
+
+    <body>
+
+        <ui:composition template="./templates/basicTemplate.xhtml">
+
+            <ui:define name="content">
+                <f:view>
+
+
+                    <h:form>
+                        <h:panelGroup layout="block" class="page-header" style="margin-top:20px">
+                            <h:outputText value="Lab request" class="h2"/>
+                        </h:panelGroup>
+                        <h:messages infoClass="alert alert-success" errorClass="alert alert-danger" globalOnly="true"/>
+                        <h:panelGrid columns="2">
+
+                            <h:outputLabel value="LabName:" for="labName" />
+                            <h:inputText id="labName" value="#{labManagedBean.computerLab.labName}" title="LabName" required="true" requiredMessage="The LabName field is required."/>
+                            <h:outputLabel value="Instructor:" for="instructor" />
+                            <h:selectOneMenu id="instructor" value="#{labManagedBean.computerLab.instructor.userId}" title="Instructor" required="true" requiredMessage="The Instructor field is required." >
+                                <f:selectItems value="#{userManagedBean.instructorsByDepartment}" var='instructor' itemLabel="#{instructor.name}" itemValue="#{instructor.userId}" />
+                            </h:selectOneMenu>
+
+                        </h:panelGrid>
+                        <h:outputLabel value="Select timeslot:"  />
+                        <table border="1" style="margin-bottom:10px">
+                            <c:forEach items="#{labManagedBean.numberOfDaysSchoolIsOpened()}" var="day">
+                                <tr>
+                                    <td style="padding:10px" >
+                                        <h:outputText value="#{labManagedBean.getDayOfWeek(day)}"/></td>
+                                    <c:forEach items="#{labManagedBean.timeslotsPerDay(day, 1)}" var="slot">
+                                        <td class="timeslot" style="padding: 10px;cursor: pointer"  >
+                                            <h:panelGrid columns="1" onclick="#{labManagedBean.setTimeSlot(slot)}">
+                                                <h:outputText value="#{userManagedBean.getInstructorNameForTimeSlot(slot)}" rendered="#{slot.isOccupied}"/>
+                                                <h:outputText value="#{slot.startTime.hours}:#{slot.startTime.minutes}"/>
+                                                <h:outputText value="#{slot.endTime.hours}:#{slot.endTime.minutes}"/>
+                                                <h:outputText value="#{slot.isOccupied?'Occupied':'Available'}"/>
+                                                <f:ajax event="click" listener="#{labManagedBean.selectTimeSlot(event, slot)}"/>
+                                            </h:panelGrid>
+                                        </td>
+                                    </c:forEach>
+
+                                </tr>
+
+
+                            </c:forEach>
+
+
+
+
+
+
+                        </table>
+                        <h:commandButton value="Send request for approval" action="#{labManagedBean.saveLabRequest()}"/>
+                    </h:form>
+                </f:view>
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

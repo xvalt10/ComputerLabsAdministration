@@ -1,14 +1,44 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <body>
 
         <ui:composition template="./templates/basicTemplate.xhtml">
+            
+         
 
             <ui:define name="content">
-                Welcome to Computer Labs Administration.
+                
+                <h:panelGroup layout="block" class="page-header" style="margin-top:20px">
+                        <h:outputText value="ComputerLabs Administration" class="h2"/>
+                    </h:panelGroup>
+                <h:panelGroup layout='block' class="alert alert-success" rendered="#{facesContext.externalContext.userPrincipal!=null}" style="margin-top:10px">
+                        <h:outputText value="Welcome #{facesContext.externalContext.userPrincipal}! You are logged in to the ComputerLabs administration." />
+                    </h:panelGroup>
+                
+                <h:panelGroup layout="block" style="row">
+                    <h:panelGroup layout="block" class="col col-sm-6">
+                        Admin section
+                    </h:panelGroup>
+                     <h:panelGroup layout="block" class="col col-sm-6">
+                        Technical staff section
+                    </h:panelGroup>
+                   
+                </h:panelGroup>
+                
+                 <h:panelGroup layout="block" style="row">
+                    <h:panelGroup layout="block" class="col col-sm-6">
+                        Head Of Department section
+                    </h:panelGroup>
+                     <h:panelGroup layout="block" class="col col-sm-6">
+                        Instructor section
+                    </h:panelGroup>
+                   
+                </h:panelGroup>
+               
             </ui:define>
 
         </ui:composition>

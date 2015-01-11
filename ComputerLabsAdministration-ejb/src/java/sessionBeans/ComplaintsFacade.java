@@ -6,7 +6,11 @@
 package sessionBeans;
 
 import entities.Complaints;
+import entities.Users;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -16,6 +20,10 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class ComplaintsFacade extends AbstractFacade<Complaints> {
+    
+    @EJB
+    private UsersFacade usersFacade;
+    
     @PersistenceContext(unitName = "ComputerLabsAdministration-ejbPU")
     private EntityManager em;
 
@@ -26,6 +34,18 @@ public class ComplaintsFacade extends AbstractFacade<Complaints> {
 
     public ComplaintsFacade() {
         super(Complaints.class);
+    }
+    
+    public List<Complaints> findSubmittedComplaintsByUser(){
+        String usernameOfUserSignedIn=FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
+        Users user=usersFacade.getUserByUsername(usernameOfUserSignedIn);
+        return em.createNamedQuery("Complaints.findBySubmittedBy",Complaints.class).setParameter("submittedBy", user).getResultList();
+    }
+    
+    public List<Complaints> findComplaintsAssignedToUser(){
+        String usernameOfUserSignedIn=FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
+        Users user=usersFacade.getUserByUsername(usernameOfUserSignedIn);
+        return em.createNamedQuery("Complaints.findByAssignedTo",Complaints.class).setParameter("assignedTo", user).getResultList();
     }
     
 }

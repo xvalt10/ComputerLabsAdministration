@@ -6,6 +6,7 @@
 package sessionBeans;
 
 import entities.Users;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,8 +29,18 @@ public class UsersFacade extends AbstractFacade<Users> {
         super(Users.class);
     }
     
-    public int findMaxId(){
-    return (Integer)em.createNativeQuery("select MAX(userId) from dbo.Users").getSingleResult();
+    public Users getAdmin(){
+    return (Users) em.createNativeQuery("select TOP 1 * from dbo.Users where roleId=4",Users.class).getSingleResult();
     }
+    
+    public Users getUserByUsername(String username){
+    return em.createNamedQuery("Users.findByUsername",Users.class).setParameter("username", username).getSingleResult();
+    }
+    
+    public List<Users> findInstructorsByDepartment(String department){
+    return em.createNamedQuery("Users.findByDepartment", Users.class).setParameter("department", department).getResultList();
+    }
+    
+    
     
 }

@@ -5,8 +5,7 @@
  */
 package sessionBeans;
 
-import entities.Schedule;
-import entities.Timeslot;
+import entities.Classrooms;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author Tomas
  */
 @Stateless
-public class ScheduleFacade extends AbstractFacade<Schedule> {
+public class ClassroomsFacade extends AbstractFacade<Classrooms> {
     @PersistenceContext(unitName = "ComputerLabsAdministration-ejbPU")
     private EntityManager em;
 
@@ -25,12 +24,8 @@ public class ScheduleFacade extends AbstractFacade<Schedule> {
         return em;
     }
 
-    public ScheduleFacade() {
-        super(Schedule.class);
+    public ClassroomsFacade() {
+        super(Classrooms.class);
     }
     
-    public int findLabByTimeslot(Timeslot timeslot){
-        Schedule schedule = em.createNamedQuery("Schedule.findByTimeslotId", Schedule.class).setParameter("timeslotId", timeslot).getSingleResult();
-        return schedule.getLabId().getLabId();
-    }
 }

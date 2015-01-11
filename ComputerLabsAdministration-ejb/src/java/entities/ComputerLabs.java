@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -35,10 +37,15 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ComputerLabs.findByLabId", query = "SELECT c FROM ComputerLabs c WHERE c.labId = :labId"),
     @NamedQuery(name = "ComputerLabs.findByLabName", query = "SELECT c FROM ComputerLabs c WHERE c.labName = :labName")})
 public class ComputerLabs implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @Id
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "approvalstatus")
+    private String approvalstatus;
+    private static final long serialVersionUID = 1L;
+    
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "labId")
     private Integer labId;
     @Basic(optional = false)
@@ -120,6 +127,14 @@ public class ComputerLabs implements Serializable {
     @Override
     public String toString() {
         return "entities.ComputerLabs[ labId=" + labId + " ]";
+    }
+
+    public String getApprovalstatus() {
+        return approvalstatus;
+    }
+
+    public void setApprovalstatus(String approvalstatus) {
+        this.approvalstatus = approvalstatus;
     }
     
 }

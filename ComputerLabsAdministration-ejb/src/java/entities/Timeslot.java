@@ -12,6 +12,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -37,10 +39,17 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Timeslot.findByStartTime", query = "SELECT t FROM Timeslot t WHERE t.startTime = :startTime"),
     @NamedQuery(name = "Timeslot.findByEndTime", query = "SELECT t FROM Timeslot t WHERE t.endTime = :endTime")})
 public class Timeslot implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @Id
     @Basic(optional = false)
     @NotNull
+    @Column(name = "classRoomId")
+    private int classRoomId;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "isOccupied")
+    private boolean isOccupied;
+    private static final long serialVersionUID = 1L;
+   @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "timeslotId")
     private Integer timeslotId;
     @Basic(optional = false)
@@ -138,6 +147,22 @@ public class Timeslot implements Serializable {
     @Override
     public String toString() {
         return "entities.Timeslot[ timeslotId=" + timeslotId + " ]";
+    }
+
+    public int getClassRoomId() {
+        return classRoomId;
+    }
+
+    public void setClassRoomId(int classRoomId) {
+        this.classRoomId = classRoomId;
+    }
+
+    public boolean getIsOccupied() {
+        return isOccupied;
+    }
+
+    public void setIsOccupied(boolean isOccupied) {
+        this.isOccupied = isOccupied;
     }
     
 }

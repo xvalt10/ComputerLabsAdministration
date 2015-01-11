@@ -5,7 +5,9 @@
  */
 package sessionBeans;
 
+import entities.Classrooms;
 import entities.Timeslot;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,6 +28,17 @@ public class TimeslotFacade extends AbstractFacade<Timeslot> {
 
     public TimeslotFacade() {
         super(Timeslot.class);
+    }
+    
+    public List<Integer> findDaysPerWeekSchoolIsOpen(){
+        return em.createNativeQuery("select distinct [day] from dbo.Timeslot").getResultList();
+    }
+    
+    public List<Timeslot> getTimeSlotsForDay(int day, Classrooms classroom){
+    return em.createNativeQuery("select * from dbo.Timeslot where [day]=? and classRoomId=?",Timeslot.class)
+            .setParameter(1, day)
+            .setParameter(2, classroom.getClassRoomId())
+            .getResultList();
     }
     
 }
