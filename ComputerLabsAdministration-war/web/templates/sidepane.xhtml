@@ -19,6 +19,8 @@
                     <f:param name='typeOfComplaints' value='Assigned Complaints'/>
                     </h:commandLink>
             </li>
+              
+              <li><h:link value='Pending lab requests' outcome='viewLabRequests'/></li>
             <li><h:link value="Lab request" outcome='labRequest'/></li>
             <li><h:link value="Advertisement Approval" outcome="advertisementApproval" rendered="#{memberManagedBean.getUserRole(facesContext.externalContext.userPrincipal).equals('Admin')}"/></li>
             <li><h:link value="Reports" outcome="reports" rendered="#{memberManagedBean.getUserRole(facesContext.externalContext.userPrincipal).equals('Admin')}"/></li>

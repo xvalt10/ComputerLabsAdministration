@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./templates/basicTemplate.xhtml">
+
+            <ui:define name="content">
+                <f:view>
+
+
+                    <h:form>
+                        <h1><h:outputText value="Pending lab requests"/></h1>
+                        <h:dataTable value="#{labManagedBean.pendingLabrequests}" var="item" class='table table-striped'>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Lab name"/>
+                                </f:facet>
+                                <h:outputText value="#{item.labId.labName}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Instructor"/>
+                                </f:facet>
+                                <h:outputText value="#{item.labId.instructor.name}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Timeslot"/>
+                                </f:facet>
+                                <h:outputText value="#{labManagedBean.formatTimeFromTimeslot(item.timeslotId)}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="ApprovalStatus"/>
+                                </f:facet>
+                                <h:outputText value="#{item.approvalStatus}"/>
+                            </h:column>
+                             <h:column>
+                                
+                                <h:commandButton value="Approve" class='btn btn-success'/>
+                            </h:column>
+                             <h:column>
+                               
+                                <h:outputText value="Reject" class='btn btn-danger'/>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+                </f:view>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -37,13 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ComputerLabs.findByLabId", query = "SELECT c FROM ComputerLabs c WHERE c.labId = :labId"),
     @NamedQuery(name = "ComputerLabs.findByLabName", query = "SELECT c FROM ComputerLabs c WHERE c.labName = :labName")})
 public class ComputerLabs implements Serializable {
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "approvalstatus")
-    private String approvalstatus;
-    private static final long serialVersionUID = 1L;
-    
+       
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "labId")
@@ -129,12 +123,6 @@ public class ComputerLabs implements Serializable {
         return "entities.ComputerLabs[ labId=" + labId + " ]";
     }
 
-    public String getApprovalstatus() {
-        return approvalstatus;
-    }
-
-    public void setApprovalstatus(String approvalstatus) {
-        this.approvalstatus = approvalstatus;
-    }
+ 
     
 }

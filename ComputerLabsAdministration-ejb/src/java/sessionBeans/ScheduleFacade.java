@@ -7,6 +7,7 @@ package sessionBeans;
 
 import entities.Schedule;
 import entities.Timeslot;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -33,4 +34,10 @@ public class ScheduleFacade extends AbstractFacade<Schedule> {
         Schedule schedule = em.createNamedQuery("Schedule.findByTimeslotId", Schedule.class).setParameter("timeslotId", timeslot).getSingleResult();
         return schedule.getLabId().getLabId();
     }
+    
+    public List<Schedule> findPendingLabRequests(){
+    return em.createNamedQuery("Schedule.findByApprovalStatus",Schedule.class).setParameter("approvalStatus", "Pending").getResultList();
+    
+    }
+    
 }

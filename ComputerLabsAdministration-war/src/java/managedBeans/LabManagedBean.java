@@ -11,6 +11,7 @@ import entities.Schedule;
 import entities.Timeslot;
 import entities.Users;
 import helperClasses.JsfUtil;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -139,10 +140,11 @@ public class LabManagedBean {
         
         }
         else{
-    computerLab.setApprovalstatus("Pending");
+   
     timeSlot.setIsOccupied(true);
     timeslotFacade.edit(timeSlot);
     computerLabsFacade.create(computerLab);
+    schedule.setApprovalStatus("Pending");
     schedule.setLabId(computerLab);
     schedule.setTimeslotId(timeSlot);
     scheduleFacade.create(schedule);
@@ -151,12 +153,21 @@ public class LabManagedBean {
     
     }
 
+    public List<Schedule> getPendingLabrequests(){
+    return scheduleFacade.findPendingLabRequests();
+    }
+    
     @PostConstruct
     public void init() {
         computerLab = new ComputerLabs();
         schedule=new Schedule();
         instructor=new Users();
         computerLab.setInstructor(instructor);
+    }
+    
+    public String formatTimeFromTimeslot(Timeslot slot){
+        SimpleDateFormat timeFormat=new SimpleDateFormat("HH:mm");
+    return timeFormat.format(slot.getStartTime())+"-"+timeFormat.format(slot.getEndTime());
     }
 
     /**
