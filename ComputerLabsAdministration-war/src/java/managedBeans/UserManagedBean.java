@@ -13,6 +13,7 @@ import entities.Users;
 import helperClasses.JsfUtil;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -86,7 +87,10 @@ public class UserManagedBean {
     }
     
     public String getInstructorNameForTimeSlot(Timeslot timeSlot){
-        int labId = scheduleFacade.findLabByTimeslot(timeSlot);
+        Integer labId = scheduleFacade.findLabByTimeslot(timeSlot);
+        if (labId==null){
+        return "";
+        }
         ComputerLabs lab = computerLabsFacade.find(labId);
         return lab.getInstructor().getName();
     }
@@ -95,6 +99,10 @@ public List<Users> getInstructorsByDepartment(){
         String department=usersFacade.getUserByUsername(JsfUtil.getUserNameOfLoggedInUser()).getDepartment();
         List<Users> instructorsByDepartment = usersFacade.findInstructorsByDepartment(department);
         return instructorsByDepartment;
+    }
+
+public List<Users> getTechnicalStaffUsers(){
+      return usersFacade.findUsersWithRoleTechnicalStaff();
     }
     
     public void registerUser(){
@@ -125,9 +133,16 @@ public List<Users> getInstructorsByDepartment(){
     }
     
   
-    
+    public String getUserRole(){
+        Principal principal=FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
+        
+        if(principal==null){
+       return "no user found.";
+       }
+        else{
+            return userRolesFacade.getUserRoleByUsername(principal.getName());}
+    }
         public String encryptPassword(String password) {
-
         MessageDigest md;
         StringBuilder sb = new StringBuilder();
         try {

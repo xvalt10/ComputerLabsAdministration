@@ -6,6 +6,7 @@
 package sessionBeans;
 
 import entities.UserRoles;
+import entities.Users;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,9 +24,16 @@ public class UserRolesFacade extends AbstractFacade<UserRoles> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+    
 
     public UserRolesFacade() {
         super(UserRoles.class);
+    }
+    
+    public String getUserRoleByUsername(String username){
+        Users user= (Users) em.createNamedQuery("Users.findByUsername",Users.class).setParameter("username", username).getSingleResult();
+        return user.getRoleId().getRoleName();
     }
     
 }

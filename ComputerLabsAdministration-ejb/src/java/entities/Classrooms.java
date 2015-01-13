@@ -37,8 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Classrooms.findByRoomNumber", query = "SELECT c FROM Classrooms c WHERE c.roomNumber = :roomNumber")})
 public class Classrooms implements Serializable {
     private static final long serialVersionUID = 1L;
-    
-   @Id
+    @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "classRoomId")
     private Integer classRoomId;
@@ -52,7 +51,7 @@ public class Classrooms implements Serializable {
     @Column(name = "roomNumber")
     private String roomNumber;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "classRoomId")
-    private Collection<Hardware> hardwareCollection;
+    private Collection<Timeslot> timeslotCollection;
 
     public Classrooms() {
     }
@@ -92,12 +91,12 @@ public class Classrooms implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Hardware> getHardwareCollection() {
-        return hardwareCollection;
+    public Collection<Timeslot> getTimeslotCollection() {
+        return timeslotCollection;
     }
 
-    public void setHardwareCollection(Collection<Hardware> hardwareCollection) {
-        this.hardwareCollection = hardwareCollection;
+    public void setTimeslotCollection(Collection<Timeslot> timeslotCollection) {
+        this.timeslotCollection = timeslotCollection;
     }
 
     @Override

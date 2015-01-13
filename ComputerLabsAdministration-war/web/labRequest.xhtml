@@ -42,6 +42,7 @@
 
                         </h:panelGrid>
                         <h:outputLabel value="Select timeslot:"  />
+                        
                         <table border="1" style="margin-bottom:10px">
                             <c:forEach items="#{labManagedBean.numberOfDaysSchoolIsOpened()}" var="day">
                                 <tr>
@@ -51,9 +52,8 @@
                                         <td class="timeslot" style="padding: 10px;cursor: pointer"  >
                                             <h:panelGrid columns="1" onclick="#{labManagedBean.setTimeSlot(slot)}">
                                                 <h:outputText value="#{userManagedBean.getInstructorNameForTimeSlot(slot)}" rendered="#{slot.isOccupied}"/>
-                                                <h:outputText value="#{slot.startTime.hours}:#{slot.startTime.minutes}"/>
-                                                <h:outputText value="#{slot.endTime.hours}:#{slot.endTime.minutes}"/>
-                                                <h:outputText value="#{slot.isOccupied?'Occupied':'Available'}"/>
+                                                <h:outputText value="#{labManagedBean.formatTimeFromTimeslot(slot)}"/>
+                                                <h:outputText value="#{slot.isOccupied?'Reserved':'Available'}"/>
                                                 <f:ajax event="click" listener="#{labManagedBean.selectTimeSlot(event, slot)}"/>
                                             </h:panelGrid>
                                         </td>

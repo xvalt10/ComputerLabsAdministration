@@ -33,9 +33,19 @@
                                     <h:outputText value="#{complaintsManagedBean.complaint.complaintTitle}" title="ComplaintTitle"/>
                                     <h:outputText value="AssignedTo:"/>
                                     <h:outputText value="#{complaintsManagedBean.complaint.assignedTo.username}" title="AssignedTo"/>
+                                    
                                     <h:outputText value="CurrentStatus:"/>
                                     <h:outputText value="#{complaintsManagedBean.complaint.currentStatus}" title="CurrentStatus"/>
+                                     <h:outputText value="Reassign defect to:"/>
+                                <h:panelGrid columns="2">
+                                
+                                    <h:selectOneMenu id="instructor" value="#{complaintsManagedBean.user.userId}" title="Instructor" required="true" requiredMessage="The Instructor field is required." style="margin-right: 10px">
+                                        <f:selectItems value="#{userManagedBean.technicalStaffUsers}" var='techStaff' itemLabel="#{techStaff.name}" itemValue="#{techStaff.userId}" />
+                            </h:selectOneMenu>
+                                    <h:commandButton value="Reassign ticket" action="#{complaintsManagedBean.assignComplaintToUser(complaintsManagedBean.complaint.complaintId, complaintsManagedBean.user.userId)}"/>
                                 </h:panelGrid>
+                                </h:panelGrid>
+                               
 
                             </p:tab>
 

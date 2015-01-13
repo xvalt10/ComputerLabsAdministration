@@ -9,27 +9,23 @@
           <ul class="nav nav-pills nav-stacked">
               <li style="text-align:center;border-bottom: 1px solid #dddddd"><h3><span class="glyphicon glyphicon-list"/> Main Menu</h3></li>
               
-            <li><h:link value="Submit complaint" outcome="submitComplaint" />
+              <li><h:link value="Submit complaint" outcome="submitComplaint" rendered="#{userManagedBean.getUserRole().equals('instructor')||userManagedBean.getUserRole().equals('headOfDepartment')}"/>
             </li>
-              <li><h:commandLink value="View submitted complaints" action="#{complaintsManagedBean.getSubmittedComplaintsByUser()}" >
+              <li><h:commandLink value="View submitted complaints" action="#{complaintsManagedBean.getSubmittedComplaintsByUser()}" rendered="#{userManagedBean.getUserRole().equals('instructor')||userManagedBean.getUserRole().equals('headOfDepartment')}">
                     <f:param name='typeOfComplaints' value='Submitted Complaints'/>
                     </h:commandLink>
             </li>
-                <li><h:commandLink value="View assigned complaints" action="#{complaintsManagedBean.getComplaintsAssignedToUser()}" >
+                <li><h:commandLink value="View assigned complaints" action="#{complaintsManagedBean.getComplaintsAssignedToUser()}" rendered="#{userManagedBean.getUserRole().equals('admin')||userManagedBean.getUserRole().equals('technicalStaff')}" >
                     <f:param name='typeOfComplaints' value='Assigned Complaints'/>
                     </h:commandLink>
             </li>
               
-              <li><h:link value='Pending lab requests' outcome='viewLabRequests'/></li>
-            <li><h:link value="Lab request" outcome='labRequest'/></li>
-            <li><h:link value="Advertisement Approval" outcome="advertisementApproval" rendered="#{memberManagedBean.getUserRole(facesContext.externalContext.userPrincipal).equals('Admin')}"/></li>
-            <li><h:link value="Reports" outcome="reports" rendered="#{memberManagedBean.getUserRole(facesContext.externalContext.userPrincipal).equals('Admin')}"/></li>
-            <li><h:link value="Sell Realestate" outcome="sellRealestate" rendered="#{memberManagedBean.getUserRole(facesContext.externalContext.userPrincipal).equals('Seller')||memberManagedBean.getUserRole(facesContext.externalContext.userPrincipal).equals('Agent')}"/></li>
-            <li><h:link value="Subscribe to Advertisement Package" outcome="subscribeAdvertisementPackage" rendered="#{memberManagedBean.getUserRole(facesContext.externalContext.userPrincipal).equals('Seller')||memberManagedBean.getUserRole(facesContext.externalContext.userPrincipal).equals('Agent')}"/></li>
-            <li><h:commandLink action="#{memberManagedBean.loadMemberDetails(facesContext.externalContext.userPrincipal,'updateProfile')}" value="Update profile" rendered="#{facesContext.externalContext.userPrincipal!=null}"/></li>
-            <li><h:link value="Update property details" outcome="updatePropertyDetails"   rendered="#{memberManagedBean.getUserRole(facesContext.externalContext.userPrincipal).equals('Seller')||memberManagedBean.getUserRole(facesContext.externalContext.userPrincipal).equals('Agent')}"/></li>
-            <li><h:commandLink value="Update property search criteria" action="#{memberManagedBean.loadMemberDetails(facesContext.externalContext.userPrincipal,'updateSearchCriteria')}" rendered="#{memberManagedBean.getUserRole(facesContext.externalContext.userPrincipal).equals('Member')}"/></li>
+              <li><h:link value='Pending lab requests' outcome='viewLabRequests' rendered="#{userManagedBean.getUserRole().equals('admin')}"/></li>
+              
+            <li><h:link value="Lab request" outcome='labRequest' rendered="#{userManagedBean.getUserRole().equals('headOfDepartment')||userManagedBean.getUserRole().equals('admin')}"/></li>
+          <li><h:link value='Lab schedule' outcome='schedule' /></li> 
           </ul>
+            
           <ul class="nav nav-sidebar">
           
           </ul>

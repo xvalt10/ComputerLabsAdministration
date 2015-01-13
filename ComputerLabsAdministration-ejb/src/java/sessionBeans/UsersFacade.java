@@ -5,10 +5,13 @@
  */
 package sessionBeans;
 
+import entities.UserRoles;
 import entities.Users;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -17,6 +20,10 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class UsersFacade extends AbstractFacade<Users> {
+    @EJB
+    private UserRolesFacade userRolesFacade;
+    
+    
     @PersistenceContext(unitName = "ComputerLabsAdministration-ejbPU")
     private EntityManager em;
 
@@ -41,6 +48,9 @@ public class UsersFacade extends AbstractFacade<Users> {
     return em.createNamedQuery("Users.findByDepartment", Users.class).setParameter("department", department).getResultList();
     }
     
-    
-    
+    public List<Users> findUsersWithRoleTechnicalStaff(){
+        UserRoles role=userRolesFacade.find(3);
+    return em.createNamedQuery("Users.findByRoleId", Users.class).setParameter("roleId", role).getResultList();
+    }
+  
 }

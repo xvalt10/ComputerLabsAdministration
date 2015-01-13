@@ -124,13 +124,17 @@ public class LabManagedBean {
         this.computerLab = computerLab;
     }
 
-    public List<Integer> numberOfDaysSchoolIsOpened() {
-        return timeslotFacade.findDaysPerWeekSchoolIsOpen();
+    public List<Integer> numberOfDaysSchoolIsOpened(int classroomId) {
+        return timeslotFacade.findDaysPerWeekSchoolIsOpen(classroomId);
     }
 
     public List<Timeslot> timeslotsPerDay(int day, int classroomId) {
         Classrooms classRoom = classroomsFacade.find(classroomId);
         return timeslotFacade.getTimeSlotsForDay(day, classRoom);
+    }
+    
+    public List<Classrooms> getAvailableClassrooms(){
+    return classroomsFacade.findAll();
     }
     
         
@@ -168,6 +172,27 @@ public class LabManagedBean {
     public String formatTimeFromTimeslot(Timeslot slot){
         SimpleDateFormat timeFormat=new SimpleDateFormat("HH:mm");
     return timeFormat.format(slot.getStartTime())+"-"+timeFormat.format(slot.getEndTime());
+    }
+    
+    public void approveLabRequest(int scheduleId){
+        schedule =scheduleFacade.find(scheduleId);
+        schedule.setApprovalStatus("Approved");
+        schedule.getTimeslotId().setIsOccupied(true);
+        scheduleFacade.edit(schedule);
+        Timeslot timeslot=schedule.getTimeslotId();
+        JsfUtil.addSuccessMessage("Request for the timeslot " +getDayOfWeek(timeslot.getDay())+" "+formatTimeFromTimeslot(timeslot)+"(Room no."+timeslot.getClassRoomId().getRoomNumber() +") has been approved for the computer lab "+schedule.getLabId().getLabName()+".");
+    
+    }
+    
+    public void rejectLabRequest(int scheduleId){
+        schedule =scheduleFacade.find(scheduleId);
+        schedule.setApprovalStatus("Rejected");
+        schedule.getTimeslotId().setIsOccupied(false);
+        timeslotFacade.edit(schedule.getTimeslotId());
+        scheduleFacade.edit(schedule);
+        Timeslot timeslot=schedule.getTimeslotId();
+        JsfUtil.addErrorMessage("Request for the timeslot " +getDayOfWeek(timeslot.getDay())+" "+formatTimeFromTimeslot(timeslot)+"(Room no."+timeslot.getClassRoomId().getRoomNumber() +") has been rejected for the computer lab "+schedule.getLabId().getLabName()+".");
+        
     }
 
     /**

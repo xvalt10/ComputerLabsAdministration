@@ -6,6 +6,7 @@
 package managedBeans;
 
 import entities.Complaints;
+import entities.Users;
 import helperClasses.JsfUtil;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,7 +35,15 @@ public class ComplaintsManagedBean {
     
     
     
-    
+    private Users user;
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
     private Complaints complaint;
     private List<Complaints> complaints;
 
@@ -95,6 +104,14 @@ public class ComplaintsManagedBean {
     
     }
     
+    public void assignComplaintToUser(int complaintId,int userId){
+    complaint=complaintsFacade.find(complaintId);
+    user=usersFacade.find(userId);
+    complaint.setAssignedTo(user);
+    complaintsFacade.edit(complaint);
+    JsfUtil.addSuccessMessage("Ticket with id:"+complaint.getComplaintId()+" has ben assigned to user:"+user.getName());
+    }
+    
     public String loadComplaintDetails(int id){
     complaint=complaintsFacade.find(id);
     return "complaintDetails";
@@ -112,6 +129,7 @@ public class ComplaintsManagedBean {
     public void init(){
     complaint=new Complaints();
     complaints=new ArrayList<>();
+    user=new Users();
     }
     
     

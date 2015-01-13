@@ -6,24 +6,22 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -37,16 +35,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Timeslot.findByTimeslotId", query = "SELECT t FROM Timeslot t WHERE t.timeslotId = :timeslotId"),
     @NamedQuery(name = "Timeslot.findByDay", query = "SELECT t FROM Timeslot t WHERE t.day = :day"),
     @NamedQuery(name = "Timeslot.findByStartTime", query = "SELECT t FROM Timeslot t WHERE t.startTime = :startTime"),
-    @NamedQuery(name = "Timeslot.findByEndTime", query = "SELECT t FROM Timeslot t WHERE t.endTime = :endTime")})
+    @NamedQuery(name = "Timeslot.findByEndTime", query = "SELECT t FROM Timeslot t WHERE t.endTime = :endTime"),
+    @NamedQuery(name = "Timeslot.findByIsOccupied", query = "SELECT t FROM Timeslot t WHERE t.isOccupied = :isOccupied")})
 public class Timeslot implements Serializable {
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "classRoomId")
-    private int classRoomId;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "isOccupied")
-    private boolean isOccupied;
     private static final long serialVersionUID = 1L;
    @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -66,8 +57,13 @@ public class Timeslot implements Serializable {
     @Column(name = "endTime")
     @Temporal(TemporalType.TIME)
     private Date endTime;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "timeslotId")
-    private Collection<Schedule> scheduleCollection;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "isOccupied")
+    private boolean isOccupied;
+    @JoinColumn(name = "classRoomId", referencedColumnName = "classRoomId")
+    @ManyToOne(optional = false)
+    private Classrooms classRoomId;
 
     public Timeslot() {
     }
@@ -76,11 +72,12 @@ public class Timeslot implements Serializable {
         this.timeslotId = timeslotId;
     }
 
-    public Timeslot(Integer timeslotId, int day, Date startTime, Date endTime) {
+    public Timeslot(Integer timeslotId, int day, Date startTime, Date endTime, boolean isOccupied) {
         this.timeslotId = timeslotId;
         this.day = day;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.isOccupied = isOccupied;
     }
 
     public Integer getTimeslotId() {
@@ -115,13 +112,20 @@ public class Timeslot implements Serializable {
         this.endTime = endTime;
     }
 
-    @XmlTransient
-    public Collection<Schedule> getScheduleCollection() {
-        return scheduleCollection;
+    public boolean getIsOccupied() {
+        return isOccupied;
     }
 
-    public void setScheduleCollection(Collection<Schedule> scheduleCollection) {
-        this.scheduleCollection = scheduleCollection;
+    public void setIsOccupied(boolean isOccupied) {
+        this.isOccupied = isOccupied;
+    }
+
+    public Classrooms getClassRoomId() {
+        return classRoomId;
+    }
+
+    public void setClassRoomId(Classrooms classRoomId) {
+        this.classRoomId = classRoomId;
     }
 
     @Override
@@ -147,22 +151,6 @@ public class Timeslot implements Serializable {
     @Override
     public String toString() {
         return "entities.Timeslot[ timeslotId=" + timeslotId + " ]";
-    }
-
-    public int getClassRoomId() {
-        return classRoomId;
-    }
-
-    public void setClassRoomId(int classRoomId) {
-        this.classRoomId = classRoomId;
-    }
-
-    public boolean getIsOccupied() {
-        return isOccupied;
-    }
-
-    public void setIsOccupied(boolean isOccupied) {
-        this.isOccupied = isOccupied;
     }
     
 }

@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./templates/basicTemplate.xhtml">
+
+            <ui:define name="content">
+                <h:panelGroup layout="block" class="page-header" style="margin-top:20px"><h:outputText value="Computer Labs Schedule" class="h2"/></h:panelGroup>
+                
+                <c:forEach items="#{labManagedBean.getAvailableClassrooms()}" var="classroom">
+                    <h:outputText class="h4" value="Classroom no.#{classroom.roomNumber}"/>
+                <table border="1" style="margin-bottom:10px" >
+                    <c:forEach items="#{labManagedBean.numberOfDaysSchoolIsOpened(classroom.classRoomId)}" var="day">
+                                <tr>
+                                    <td style="padding:10px" >
+                                        <h:outputText value="#{labManagedBean.getDayOfWeek(day)}"/></td>
+                                    <c:forEach items="#{labManagedBean.timeslotsPerDay(day, classroom.classRoomId)}" var="slot">
+                                        <td class="timeslot" style="padding: 10px;cursor: pointer"  >
+                                            <h:panelGrid columns="1" onclick="#{labManagedBean.setTimeSlot(slot)}">
+                                                <h:outputText value="#{userManagedBean.getInstructorNameForTimeSlot(slot)}" rendered="#{slot.isOccupied}"/>
+                                                <h:outputText value="#{labManagedBean.formatTimeFromTimeslot(slot)}"/>
+                                                <h:outputText value="#{slot.isOccupied?'Reserved':'Available'}"/>
+                                                <f:ajax event="click" listener="#{labManagedBean.selectTimeSlot(event, slot)}"/>
+                                            </h:panelGrid>
+                                        </td>
+                                    </c:forEach>
+
+                                </tr>
+
+
+                            </c:forEach>
+
+
+
+
+
+
+                        </table>
+                </c:forEach>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

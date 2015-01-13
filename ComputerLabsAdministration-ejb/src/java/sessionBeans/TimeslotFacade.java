@@ -30,8 +30,8 @@ public class TimeslotFacade extends AbstractFacade<Timeslot> {
         super(Timeslot.class);
     }
     
-    public List<Integer> findDaysPerWeekSchoolIsOpen(){
-        return em.createNativeQuery("select distinct [day] from dbo.Timeslot").getResultList();
+    public List<Integer> findDaysPerWeekSchoolIsOpen(int classroomId){
+        return em.createNativeQuery("select distinct [day] from dbo.Timeslot where classroomId=?").setParameter(1, classroomId).getResultList();
     }
     
     public List<Timeslot> getTimeSlotsForDay(int day, Classrooms classroom){
