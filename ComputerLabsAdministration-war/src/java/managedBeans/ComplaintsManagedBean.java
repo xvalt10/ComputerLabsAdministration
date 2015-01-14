@@ -27,16 +27,20 @@ import sessionBeans.UsersFacade;
 @ManagedBean
 @SessionScoped
 public class ComplaintsManagedBean {
+    
+    //injection of session beans used for CRUD operations on the DB
     @EJB
     private ComplaintsFacade complaintsFacade;
     @EJB
-    private UsersFacade usersFacade;
+    private UsersFacade usersFacade; 
     
-    
-    
-    
+    //declaration of variables
     private Users user;
-
+    private Complaints complaint;
+    private List<Complaints> complaints;
+    
+    
+    //getters and setters for private variables
     public Users getUser() {
         return user;
     }
@@ -44,8 +48,6 @@ public class ComplaintsManagedBean {
     public void setUser(Users user) {
         this.user = user;
     }
-    private Complaints complaint;
-    private List<Complaints> complaints;
 
     public List<Complaints> getComplaints() {
         return complaints;
@@ -54,8 +56,6 @@ public class ComplaintsManagedBean {
     public void setComplaints(List<Complaints> complaints) {
         this.complaints = complaints;
     }
-    
-    
 
     public Complaints getComplaint() {
         return complaint;
@@ -83,12 +83,21 @@ public class ComplaintsManagedBean {
     public ComplaintsManagedBean() {
     }
     
+    
+    /**
+     * Checks whether the complaint has already been solved
+     * @returns true if complaint has been solved, otherwise returns false 
+     */
     public boolean isComplaintSolved(){
         if(complaint.getCurrentStatus()==null){return false;}
         else{
     return complaint.getCurrentStatus().equalsIgnoreCase("Solved");}
     }
     
+    /**
+     * Persists the submitted complaint into the DB
+     * @param usernameOfSubmitter
+     */
     public void submitComplaint(String usernameOfSubmitter){
         complaint.setSubmissionTimestamp(new Date());
         complaint.setSubmittedBy(usersFacade.getUserByUsername(usernameOfSubmitter));
@@ -96,14 +105,15 @@ public class ComplaintsManagedBean {
         complaint.setCurrentStatus("Submitted");
         
         complaintsFacade.create(complaint);
-        
-        
         JsfUtil.addSuccessMessage("Complaint has been succesfully submitted.");
-        
-        complaint=new Complaints();
-    
+        complaint=new Complaints();  
     }
     
+    /**
+     * Used by the admin to assign complaint to a user
+     * @param complaintId
+     * @param userId 
+     */
     public void assignComplaintToUser(int complaintId,int userId){
     complaint=complaintsFacade.find(complaintId);
     user=usersFacade.find(userId);
@@ -112,17 +122,24 @@ public class ComplaintsManagedBean {
     JsfUtil.addSuccessMessage("Ticket with id:"+complaint.getComplaintId()+" has ben assigned to user:"+user.getName());
     }
     
+    /**
+     * Loads complaint details from the db into the variable complaint
+     * @param id
+     * @return String 'complaintDetails' - this is used to forward the request to the complaintDetails page
+     */
     public String loadComplaintDetails(int id){
     complaint=complaintsFacade.find(id);
     return "complaintDetails";
     }
     
+    /**
+     * Sets the current status of complaint to solved and updates the relevant DB entry
+     */
     public void closeComplaint(){
     complaint.setCurrentStatus("Solved");
     complaintsFacade.edit(complaint);
     
     JsfUtil.addSuccessMessage("Ticket with id:"+complaint.getComplaintId()+" has ben closed");
-    
     }
     
     @PostConstruct

@@ -5,7 +5,6 @@
  */
 package managedBeans;
 
-import entities.Complaints;
 import entities.ComputerLabs;
 import entities.Timeslot;
 import entities.UserRoles;
@@ -35,24 +34,17 @@ import sessionBeans.UsersFacade;
 @ManagedBean
 @SessionScoped
 public class UserManagedBean {
+
     @EJB
     private ComputerLabsFacade computerLabsFacade;
     @EJB
     private ScheduleFacade scheduleFacade;
-    
     @EJB
     private UserRolesFacade userRolesFacade;
-    
     @EJB
     private UsersFacade usersFacade;
-    
-    
-    
-    
-    
-    
+
     private Users user;
-    
     private List<Users> usersList;
 
     public Users getUser() {
@@ -70,79 +62,120 @@ public class UserManagedBean {
     public void setUsersList(List<Users> usersList) {
         this.usersList = usersList;
     }
-    
-    
 
     /**
      * Creates a new instance of UserManagedBean
      */
     public UserManagedBean() {
-        
-        
+
     }
-    
-    public boolean isUserInRole(String role){
-    return usersFacade.getUserByUsername(JsfUtil.getUserNameOfLoggedInUser()).getRoleId().getRoleName().equalsIgnoreCase(role);
-    
-    }
-    
-    public String getInstructorNameForTimeSlot(Timeslot timeSlot){
+
+    /**
+     * Checks the role of the user who signed in
+     *
+     * @param role
+     * @return true if the role of the user equals the role specified in the
+     * parameter
+     */
+//    public boolean isUserInRole(String role) {
+//        return usersFacade.getUserByUsername(JsfUtil.getUserNameOfLoggedInUser()).getRoleId().getRoleName().equalsIgnoreCase(role);
+//
+//    }
+
+    /**
+     * Returns name of instructor for the given timeslot
+     *
+     * @param timeSlot
+     * @return name of instructor
+     */
+    public String getInstructorNameForTimeSlot(Timeslot timeSlot) {
         Integer labId = scheduleFacade.findLabByTimeslot(timeSlot);
-        if (labId==null){
-        return "";
+        if (labId == null) {
+            return "";
         }
         ComputerLabs lab = computerLabsFacade.find(labId);
         return lab.getInstructor().getName();
     }
-    
-public List<Users> getInstructorsByDepartment(){
-        String department=usersFacade.getUserByUsername(JsfUtil.getUserNameOfLoggedInUser()).getDepartment();
+
+    /**
+     * When head of department navigates to the lab request page, this method
+     * returns all the instructors for the given department.
+     *
+     * @return list of users objects
+     */
+    public List<Users> getInstructorsByDepartment() {
+        String department = usersFacade.getUserByUsername(JsfUtil.getUserNameOfLoggedInUser()).getDepartment();
         List<Users> instructorsByDepartment = usersFacade.findInstructorsByDepartment(department);
         return instructorsByDepartment;
     }
 
-public List<Users> getTechnicalStaffUsers(){
-      return usersFacade.findUsersWithRoleTechnicalStaff();
-    }
-    
-    public void registerUser(){
-        
-        //user.setUserId(usersFacade.findMaxId()+1);
-        user.setPassword(encryptPassword(user.getPassword()));
-    usersFacade.create(user);
-    
-        JsfUtil.addSuccessMessage("User "+user.getUsername()+ "has been successfully registered.");
-    user=new Users();
-    }
-    
-    public UserRoles loadUserRole(int roleId){
-    return userRolesFacade.find(roleId);
+    /**
+     * Finds all the technical stuff the admin can assign a specific complaint
+     * to.
+     *
+     * @return
+     */
+    public List<Users> getTechnicalStaffUsers() {
+        return usersFacade.findUsersWithRoleTechnicalStaff();
     }
 
-    
-    
+    /**
+     * Persists user into the db after successful registration, encrypts the password using the SHA-256 algorithm.
+     */
+    public void registerUser() {
+        user.setPassword(encryptPassword(user.getPassword()));
+        usersFacade.create(user);
+        JsfUtil.addSuccessMessage("User " + user.getUsername() + "has been successfully registered.");
+        user = new Users();
+    }
+
+    /**
+     * Loads user role based on roleId
+     * @param roleId
+     * @return UserRoles object
+     */
+    public UserRoles loadUserRole(int roleId) {
+        return userRolesFacade.find(roleId);
+    }
+
+    /**
+     * Initialisation of variables
+     */
     @PostConstruct
-    public void init(){
-    user=new Users();
-    usersList=new ArrayList<>();
+    public void init() {
+        user = new Users();
+        usersList = new ArrayList<>();
     }
     
-    public String clearUserDetails(){
-    user=new Users();
-    return "registerUser";
+    /**
+     * Resets the user details and forwards to the registerUser page
+     * @return String 'registerUser' which is used in JSF navigation to forward to the registerUser page
+     */
+    public String clearUserDetails() {
+        user = new Users();
+        return "registerUser";
     }
-    
-  
-    public String getUserRole(){
-        Principal principal=FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
-        
-        if(principal==null){
-       return "no user found.";
-       }
-        else{
-            return userRolesFacade.getUserRoleByUsername(principal.getName());}
+
+    /**
+     * Gets the role of the user who is currently signed in
+     * @return user role
+     */
+    public String getUserRole() {
+        Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
+
+        if (principal == null) {
+            return "no user found.";
+        } else {
+            return userRolesFacade.getUserRoleByUsername(principal.getName());
+        }
     }
-        public String encryptPassword(String password) {
+
+    /**
+     * Encrypts password using the SHA-256 algorithm
+     * @param password
+     * @return encrypted password
+     */
+    public String encryptPassword(String password) {
         MessageDigest md;
         StringBuilder sb = new StringBuilder();
         try {
@@ -160,5 +193,5 @@ public List<Users> getTechnicalStaffUsers(){
 
         return sb.toString();
     }
-    
+
 }

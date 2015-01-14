@@ -53,7 +53,7 @@
 
                                 <h:outputText value="Complaint hasn't been solved yet." rendered="#{!complaintsManagedBean.isComplaintSolved()}"/> 
                                <h:messages infoClass="alert alert-success" globalOnly="True"/>
-                                <h:panelGrid columns="2" rendered="#{(userManagedBean.isUserInRole('admin')||userManagedBean.isUserInRole('technicalStaff')) &amp;&amp; !complaintsManagedBean.isComplaintSolved()}">
+                                <h:panelGrid columns="2" rendered="#{(userManagedBean.userRole.equals('admin')||userManagedBean.userRole.equals('technicalStaff')) &amp;&amp; !complaintsManagedBean.isComplaintSolved()}">
                                     
                                     <h:outputLabel value="SolutionTitle:" for="solutionTitle" />
                                     <h:inputText id="solutionTitle" value="#{complaintsManagedBean.complaint.solutionTitle}" title="SolutionTitle" required="true"/>

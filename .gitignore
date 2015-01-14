@@ -3,3 +3,6 @@
 /ComputerLabsAdministration-war/build/
 /build/
 /ComputerLabsAdministration-war/dist/
+/nbproject/private/
+/ComputerLabsAdministration-ejb/nbproject/private/
+/ComputerLabsAdministration-war/nbproject/private/
