@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <body>
 
@@ -11,7 +12,12 @@
 
             <ui:define name="content">
                 <f:view>
+<ul class="nav nav-tabs" style="margin-top:10px"> 
+   <li class="active"><a href="#">Classrooms</a></li> 
+   <li><a href="#">Hardware</a></li> 
+   <li><a href="#">Software</a></li> 
 
+</ul>
                     
                     <h:form>
                         <h1><h:outputText value="Add classroom"/></h1>
@@ -20,14 +26,65 @@
                             <h:inputText id="numberOfSeats" value="#{resourceManagedBean.classroom.numberOfSeats}" title="NumberOfSeats" required="true" requiredMessage="The NumberOfSeats field is required."/>
                             <h:outputLabel value="RoomNumber:" for="roomNumber" />
                             <h:inputText id="roomNumber" value="#{resourceManagedBean.classroom.roomNumber}" title="RoomNumber" required="true" requiredMessage="The RoomNumber field is required."/>
-                            <h:commandButton value="Add classroom"/>
+                            <h:commandButton value="Add classroom" action="#{resourceManagedBean.addClassroom()}"/>
                         </h:panelGrid>
                     </h:form>
+                    
+                    
+
+
+                    <h:form>
+                        <h1><h:outputText value="Add hardware"/></h1>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="DateOfPurchase:" for="dateOfPurchase" />
+
+                            <h:inputText class="datepicker" value="#{resourceManagedBean.hardware.dateOfPurchase}" title="DateOfPurchase" required="true" requiredMessage="The DateOfPurchase field is required.">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:inputText>
+                            <h:outputLabel  value="ExpirationOfWarranty:" for="expirationOfWarranty" />
+                            <h:inputText id="expirationOfWarranty" class="datepicker" value="#{resourceManagedBean.hardware.expirationOfWarranty}" title="ExpirationOfWarranty" required="true" requiredMessage="The ExpirationOfWarranty field is required.">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:inputText>
+                            <h:outputLabel value="Type:" for="type" />
+                            <h:inputText id="type" value="#{resourceManagedBean.hardware.type}" title="Type" required="true" requiredMessage="The Type field is required."/>
+                            <h:outputLabel value="CurrentState:" for="currentState" />
+                            <h:inputText id="currentState" value="#{resourceManagedBean.hardware.currentState}" title="CurrentState" />
+                            <h:outputLabel value="ClassRoom:" for="classRoomId" />
+                            <h:selectOneMenu id="classRoomId" value="#{resourceManagedBean.classroom.classRoomId}" title="ClassRoomId" required="true" requiredMessage="The ClassRoomId field is required.">
+                                <!-- TODO: update below reference to list of available items-->
+                                <f:selectItems value="#{labManagedBean.availableClassrooms}" var="classroom" itemLabel="#{classroom.roomNumber}" itemValue="#{classroom.classRoomId}"/>
+                            </h:selectOneMenu>
+                        </h:panelGrid>
+                        <h:commandButton value="Add hardware" action="#{resourceManagedBean.addHardware()}"/>
+                    </h:form>
+                    
+
+
+                    <h:form>
+                        <h1><h:outputText value="Add Software"/></h1>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="DateOfPurchase:" for="dateOfPurchase" />
+                            <h:inputText id="dateOfPurchae" class="datepicker" value="#{resourceManagedBean.software.dateOfPurchae}" title="DateOfPurchae" required="true" requiredMessage="The DateOfPurchae field is required.">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:inputText>
+                            <h:outputLabel value="ExpirationOfLicence:" for="expirationOfLicence" />
+                            <h:inputText id="expirationOfLicence" class="datepicker" value="#{resourceManagedBean.software.expirationOfLicence}" title="ExpirationOfLicence" required="true" requiredMessage="The ExpirationOfLicence field is required.">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:inputText>
+                            <h:outputLabel value="Type:" for="type" />
+                            <h:inputText id="type" value="#{resourceManagedBean.software.type}" title="Type" required="true" requiredMessage="The Type field is required."/>
+                            <h:outputLabel value="CurrentState:" for="currentState" />
+                            <h:inputText id="currentState" value="#{resourceManagedBean.software.currentState}" title="CurrentState" />
+                        </h:panelGrid>
+                        <h:commandButton value="Add software" action="#{resourceManagedBean.addSoftware()}"/>
+                    </h:form>
+
+
                 </f:view>
 
             </ui:define>
 
         </ui:composition>
-
+         
     </body>
 </html>

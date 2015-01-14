@@ -87,12 +87,12 @@ public class ResourceManagedBean {
         softwareByComputer=new InstalledSoftware();
     }
     
-    private void addClassroom(){
+    public void addClassroom(){
     classroomsFacade.create(classroom);
     }
     
-    private void addHardware(int classroomId){
-    hardware.setClassRoomId(classroomsFacade.find(classroomId));
+    public void addHardware(){
+    hardware.setClassRoomId(classroomsFacade.find(classroom.getClassRoomId()));
     hardwareFacade.create(hardware);
     }
     
