@@ -36,6 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Classrooms.findByNumberOfSeats", query = "SELECT c FROM Classrooms c WHERE c.numberOfSeats = :numberOfSeats"),
     @NamedQuery(name = "Classrooms.findByRoomNumber", query = "SELECT c FROM Classrooms c WHERE c.roomNumber = :roomNumber")})
 public class Classrooms implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "classRoomId")
+    private Collection<Hardware> hardwareCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -122,6 +124,15 @@ public class Classrooms implements Serializable {
     @Override
     public String toString() {
         return "entities.Classrooms[ classRoomId=" + classRoomId + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Hardware> getHardwareCollection() {
+        return hardwareCollection;
+    }
+
+    public void setHardwareCollection(Collection<Hardware> hardwareCollection) {
+        this.hardwareCollection = hardwareCollection;
     }
     
 }

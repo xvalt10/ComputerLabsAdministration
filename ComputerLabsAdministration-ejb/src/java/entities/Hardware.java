@@ -43,6 +43,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Hardware.findByType", query = "SELECT h FROM Hardware h WHERE h.type = :type"),
     @NamedQuery(name = "Hardware.findByCurrentState", query = "SELECT h FROM Hardware h WHERE h.currentState = :currentState")})
 public class Hardware implements Serializable {
+    @Column(name = "seatNo")
+    private Integer seatNo;
     
     
     
@@ -169,6 +171,14 @@ public class Hardware implements Serializable {
 
     public void setClassRoomId(Classrooms classRoomId) {
         this.classRoomId = classRoomId;
+    }
+
+    public Integer getSeatNo() {
+        return seatNo;
+    }
+
+    public void setSeatNo(Integer seatNo) {
+        this.seatNo = seatNo;
     }
     
 }

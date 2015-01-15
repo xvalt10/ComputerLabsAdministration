@@ -9,10 +9,12 @@ import entities.Classrooms;
 import entities.Hardware;
 import entities.InstalledSoftware;
 import entities.Software;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.AjaxBehaviorEvent;
 import sessionBeans.ClassroomsFacade;
 import sessionBeans.HardwareFacade;
 import sessionBeans.InstalledSoftwareFacade;
@@ -83,17 +85,29 @@ public class ResourceManagedBean {
         softwareByComputer = new InstalledSoftware();
     }
 
-    private void addClassroom() {
+    public void addClassroom() {
         classroomsFacade.create(classroom);
+        classroom=new Classrooms();
     }
 
-    private void addHardware(int classroomId) {
+    public void addHardware(int classroomId) {
         hardware.setClassRoomId(classroomsFacade.find(classroomId));
         hardwareFacade.create(hardware);
+        hardware=new Hardware();
     }
+    
+    public List<Hardware> availableHardware(){
+    return hardwareFacade.findAll();
+    }
+   
+    public List<Software> availableSoftware(){
+    return softwareFacade.findAll();
+    }
+    
 
     public void addSoftware() {
         softwareFacade.create(software);
+        software=new Software();
     }
 
     public void addSofwareToComputerStation(int hardwareId, int softwareId) {
