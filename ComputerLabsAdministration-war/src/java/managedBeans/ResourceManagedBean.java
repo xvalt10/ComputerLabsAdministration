@@ -5,8 +5,6 @@
  */
 package managedBeans;
 
-
-
 import entities.Classrooms;
 import entities.Hardware;
 import entities.InstalledSoftware;
@@ -27,19 +25,19 @@ import sessionBeans.SoftwareFacade;
 @ManagedBean
 @SessionScoped
 public class ResourceManagedBean {
-    
+
     @EJB
     ClassroomsFacade classroomsFacade;
-    
+
     @EJB
     HardwareFacade hardwareFacade;
-    
+
     @EJB
     SoftwareFacade softwareFacade;
-    
+
     @EJB
     InstalledSoftwareFacade installedSoftwareFacade;
-    
+
     private Classrooms classroom;
     private Hardware hardware;
     private Software software;
@@ -76,37 +74,38 @@ public class ResourceManagedBean {
     public void setSoftwareByComputer(InstalledSoftware softwareByComputer) {
         this.softwareByComputer = softwareByComputer;
     }
-    
-    
-    
+
     @PostConstruct
-    public void init(){
-        classroom=new Classrooms();
-        hardware=new Hardware();
-        software=new Software();
-        softwareByComputer=new InstalledSoftware();
+    public void init() {
+        classroom = new Classrooms();
+        hardware = new Hardware();
+        software = new Software();
+        softwareByComputer = new InstalledSoftware();
     }
-    
-    private void addClassroom(){
-    classroomsFacade.create(classroom);
+
+    private void addClassroom() {
+        classroomsFacade.create(classroom);
     }
-    
-    private void addHardware(int classroomId){
-    hardware.setClassRoomId(classroomsFacade.find(classroomId));
-    hardwareFacade.create(hardware);
+
+    private void addHardware(int classroomId) {
+        hardware.setClassRoomId(classroomsFacade.find(classroomId));
+        hardwareFacade.create(hardware);
     }
-    
-    public void addSoftware(){
-    softwareFacade.create(software);
+
+    public void addSoftware() {
+        softwareFacade.create(software);
     }
-    
+
+    public void addSofwareToComputerStation(int hardwareId, int softwareId) {
+        softwareByComputer.setComputerId(hardwareFacade.find(hardwareId));
+        softwareByComputer.setSoftwareId(softwareFacade.find(softwareId));
+        installedSoftwareFacade.create(softwareByComputer);
+    }
+
     /**
      * Creates a new instance of ResourceManagedBean
      */
     public ResourceManagedBean() {
     }
 
-
-    
-    
 }
