@@ -5,10 +5,15 @@
  */
 package sessionBeans;
 
+import entities.Hardware;
 import entities.InstalledSoftware;
+import entities.Software;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -16,6 +21,10 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class InstalledSoftwareFacade extends AbstractFacade<InstalledSoftware> {
+    @EJB
+    private HardwareFacade hardwareFacade;
+    
+    
     @PersistenceContext(unitName = "ComputerLabsAdministration-ejbPU")
     private EntityManager em;
 
@@ -26,6 +35,12 @@ public class InstalledSoftwareFacade extends AbstractFacade<InstalledSoftware> {
 
     public InstalledSoftwareFacade() {
         super(InstalledSoftware.class);
+    }
+    
+    public List<InstalledSoftware> getSoftwareByComputerId(int computerId){
+        Hardware computer=hardwareFacade.find(computerId);
+        List resultList = em.createNamedQuery("InstalledSoftware.findByComputerId",InstalledSoftware.class).setParameter("computerId", computer).getResultList();
+        return resultList;
     }
     
 }

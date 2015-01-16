@@ -6,6 +6,7 @@
 package sessionBeans;
 
 import entities.Hardware;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,8 +29,19 @@ public class HardwareFacade extends AbstractFacade<Hardware> {
         super(Hardware.class);
     }
     
-    public findHardwareByClassroomAndSeatNumber(int classroomId,int seatNo){
-    em.createNativeQuery("select * from ");
+    public List<Integer> getSeatsPerClassroom(int classroomId){
+    List<Integer> listOfSeats=  em.createNativeQuery("select distinct(seatNo) from Hardware where classroomId=? and  seatNo is not null")
+             .setParameter(1, classroomId).getResultList();
+    return listOfSeats;
+    }
+    
+    public List<Hardware> findHardwareByClassroomAndSeatNumber(int classroomId, int seatNo){
+        List resultList = em.createNativeQuery("select * from Hardware where classroomId =? and seatNo=?",Hardware.class)
+                .setParameter(1, classroomId)
+                .setParameter(2, seatNo)
+                .getResultList();
+        
+        return resultList;
     }
     
 }

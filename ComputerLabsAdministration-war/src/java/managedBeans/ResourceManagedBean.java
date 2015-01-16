@@ -84,6 +84,8 @@ public class ResourceManagedBean {
         hardware = new Hardware();
         software = new Software();
         softwareByComputer = new InstalledSoftware();
+        softwareByComputer.setComputerId(hardware);
+        softwareByComputer.setSoftwareId(software);
     }
 
     public void addClassroom() {
@@ -109,6 +111,13 @@ public class ResourceManagedBean {
     return softwareFacade.findAll();
     }
     
+    public List<Hardware> getHardwarePerSeatAndClassroom(int classroomId,int seatNo){
+    return hardwareFacade.findHardwareByClassroomAndSeatNumber(classroomId, seatNo);
+    }
+    
+    public List<Integer> getSeatCountPerClassroom(int classroomId){
+    return hardwareFacade.getSeatsPerClassroom(classroomId);
+    }
 
     public void addSoftware() {
         softwareFacade.create(software);
@@ -122,6 +131,9 @@ public class ResourceManagedBean {
         installedSoftwareFacade.create(softwareByComputer);
     }
 
+    public List<InstalledSoftware> getInstalledSoftware(int computerId){
+    return installedSoftwareFacade.getSoftwareByComputerId(computerId);
+    }
     /**
      * Creates a new instance of ResourceManagedBean
      */

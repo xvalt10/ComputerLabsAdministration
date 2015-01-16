@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "InstalledSoftware.findAll", query = "SELECT i FROM InstalledSoftware i"),
+    @NamedQuery(name = "InstalledSoftware.findByComputerId", query = "SELECT i FROM InstalledSoftware i WHERE i.computerId = :computerId"),
     @NamedQuery(name = "InstalledSoftware.findByInstalledSoftwareId", query = "SELECT i FROM InstalledSoftware i WHERE i.installedSoftwareId = :installedSoftwareId")})
 public class InstalledSoftware implements Serializable {
     private static final long serialVersionUID = 1L;
