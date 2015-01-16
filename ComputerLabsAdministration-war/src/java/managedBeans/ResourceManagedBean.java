@@ -9,6 +9,7 @@ import entities.Classrooms;
 import entities.Hardware;
 import entities.InstalledSoftware;
 import entities.Software;
+import helperClasses.JsfUtil;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -86,13 +87,17 @@ public class ResourceManagedBean {
     }
 
     public void addClassroom() {
-        classroomsFacade.create(classroom);
+        classroomsFacade.create(classroom); 
+        JsfUtil.addSuccessMessage("Classroom "+classroom.getRoomNumber()+"has been successfully added.");
         classroom=new Classrooms();
+        
+       
     }
 
     public void addHardware(int classroomId) {
         hardware.setClassRoomId(classroomsFacade.find(classroomId));
         hardwareFacade.create(hardware);
+        JsfUtil.addSuccessMessage("Hardware "+hardware.getType()+" has been successfully added.");
         hardware=new Hardware();
     }
     
@@ -107,6 +112,7 @@ public class ResourceManagedBean {
 
     public void addSoftware() {
         softwareFacade.create(software);
+        JsfUtil.addSuccessMessage("Software "+software.getType()+" has been successfully added.");
         software=new Software();
     }
 

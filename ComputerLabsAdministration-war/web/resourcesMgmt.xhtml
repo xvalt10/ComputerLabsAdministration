@@ -5,8 +5,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-    
-   
+
+
 
     <body onload="loadTabs()">
 
@@ -14,204 +14,267 @@
 
             <ui:define name="content">
                 <f:view>
-<ul class="nav nav-tabs" style="margin-top:10px;border-bottom: none"> 
-   <li id="classroomTab" class="active"><a href="#">Classrooms</a></li> 
-   <li id="hardwareTab"><a href="#">Hardware</a></li> 
-   <li id="softwareTab"><a href="#">Software</a></li> 
+                    <ul class="nav nav-tabs" style="margin-top:10px;border-bottom: none"> 
+                        <li id="classroomTab" class="active"><a href="#">Classrooms</a></li> 
+                        <li id="hardwareTab"><a href="#">Hardware</a></li> 
+                        <li id="softwareTab"><a href="#">Software</a></li> 
 
-</ul>
+                    </ul>
                     <h:panelGroup id="addClassroomForm" layout="block" class="panel panel-default" style="padding:10px">
-                    <h:form  prependId="false">
-                        <h1><h:outputText value="Add classroom"/></h1>
-                        <h:panelGrid columns="2">
-                            <h:outputLabel value="NumberOfSeats:" for="numberOfSeats" />
-                            <h:inputText id="numberOfSeats" value="#{resourceManagedBean.classroom.numberOfSeats}" title="NumberOfSeats" required="true" requiredMessage="The NumberOfSeats field is required."/>
-                            <h:outputLabel value="RoomNumber:" for="roomNumber" />
-                            <h:inputText id="roomNumber" value="#{resourceManagedBean.classroom.roomNumber}" title="RoomNumber" required="true" requiredMessage="The RoomNumber field is required."/>
-                            <h:commandButton value="Add classroom">
-                                <f:ajax execute="@form" listener="#{resourceManagedBean.addClassroom()}" render="classroomDataTable"/>
-                            </h:commandButton>
-                        </h:panelGrid>
-                            <h1><h:outputText value="Computer labs classrooms"/></h1>
-                        <h:dataTable id="classroomDataTable" value="#{labManagedBean.availableClassrooms}" var="item" class="table table-responsive table-bordered table-striped">
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="ClassRoomId"/>
-                                </f:facet>
-                                <h:outputText value="#{item.classRoomId}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="NumberOfSeats"/>
-                                </f:facet>
-                                <h:outputText value="#{item.numberOfSeats}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="RoomNumber"/>
-                                </f:facet>
-                                <h:outputText value="#{item.roomNumber}"/>
-                            </h:column>
-                        </h:dataTable>
-                    </h:form>
+                        <h:form  prependId="false">
+                            <h1><h:outputText value="Add classroom"/></h1>
+                            <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
+                            <h:panelGrid columns="3">
+
+                                <h:outputLabel value="NumberOfSeats:" for="numberOfSeats" />
+                                <h:inputText id="numberOfSeats" value="#{resourceManagedBean.classroom.numberOfSeats}" title="NumberOfSeats" required="true" requiredMessage="The NumberOfSeats field is required."/>
+                                <h:message for="numberOfSeats"/>
+
+                                <h:outputLabel value="RoomNumber:" for="roomNumber" />
+                                <h:inputText id="roomNumber" value="#{resourceManagedBean.classroom.roomNumber}" title="RoomNumber" required="true" requiredMessage="The RoomNumber field is required."/>
+                                <h:message for="roomNumber"/>
+
+                                <h:commandButton value="Add classroom">
+                                    <f:ajax execute="@form" listener="#{resourceManagedBean.addClassroom()}" render="classroomDataTable"/>
+                                </h:commandButton>
+                            </h:panelGrid>
+
+                            <h:outputText value="Computer labs classrooms" class="h1 page-header"/>
+                            <h:dataTable id="classroomDataTable" value="#{labManagedBean.availableClassrooms}" var="item" class="table table-responsive table-bordered table-striped">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="ClassRoomId"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.classRoomId}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="NumberOfSeats"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.numberOfSeats}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="RoomNumber"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.roomNumber}"/>
+                                </h:column>
+                            </h:dataTable>
+                        </h:form>
                     </h:panelGroup>
 
+                    <h:panelGroup layout="block" id="addHardwareForm" class="panel panel-default" style="padding:10px">
+                        <h:form  prependId="false">
+                            <h:outputText value="Add hardware" class="h1" />
+                            <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
+                            <h:panelGrid columns="3">
 
-                    
+                                <h:outputLabel value="Date of purchase:" for="dateOfPurchase" />
+                                <h:inputText id="dateOfPurchase" class="datepicker" value="#{resourceManagedBean.hardware.dateOfPurchase}" title="DateOfPurchase" required="true" requiredMessage="The DateOfPurchase field is required.">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:inputText>
+                                <h:message for="dateOfPurchase"/>              
 
-                    
-                    
+                                <h:outputLabel  value="Date of warranty expiration:" for="expirationOfWarranty" />
+                                <h:inputText id="expirationOfWarranty" class="datepicker" value="#{resourceManagedBean.hardware.expirationOfWarranty}" title="ExpirationOfWarranty" required="true" requiredMessage="The ExpirationOfWarranty field is required.">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:inputText>
+                                <h:message for="expirationOfWarranty"/>
 
- <h:panelGroup layout="block" id="addHardwareForm" class="panel panel-default" style="padding:10px">
-                    <h:form  prependId="false">
-                        <h1><h:outputText value="Add hardware"/></h1>
-                        <h:panelGrid columns="2">
-                            <h:outputLabel value="DateOfPurchase:" for="dateOfPurchase" />
+                                <h:outputLabel value="Type:" for="type" />
+                                <h:inputText id="type" value="#{resourceManagedBean.hardware.type}" title="Type" required="true" requiredMessage="The Type field is required."/>
+                                <h:message for="type"/>
 
-                            <h:inputText class="datepicker" value="#{resourceManagedBean.hardware.dateOfPurchase}" title="DateOfPurchase" required="true" requiredMessage="The DateOfPurchase field is required.">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:inputText>
-                            <h:outputLabel  value="ExpirationOfWarranty:" for="expirationOfWarranty" />
-                            <h:inputText id="expirationOfWarranty" class="datepicker" value="#{resourceManagedBean.hardware.expirationOfWarranty}" title="ExpirationOfWarranty" required="true" requiredMessage="The ExpirationOfWarranty field is required.">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:inputText>
-                            <h:outputLabel value="Type:" for="type" />
-                            <h:inputText id="type" value="#{resourceManagedBean.hardware.type}" title="Type" required="true" requiredMessage="The Type field is required."/>
-                            <h:outputLabel value="CurrentState:" for="currentState" />
-                            <h:inputText id="currentState" value="#{resourceManagedBean.hardware.currentState}" title="CurrentState" />
-                            <h:outputLabel value="ClassRoom:" for="classRoomId" />
-                            <h:selectOneMenu id="classRoomId" value="#{resourceManagedBean.classroom.classRoomId}" title="ClassRoomId" required="true" requiredMessage="The ClassRoomId field is required.">
+                                <h:outputLabel value="Current state:" for="currentState" />
+                                <h:inputText id="currentState" value="#{resourceManagedBean.hardware.currentState}" title="CurrentState" />
+                                <h:message for="currentState"/>
+
+                                <h:outputLabel value="Classroom:" for="classRoomId" />
+                                <h:selectOneMenu id="classRoomId" value="#{resourceManagedBean.classroom.classRoomId}" title="ClassRoomId" required="true" requiredMessage="The ClassRoomId field is required.">
+                                    <!-- TODO: update below reference to list of available items-->
+                                    <f:selectItems value="#{labManagedBean.availableClassrooms}" var="classroom" itemLabel="#{classroom.roomNumber}" itemValue="#{classroom.classRoomId}"/>
+                                </h:selectOneMenu>
+                                <h:message for="classRoomId"/>
+
+                                <h:commandButton value="Add hardware" >
+                                    <f:ajax listener="#{resourceManagedBean.addHardware(resourceManagedBean.classroom.classRoomId)}" render="hardwareDataTable" execute="@form"/>
+                                </h:commandButton>
+                            </h:panelGrid>
+
+                            <h:outputText value="List of purchased hardware" class="h1"/>
+                            <h:dataTable id="hardwareDataTable" value="#{resourceManagedBean.availableHardware()}" var="item" class="table table-responsive table-bordered table-striped">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="HardwareId"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.hardwareId}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="DateOfPurchase"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.dateOfPurchase}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="ExpirationOfWarranty"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.expirationOfWarranty}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Type"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.type}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="CurrentState"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.currentState}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Room number"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.classRoomId.roomNumber}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Seat number"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.seatNo}"/>
+                                </h:column>
+                            </h:dataTable>
+                        </h:form>
+                    </h:panelGroup>
+
+                    <h:panelGroup id="addSoftwareForm" layout="block" class="panel panel-default" style="padding:10px">
+                        <h:form>
+                            <h:outputText value="Add Software" class="h1 page-header"/></h1>
+                            <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
+                            <h:panelGrid columns="3">
+                                <h:outputLabel value="Date of purchase:" for="dateOfPurchase" />
+                                <h:inputText id="dateOfPurchase" class="datepicker" value="#{resourceManagedBean.software.dateOfPurchae}" title="DateOfPurchae" required="true" requiredMessage="The DateOfPurchae field is required.">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:inputText>
+                                <h:message for="dateOfPurchase"/>
+
+                                <h:outputLabel value="Date of licence expiration:" for="expirationOfLicence" />
+                                <h:inputText id="expirationOfLicence" class="datepicker" value="#{resourceManagedBean.software.expirationOfLicence}" title="ExpirationOfLicence" required="true" requiredMessage="The ExpirationOfLicence field is required.">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:inputText>
+                                <h:message for="expirationOfLicence"/>
+
+                                <h:outputLabel value="Type:" for="type" />
+                                <h:inputText id="type" value="#{resourceManagedBean.software.type}" title="Type" required="true" requiredMessage="The Type field is required."/>
+                                <h:message for="expirationOfLicence"/>
+
+                                <h:outputLabel value="CurrentState:" for="currentState" />
+                                <h:inputText id="currentState" value="#{resourceManagedBean.software.currentState}" title="CurrentState" />
+                                <h:message for="currentState"/>
+
+                                <h:commandButton value="Add software" >
+                                    <f:ajax execute="@form" render="softwareDataTable" listener="#{resourceManagedBean.addSoftware()}"/>
+                                </h:commandButton>
+                            </h:panelGrid>
+
+                            <h:outputText value="List of purchased software:" class="h1"/>
+                            <h:dataTable id="softwareDataTable" value="#{resourceManagedBean.availableSoftware()}" var="item" class="table table-responsive table-bordered table-striped">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="SoftwareId"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.softwareId}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="DateOfPurchae"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.dateOfPurchae}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="ExpirationOfLicence"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.expirationOfLicence}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Type"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.type}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="CurrentState"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.currentState}"/>
+                                </h:column>
+                            </h:dataTable>
+                        </h:form>
+                    </h:panelGroup>
+
+                    <h:form>
+                        <h:outputText value="Specify on which machines a specific type of software is installed:" class="h1 page-header"/>
+                        <h:panelGrid columns="3">
+                            <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
+                            <h:outputLabel value="SoftwareId:" for="softwareId" />
+                            <h:selectOneMenu id="softwareId" value="#{resourceManagedBean.softwareByComputer.softwareId}" title="SoftwareId" required="true" requiredMessage="The SoftwareId field is required.">
                                 <!-- TODO: update below reference to list of available items-->
-                                <f:selectItems value="#{labManagedBean.availableClassrooms}" var="classroom" itemLabel="#{classroom.roomNumber}" itemValue="#{classroom.classRoomId}"/>
+                                <f:selectItems value="#{resourceManagedBean.availableSoftware}" var='software' itemLabel="#{software.type}" itemValue='#{software.softwareId}'/>
                             </h:selectOneMenu>
+                            <h:message for='softwareId'/>
+
+                            <h:outputLabel value="ComputerId:" for="computerId" />
+                            <h:selectOneMenu id="computerId" value="#{resourceManagedBean.softwareByComputer.computerId}" title="ComputerId" required="true" requiredMessage="The ComputerId field is required.">
+                                <!-- TODO: update below reference to list of available items-->
+                                <f:selectItems value="#{resourceManagedBean.availableHardware}"  var="computer" itemLabel="#{computer.type}-Room:#{computer.classRoomId.roomNumber}-Seat no.#{computer.seatNo}" itemValue="#{computer.hardwareId}"/>
+                            </h:selectOneMenu>
+                            <h:message for='computerId'/>
+
+                            <h:commandButton value='Add software to workstation' action='#{resourceManagedBean.addSofwareToComputerStation(resourceManagedBean.softwareByComputer.computerId, resourceManagedBean.softwareByComputer.softwareId)}'/>
+
                         </h:panelGrid>
-                        <h:commandButton value="Add hardware" >
-                            <f:ajax listener="#{resourceManagedBean.addHardware(resourceManagedBean.classroom.classRoomId)}" render="hardwareDataTable" execute="@form"/>
-                        </h:commandButton>
-                        
-                           <h1><h:outputText value="List"/></h1>
-                        <h:dataTable id="hardwareDataTable" value="#{resourceManagedBean.availableHardware()}" var="item" class="table table-responsive table-bordered table-striped">
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="HardwareId"/>
-                                </f:facet>
-                                <h:outputText value="#{item.hardwareId}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="DateOfPurchase"/>
-                                </f:facet>
-                                <h:outputText value="#{item.dateOfPurchase}">
-                                    <f:convertDateTime pattern="MM/dd/yyyy" />
-                                </h:outputText>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="ExpirationOfWarranty"/>
-                                </f:facet>
-                                <h:outputText value="#{item.expirationOfWarranty}">
-                                    <f:convertDateTime pattern="MM/dd/yyyy" />
-                                </h:outputText>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Type"/>
-                                </f:facet>
-                                <h:outputText value="#{item.type}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="CurrentState"/>
-                                </f:facet>
-                                <h:outputText value="#{item.currentState}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Room number"/>
-                                </f:facet>
-                                <h:outputText value="#{item.classRoomId.roomNumber}"/>
-                            </h:column>
-                             <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Seat number"/>
-                                </f:facet>
-                                 <h:outputText value="#{item.seatNo}"/>
-                            </h:column>
-                        </h:dataTable>
                     </h:form>
- </h:panelGroup>
-                     <h:panelGroup id="addSoftwareForm" layout="block" class="panel panel-default" style="padding:10px">
-                    <h:form  >
-                        <h1><h:outputText value="Add Software"/></h1>
-                        <h:panelGrid columns="2">
-                            <h:outputLabel value="DateOfPurchase:" for="dateOfPurchase" />
-                            <h:inputText id="dateOfPurchae" class="datepicker" value="#{resourceManagedBean.software.dateOfPurchae}" title="DateOfPurchae" required="true" requiredMessage="The DateOfPurchae field is required.">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:inputText>
-                            <h:outputLabel value="ExpirationOfLicence:" for="expirationOfLicence" />
-                            <h:inputText id="expirationOfLicence" class="datepicker" value="#{resourceManagedBean.software.expirationOfLicence}" title="ExpirationOfLicence" required="true" requiredMessage="The ExpirationOfLicence field is required.">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:inputText>
-                            <h:outputLabel value="Type:" for="type" />
-                            <h:inputText id="type" value="#{resourceManagedBean.software.type}" title="Type" required="true" requiredMessage="The Type field is required."/>
-                            <h:outputLabel value="CurrentState:" for="currentState" />
-                            <h:inputText id="currentState" value="#{resourceManagedBean.software.currentState}" title="CurrentState" />
-                        </h:panelGrid>
-                        <h:commandButton value="Add software" >
-                            <f:ajax execute="@form" render="softwareDataTable" listener="#{resourceManagedBean.addSoftware()}"/>
-                        </h:commandButton>
-                        
-                        
-                        <h1><h:outputText value="List of purchased software:"/></h1>
-                        <h:dataTable id="softwareDataTable" value="#{resourceManagedBean.availableSoftware()}" var="item" class="table table-responsive table-bordered table-striped">
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="SoftwareId"/>
-                                </f:facet>
-                                <h:outputText value="#{item.softwareId}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="DateOfPurchae"/>
-                                </f:facet>
-                                <h:outputText value="#{item.dateOfPurchae}">
-                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                </h:outputText>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="ExpirationOfLicence"/>
-                                </f:facet>
-                                <h:outputText value="#{item.expirationOfLicence}">
-                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                </h:outputText>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Type"/>
-                                </f:facet>
-                                <h:outputText value="#{item.type}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="CurrentState"/>
-                                </f:facet>
-                                <h:outputText value="#{item.currentState}"/>
-                            </h:column>
-                        </h:dataTable>
-                    </h:form>
-                     </h:panelGroup>
-
-
-                    
-
-
 
                 </f:view>
+
+                <c:forEach end="#{searchingManagedBean.loadPropertySearchResults().size()}" var="row" step="3" varStatus="iterRow">
+                    <h:panelGroup layout="block" class="row" style="margin-bottom: 20px">
+                        <c:forEach items="#{searchingManagedBean.loadPropertySearchResults()}" var="property" varStatus="iterInner" begin="#{iterRow.index}" end="#{searchingManagedBean.loadPropertySearchResults().size()-iterRow.index>3?iterRow.index+2:searchingManagedBean.loadPropertySearchResults().size()}">
+                            <h:panelGroup layout="block" class="col-sm-4" > 
+                                <h:panelGroup layout='block' class='thumbnail'>
+                                    <h:graphicImage  value="images/#{property.propertyId}" height="100" width="100"/>
+                                </h:panelGroup>
+                                    <h:panelGroup class='caption'>
+                                        
+                                        <h:outputText value="#{propertyManagedBean.findPropertyCategoryName(property.categoryId.categoryId)}"/>
+                                        <h:outputText value="#{property.lumpsumCost.setScale(2)} € "/>
+                                        <h:commandButton action="#{propertyManagedBean.viewPropertyDetails(property.propertyId)}" value="More info..."/> 
+                                    </h:panelGroup>    
+                                </h:panelGroup>      
+
+
+                                </h:panelGrid>
+                            </h:panelGroup>
+                        </c:forEach>
+                    </h:panelGroup>
+                </c:forEach>
+
+
 
             </ui:define>
 
         </ui:composition>
-         
+
     </body>
 </html>

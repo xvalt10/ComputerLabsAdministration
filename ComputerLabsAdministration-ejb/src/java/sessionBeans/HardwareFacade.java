@@ -28,4 +28,8 @@ public class HardwareFacade extends AbstractFacade<Hardware> {
         super(Hardware.class);
     }
     
+    public findHardwareByClassroomAndSeatNumber(int classroomId,int seatNo){
+    em.createNativeQuery("select * from ");
+    }
+    
 }
