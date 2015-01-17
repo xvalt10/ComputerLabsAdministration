@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./templates/basicTemplate.xhtml">
+
+            <ui:define name="content">
+                <f:view>
+
+
+                    <h:form enctype="multipart/form-data">
+                        <h1><h:outputText value="Write new post for the lab news section"/></h1>
+                        <h:panelGrid columns="2">
+                            
+                            <h:outputLabel value="PostTitle:" for="postTitle" />
+                            <h:inputText id="postTitle" value="#{sitePostManagedBean.post.postTitle}" title="PostTitle" />
+                            <h:outputLabel value="PostText:" for="postText" />
+                            <h:inputText id="postText" value="#{sitePostManagedBean.post.postText}" title="PostText" />
+                           
+                           
+                            
+                            <h:outputLabel value="LabId:" for="labId" />
+                            <h:selectOneMenu id="labId" value="#{sitePostManagedBean.labId}" title="LabId" >
+                                <!-- TODO: update below reference to list of available items-->
+                                <f:selectItems value="#{labManagedBean.getAllComputerLabs()}" var="lab" itemLabel="#{lab.labName}" itemValue="#{lab.labId}"/>
+                            </h:selectOneMenu> 
+                            <h:outputLabel value="Attachment:" for="attachmentFileName" />
+                            <h:inputFile id="file" value="#{sitePostManagedBean.file}"/>
+                            <h:commandButton value="Publish post" action="#{sitePostManagedBean.publishPost()}" />
+                            
+                           
+                          
+                        </h:panelGrid>
+                    </h:form>
+                </f:view>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

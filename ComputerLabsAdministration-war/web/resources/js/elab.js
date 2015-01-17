@@ -11,12 +11,7 @@
      $("#addSWtoHWForm").hide();
      $("#overviewForm").hide();
      
-     $(".editBtn").on("click", function(){
-         
-         $(this).closest("tr").find("span").hide();
-        $(this).closest("tr").find("input").show(); 
-         
-     });
+     
      
      
      $("#classroomTab").on("click",function(){

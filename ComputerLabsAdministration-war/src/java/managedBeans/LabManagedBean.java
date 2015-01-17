@@ -243,6 +243,9 @@ public class LabManagedBean {
 
     }
 
+    public List<ComputerLabs> getAllComputerLabs(){
+    return computerLabsFacade.findAll();
+    }
     /**
      * Creates a new instance of LabManagedBean
      */

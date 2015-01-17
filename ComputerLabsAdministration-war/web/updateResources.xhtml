@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./templates/basicTemplate.xhtml">
+
+            <ui:define name="content">
+                <h:form  prependId="false" rendered="#{param.update=='classroom'}">
+                            <h:panelGroup layout='block' class='page-header' style='margin-top:10px'>
+                                <h:outputText value="Update classroom details" class="h1"/>
+                            </h:panelGroup>
+                            <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
+                            <h:panelGrid columns="3">
+
+                                <h:outputLabel value="NumberOfSeats:" for="numberOfSeats" />
+                                <h:inputText id="numberOfSeats" value="#{resourceManagedBean.classroom.numberOfSeats}" title="NumberOfSeats" required="true" requiredMessage="The NumberOfSeats field is required."/>
+                                <h:message for="numberOfSeats"/>
+
+                                <h:outputLabel value="RoomNumber:" for="roomNumber" />
+                                <h:inputText id="roomNumber" value="#{resourceManagedBean.classroom.roomNumber}" title="RoomNumber" required="true" requiredMessage="The RoomNumber field is required."/>
+                                <h:message for="roomNumber"/>
+
+                               
+                                
+                                <h:commandLink value="Update classroom details"  action="#{resourceManagedBean.editClassroom()}"/>
+                            </h:panelGrid>
+                </h:form>
+                
+                   <h:form  prependId="false" rendered="#{param.update=='hardware'}">
+                            <h:panelGroup layout='block' class='page-header' style='margin-top:10px'>
+                                <h:outputText value="Update hardware details" class="h1"/>
+                            </h:panelGroup>
+                            <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
+                            
+                          <h:panelGrid columns="3">
+
+                                <h:outputLabel value="Date of purchase:" for="dateOfPurchase" />
+                                <h:inputText id="dateOfPurchase" class="datepicker" value="#{resourceManagedBean.hardware.dateOfPurchase}" title="DateOfPurchase" required="true" requiredMessage="The DateOfPurchase field is required.">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:inputText>
+                                <h:message for="dateOfPurchase"/>              
+
+                                <h:outputLabel  value="Date of warranty expiration:" for="expirationOfWarranty" />
+                                <h:inputText id="expirationOfWarranty" class="datepicker" value="#{resourceManagedBean.hardware.expirationOfWarranty}" title="ExpirationOfWarranty" required="true" requiredMessage="The ExpirationOfWarranty field is required.">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:inputText>
+                                <h:message for="expirationOfWarranty"/>
+
+                                <h:outputLabel value="Type:" for="type" />
+                                <h:inputText id="type" value="#{resourceManagedBean.hardware.type}" title="Type" required="true" requiredMessage="The Type field is required."/>
+                                <h:message for="type"/>
+
+                                <h:outputLabel value="Current state:" for="currentState" />
+                                <h:inputText id="currentState" value="#{resourceManagedBean.hardware.currentState}" title="CurrentState" />
+                                <h:message for="currentState"/>
+
+                                <h:outputLabel value="Classroom:" for="classRoom" />
+                                <h:selectOneMenu id="classRoom" value="#{resourceManagedBean.classroom.classRoomId}" title="ClassRoomId" required="true" requiredMessage="The ClassRoomId field is required.">
+                                    <!-- TODO: update below reference to list of available items-->
+                                    <f:selectItems value="#{labManagedBean.availableClassrooms}" var="classroom" itemLabel="#{classroom.roomNumber}" itemValue="#{classroom.classRoomId}"/>
+                                </h:selectOneMenu>
+                                <h:message for="classRoom"/>
+
+                                <h:outputLabel value="Seat number:" for="seat" />
+                                <h:inputText id="seat" value="#{resourceManagedBean.hardware.seatNo}" title="seat" />
+                                <h:message for="seat"/>
+
+
+
+                                <h:commandButton value="Update hardware details" action="#{resourceManagedBean.editHardware()}"/>
+                                    
+                                
+                            </h:panelGrid>
+                </h:form>
+                
+                        <h:form  prependId="false" rendered="#{param.update=='software'}">
+                            <h:panelGroup layout='block' class='page-header' style='margin-top:10px'>
+                                <h:outputText value="Update software details" class="h1"/>
+                            </h:panelGroup>
+                            
+                            <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
+                            
+                             <h:panelGrid columns="3">
+                                <h:outputLabel value="Date of purchase:" for="dateOfPurchaseSW" />
+                                <h:inputText id="dateOfPurchaseSW" class="datepicker" value="#{resourceManagedBean.software.dateOfPurchae}" title="DateOfPurchae" required="true" requiredMessage="The DateOfPurchae field is required.">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:inputText>
+                                <h:message for="dateOfPurchaseSW"/>
+
+                                <h:outputLabel value="Date of licence expiration:" for="expirationOfLicence" />
+                                <h:inputText id="expirationOfLicence" class="datepicker" value="#{resourceManagedBean.software.expirationOfLicence}" title="ExpirationOfLicence" required="true" requiredMessage="The ExpirationOfLicence field is required.">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:inputText>
+                                <h:message for="expirationOfLicence"/>
+
+                                <h:outputLabel value="Type:" for="typeSW" />
+                                <h:inputText id="typeSW" value="#{resourceManagedBean.software.type}" title="Type" required="true" requiredMessage="The Type field is required."/>
+                                <h:message for="typeSW"/>
+
+                                <h:outputLabel value="CurrentState:" for="currentStateSW" />
+                                <h:inputText id="currentStateSW" value="#{resourceManagedBean.software.currentState}" title="CurrentState" />
+                                <h:message for="currentStateSW"/>
+
+                                <h:commandButton value="Update software details" action="#{resourceManagedBean.editSoftware()}"/>
+                            </h:panelGrid>
+                </h:form>
+                                    
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

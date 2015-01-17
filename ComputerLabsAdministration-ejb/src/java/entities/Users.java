@@ -42,6 +42,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByMobileNumber", query = "SELECT u FROM Users u WHERE u.mobileNumber = :mobileNumber"),
     @NamedQuery(name = "Users.findByDepartment", query = "SELECT u FROM Users u WHERE u.department = :department")})
 public class Users implements Serializable {
+    @OneToMany(mappedBy = "submittedBy")
+    private Collection<SitePost> sitePostCollection;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -212,6 +214,15 @@ public class Users implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @XmlTransient
+    public Collection<SitePost> getSitePostCollection() {
+        return sitePostCollection;
+    }
+
+    public void setSitePostCollection(Collection<SitePost> sitePostCollection) {
+        this.sitePostCollection = sitePostCollection;
     }
     
 }

@@ -46,6 +46,7 @@ public class ResourceManagedBean {
     private Software software;
     private InstalledSoftware softwareByComputer;
 
+
     public Classrooms getClassroom() {
         return classroom;
     }
@@ -96,17 +97,69 @@ public class ResourceManagedBean {
        
     }
     
-    public void loadClassroom(int classroomId){
+    public String loadClassroom(int classroomId){
+        
         classroom=classroomsFacade.find(classroomId);
+        
+        
+        return "updateResources";
+    
+    }   
+      public String loadHardware(int hardwareId){
+        
+        hardware=hardwareFacade.find(hardwareId);
+        
+        
+        return "updateResources";
     
     }
+      
+       public String loadSoftware(int softwareId){
+        
+        software=softwareFacade.find(softwareId);
+        
+        
+        return "updateResources";
     
-    public void editClassroom() {
+    }
+      
+      public String editHardware(){
+      hardwareFacade.edit(hardware);
+      JsfUtil.addSuccessMessage("Hardware "+hardware.getType()+" has been successfully edited.");
+      hardware=new Hardware();
+      
+       return "resourcesMgmt";
+      }
+    
+    public String editClassroom() {
+       
         classroomsFacade.edit(classroom); 
         JsfUtil.addSuccessMessage("Classroom "+classroom.getRoomNumber()+" has been successfully edited.");
+        classroom=new Classrooms();
+        
+        return "resourcesMgmt";
           
     }
     
+     public String editSoftware(){
+      softwareFacade.edit(software);
+      JsfUtil.addSuccessMessage("Software "+software.getType()+" has been successfully edited.");
+      software=new Software();
+      
+       return "resourcesMgmt";
+      }
+    
+    public void deleteHardware(int hardwareId){
+    hardwareFacade.remove(hardwareFacade.find(hardwareId));
+    }
+    
+    public void deleteClassroom(int classroomId){
+    classroomsFacade.remove(classroomsFacade.find(classroomId));
+    }
+    
+      public void deleteSoftware(int softwareId){
+    softwareFacade.remove(softwareFacade.find(softwareId));
+    }
     
 
     public void addHardware(int classroomId) {

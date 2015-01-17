@@ -37,6 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ComputerLabs.findByLabId", query = "SELECT c FROM ComputerLabs c WHERE c.labId = :labId"),
     @NamedQuery(name = "ComputerLabs.findByLabName", query = "SELECT c FROM ComputerLabs c WHERE c.labName = :labName")})
 public class ComputerLabs implements Serializable {
+    @OneToMany(mappedBy = "labId")
+    private Collection<SitePost> sitePostCollection;
        
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -121,6 +123,15 @@ public class ComputerLabs implements Serializable {
     @Override
     public String toString() {
         return "entities.ComputerLabs[ labId=" + labId + " ]";
+    }
+
+    @XmlTransient
+    public Collection<SitePost> getSitePostCollection() {
+        return sitePostCollection;
+    }
+
+    public void setSitePostCollection(Collection<SitePost> sitePostCollection) {
+        this.sitePostCollection = sitePostCollection;
     }
 
  
