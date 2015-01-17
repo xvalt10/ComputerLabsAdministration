@@ -62,7 +62,7 @@
                         
                         Current schedule:
                         <table border="1" style="margin-bottom:10px" >
-                            <c:forEach items="#{labManagedBean.numberOfDaysSchoolIsOpened()}" var="day">
+                            <c:forEach items="#{labManagedBean.numberOfDaysSchoolIsOpened(classroom.classRoomId)}" var="day">
                                 <tr>
                                     <td style="padding:10px" >
                                         <h:outputText value="#{labManagedBean.getDayOfWeek(day)}"/></td>
