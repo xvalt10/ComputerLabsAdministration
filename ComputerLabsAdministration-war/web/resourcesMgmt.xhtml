@@ -46,24 +46,39 @@
                             <h:panelGroup layout='block' class='page-header'>
                                 <h:outputText value="Computer labs classrooms" class="h1"/>
                             </h:panelGroup>
-                            <h:dataTable id="classroomDataTable" value="#{labManagedBean.availableClassrooms}" var="item" class="table table-responsive table-bordered table-striped">
+                            <h:dataTable  id="classroomDataTable" value="#{labManagedBean.availableClassrooms}" var="item" class="table table-responsive table-bordered table-striped">
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="ClassRoomId"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.classRoomId}"/>
+                                    <h:outputText class="classRoomText" value="#{item.classRoomId}"/>
+                                    <h:inputText value="#{item.classRoomId}" style="display:none"/>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="NumberOfSeats"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.numberOfSeats}"/>
+                                    <h:outputText class="seatText" value="#{item.numberOfSeats}"/>
+                                    <h:inputText value="#{item.numberOfSeats}" style="display:none"/>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="RoomNumber"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.roomNumber}"/>
+                                    <h:outputText class="roomNumberText" value="#{item.roomNumber}"/>
+                                    <h:inputText value="#{item.roomNumber}" style="display:none"/>
+                                </h:column>
+                                 <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Action"/>
+                                    </f:facet>
+                                     <h:commandButton class="editBtn"  value="Edit" type="button">
+                                         <f:ajax event="click" listener="#{resourceManagedBean.loadClassroom(item.classRoomId)}"
+                                         
+                                     </h:commandButton>
+                                      <h:commandButton class="saveBtn"  value="Save">
+                                          <f:ajax event="click" execute="classroomDataTable" listener="#{resourceManagedBean.editClassroom()}" render="classroomDataTable"/>
+                                      </h:commandButton>
                                 </h:column>
                             </h:dataTable>
                         </h:form>

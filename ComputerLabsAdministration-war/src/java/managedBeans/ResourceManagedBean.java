@@ -95,6 +95,19 @@ public class ResourceManagedBean {
         
        
     }
+    
+    public void loadClassroom(int classroomId){
+        classroom=classroomsFacade.find(classroomId);
+    
+    }
+    
+    public void editClassroom() {
+        classroomsFacade.edit(classroom); 
+        JsfUtil.addSuccessMessage("Classroom "+classroom.getRoomNumber()+" has been successfully edited.");
+          
+    }
+    
+    
 
     public void addHardware(int classroomId) {
         hardware.setClassRoomId(classroomsFacade.find(classroomId));
