@@ -1,0 +1,32 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch frontend
+# Changes to be committed:
+#	modified:   ComputerLabsAdministration-ejb/nbproject/project.properties
+#	modified:   ComputerLabsAdministration-ejb/setup/glassfish-resources.xml
+#	modified:   ComputerLabsAdministration-ejb/src/java/sessionBeans/HardwareFacade.java
+#	modified:   ComputerLabsAdministration-war/nbproject/build-impl.xml
+#	modified:   ComputerLabsAdministration-war/nbproject/genfiles.properties
+#	modified:   ComputerLabsAdministration-war/nbproject/project.properties
+#	modified:   ComputerLabsAdministration-war/nbproject/project.xml
+#	deleted:    ComputerLabsAdministration-war/web/resources/css/bootstrap-theme.css
+#	modified:   ComputerLabsAdministration-war/web/resources/css/bootstrap.css
+#	modified:   ComputerLabsAdministration-war/web/resources/fonts/glyphicons-halflings-regular.eot
+#	modified:   ComputerLabsAdministration-war/web/resources/fonts/glyphicons-halflings-regular.svg
+#	modified:   ComputerLabsAdministration-war/web/resources/fonts/glyphicons-halflings-regular.ttf
+#	modified:   ComputerLabsAdministration-war/web/resources/fonts/glyphicons-halflings-regular.woff
+#	modified:   ComputerLabsAdministration-war/web/resources/js/bootstrap.js
+#	modified:   ComputerLabsAdministration-war/web/resources/js/jquery.js
+#	modified:   nbproject/project.properties
+#
+# Untracked files:
+#	ComputerLabsAdministration-war/web/resources/css/bootstrap.min.css
+#	ComputerLabsAdministration-war/web/resources/css/modern-business.css
+#	ComputerLabsAdministration-war/web/resources/font-awesome/
+#	ComputerLabsAdministration-war/web/resources/js/bootstrap.min.js
+#	ComputerLabsAdministration-war/web/resources/js/contact_me.js
+#	ComputerLabsAdministration-war/web/resources/js/jqBootstrapValidation.js
+#	dist/
+#
+
