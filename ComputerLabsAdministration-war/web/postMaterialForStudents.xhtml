@@ -16,13 +16,13 @@
                         <h:messages globalOnly="true" style="list-style-type: none;padding-left: 0px" infoClass="alert alert-success"/>
                         
                         <h:panelGrid columns="3">
-                            
+                            <!-- TODO: values -->
                             <h:outputLabel value="Post title:" for="postTitle"/>
-                            <h:inputText id="postTitle" value="#{}" title="ComplaintTitle" required="true" requiredMessage="The ComplaintTitle field is required."/>
+                            <h:inputText id="postTitle" value="#{null}" title="ComplaintTitle" required="true" requiredMessage="The ComplaintTitle field is required."/>
                             <h:message for="postTitle"/>
                            
                             <h:outputLabel value="Post text:" for="postText" />
-                            <h:inputTextarea id="postText" value="#{}" title="ComplaintBody" cols="50" rows="10" required="true" requiredMessage="The ComplaintBody field is required."/>
+                            <h:inputTextarea id="postText" value="#{null}" title="ComplaintBody" cols="50" rows="10" required="true" requiredMessage="The ComplaintBody field is required."/>
                             <h:message for="postText"/>
                             
                               <h:outputLabel value="Upload attachments:" for="uploadAttachments" />
@@ -30,7 +30,7 @@
                             <h:messages for="uploadAttachments"/>
                             
                            
-                            <h:commandButton  action="#{}" value="Submit complaint"/>
+                            <h:commandButton  action="#{null}" value="Submit complaint"/>
                            
                            
                             

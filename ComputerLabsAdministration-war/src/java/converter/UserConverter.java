@@ -8,7 +8,6 @@ package converter;
 import entities.Users;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;

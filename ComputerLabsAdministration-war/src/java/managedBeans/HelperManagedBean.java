@@ -10,7 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import org.primefaces.event.FileUploadEvent;
