@@ -5,53 +5,134 @@
 
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <f:view>
+                                            <h:form>
 
-        <nav class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header" >
-                        <ul class="nav navbar-nav navbar-header" >
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <h:link outcome="index" class="navbar-brand">ComputerLabs Administration</h:link>
 
-                    <!--        <a class="navbar-brand" href=""><img src="/RealEstateMS-war/resources/images/realestateLogo.png" /></a>-->
-                    <li><h:link outcome="index">ComputerLabs Administration</h:link></li>
-                        </ul>
-                </div>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+ 
+                <li><h:commandLink value="Register" rendered="#{facesContext.externalContext.userPrincipal==null}" action="#{userManagedBean.clearUserDetails()}"/></li>
+                                            <li><h:link value="Sign In" outcome="login" rendered="#{facesContext.externalContext.userPrincipal==null}"/></li>
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
-                    <ul class="nav navbar-nav" >
-
-                        <li class="dropdown" >
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">One more separated link</a></li>
-                            </ul>
+                <h:panelGroup rendered="#{facesContext.externalContext.userPrincipal!=null}">
+                                   <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+                    <ul class="dropdown-menu message-dropdown">
+                        <li class="message-preview">
+                            <a href="#">
+                                <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="" />
+                                    </span>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>John Smith</strong>
+                                        </h5>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="message-preview">
+                            <a href="#">
+                                <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="" />
+                                    </span>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>John Smith</strong>
+                                        </h5>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="message-preview">
+                            <a href="#">
+                                <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="" />
+                                    </span>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>John Smith</strong>
+                                        </h5>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="message-footer">
+                            <a href="#">Read All New Messages</a>
                         </li>
                     </ul>
-                    <form class="navbar-form navbar-left" role="search" >
-                        <div class="form-group" >
-                            <input type="text" class="form-control" placeholder="Search"/> 
-                        </div>
-                        <button type="submit" class="btn btn-default" >Submit</button>
-                    </form>
-                    <h:form>
-                        <ul class="nav navbar-nav navbar-right" >
-                            <li><h:outputLink value="/ComputerLabsAdministration-war/Logout" rendered="#{facesContext.externalContext.userPrincipal!=null}" >Logout</h:outputLink></li>
-                            <li><h:link value="Sign In" outcome="login" rendered="#{facesContext.externalContext.userPrincipal==null}"/></li>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+                    <ul class="dropdown-menu alert-dropdown">
+                        <li>
+                            <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">View All</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown" >
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+                    <ul class="dropdown-menu" >
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
 
-                            <li><h:commandLink value="Register"  action="#{userManagedBean.clearUserDetails()}"/></li>
+                            <li><h:outputLink value="/ComputerLabsAdministration-war/Logout"  ><i class="fa fa-fw fa-power-off"></i>Logout</h:outputLink></li>
 
-                        </ul>
-                    </h:form>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
+
+                
+                    </ul>
+                </li>
+                    </h:panelGroup>
+            </ul>
+ 
+            <!-- /.navbar-collapse -->
         </nav>
+                    </h:form>
 
 
     </f:view>

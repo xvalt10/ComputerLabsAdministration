@@ -9,9 +9,16 @@
     <h:head> 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-        <h:outputStylesheet name="./css/bootstrap.css"/>
+        <h:outputStylesheet name="./css/bootstrap.min.css"/>
         <h:outputStylesheet name="./css/bootstrap-theme.css"/>
+        <h:outputStylesheet name="./css/sb-admin.css"/>
+        <h:outputStylesheet name="./font-awesome/css/font-awesome.min.css"/>
+        <h:outputStylesheet name="./css/plugins/morris.css"/>
         <h:outputStylesheet name="./css/elab.css"/>
+  
+        
+        
+        
        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"/>
         <h:outputScript library="js" name="jquery.js"/>
         <h:outputScript library="js" name="bootstrap.js"/>
@@ -42,35 +49,42 @@
     </h:head>
 
     <h:body>
-        <div class="container">
+            <div id="wrapper">
 
-            <div id="top">
-                <ui:insert name="top">
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+
+              <ui:insert name="top">
                     <ui:include src="header.xhtml"/>
 
-                </ui:insert>
-            </div>
-            
-            
-
-            <div class="row" style="padding-left: 15px;padding-right: 15px">   
-                <div id="left" class="col-sm-3" style="border:1px solid #dddddd;border-radius: 4px; width:24%;margin-right:1% ">
-                    <ui:insert name="left">
+               </ui:insert>
+                                <ui:insert name="left">
                         <ui:include src="sidepane.xhtml"/>
                     </ui:insert> 
-                </div>
 
-                <div id="content"  class="col-sm-9" style='border:1px solid #dddddd;border-radius: 4px;padding-right:15px;padding-left: 15px;padding-bottom:15px'>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                        <div id="content"  class="col-sm-9" style='border:1px solid #dddddd;border-radius: 4px;padding-right:15px;padding-left: 15px;padding-bottom:15px'>
                     <ui:insert name="content">Content</ui:insert>
                 </div>
 
+
             </div>
-            <div id="bottom">
-                <ui:insert name="bottom">
-                    <ui:include src="footer.xhtml"/>
-                </ui:insert>
-            </div>
+            <!-- /.container-fluid -->
+
         </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+        
+        
 
 
 
