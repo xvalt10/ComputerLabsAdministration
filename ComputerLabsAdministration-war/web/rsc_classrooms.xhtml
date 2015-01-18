@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+
+    <body >
+
+        <ui:composition template="./templates/basicTemplate.xhtml">
+
+            <ui:define name="content">
+                <f:view>
+                    <h:panelGroup layout="block" class="page-header"><h:outputText value="Classrooms" class="h1"/></h:panelGroup>
+                    <ol class="breadcrumb">
+                        <li>
+                            <i class="fa fa-dashboard"></i>  <h:link outcome="index"> Dashboard</h:link>
+                        </li>
+                        <li>
+                            <i class="fa fa-wrench"></i> Resource management
+                        </li>
+                        <li class="active">
+                            Classrooms
+                        </li>
+                    </ol>
+                    <h:panelGroup layout="block" style="margin-bottom: 10px">
+
+                        <h:commandButton class="btn btn-primary" value="Add New"  onclick="PF('dialog').show();" />
+                    </h:panelGroup>
+
+
+
+
+
+                    <h:form   prependId="false"  class="form-horizontal" >
+
+                        <p:dialog  header="Add new classroom" widgetVar="dialog" modal="true" resizable="false" style="position: absolute;">
+                            <div class="form-group">
+                                <h:outputLabel class="control-label col-sm-5" value="NumberOfSeats:" for="numberOfSeats" />
+                                <div class="col-sm-5">
+                                    <h:inputText  class="form-control" id="numberOfSeats" value="#{resourceManagedBean.classroom.numberOfSeats}" title="NumberOfSeats" required="true" requiredMessage="The NumberOfSeats field is required."/>
+                                </div>
+                                <h:message  for="numberOfSeats"/>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel class="control-label col-sm-5" value="RoomNumber:" for="roomNumber" />
+                                <div class="col-sm-5">
+                                    <h:inputText class="form-control" id="roomNumber" value="#{resourceManagedBean.classroom.roomNumber}" title="RoomNumber" required="true" requiredMessage="The RoomNumber field is required."/>
+                                </div>
+                                <h:message for="roomNumber"/>
+                            </div>   
+                            <div class="form-group">        
+                                <div class="col-sm-offset-5 col-sm-5">
+                                    <h:commandButton  class="btn btn-primary" value="Add classroom" onclick="PF('dialog').hide();" >
+                                        <f:ajax execute="@form" listener="#{resourceManagedBean.addClassroom()}" render="classroomDataTable"  />
+                                    </h:commandButton>
+                                </div>
+
+                            </div>
+                        </p:dialog>   
+
+
+
+                        <h:panelGroup id="view_form" layout="block" class="panel panel-primary" >
+                            <div class="panel-heading" ><h3 class="panel-title"><i class="fa fa-table"></i> Computer labs classrooms</h3></div>
+
+                            <h:dataTable  id="classroomDataTable" value="#{labManagedBean.availableClassrooms}" var="item" class="panel-body table table-responsive table-bordered table-striped">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="ClassRoomId"/>
+                                    </f:facet>
+                                    <h:outputText class="classRoomText" value="#{item.classRoomId}"/>
+                                    <h:inputText value="#{item.classRoomId}" style="display:none"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="NumberOfSeats"/>
+                                    </f:facet>
+                                    <h:outputText class="seatText" value="#{item.numberOfSeats}"/>
+                                    <h:inputText value="#{item.numberOfSeats}" style="display:none"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="RoomNumber"/>
+                                    </f:facet>
+                                    <h:outputText class="roomNumberText" value="#{item.roomNumber}"/>
+                                    <h:inputText value="#{item.roomNumber}" style="display:none"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header" >
+                                        <h:outputText value="Action"/>
+                                    </f:facet>
+                                    <h:commandButton class="editBtn btn-xs btn btn-primary"  value="Edit" type="button">
+                                        <f:ajax event="click" listener="#{resourceManagedBean.loadClassroom(item.classRoomId)}" />
+
+                                    </h:commandButton>
+
+                                    <h:commandButton class="saveBtn btn-xs btn btn-success"  value="Save" type="button">
+                                        <f:ajax event="click" execute="classroomDataTable" listener="#{resourceManagedBean.editClassroom()}" render="classroomDataTable"/>
+                                    </h:commandButton>
+                                </h:column>
+                            </h:dataTable>    
+
+                        </h:panelGroup>
+                    </h:form>
+
+
+
+
+
+
+
+
+
+
+                </f:view>
+            </ui:define>
+
+        </ui:composition>
+
+        <script>
+            load();
+        </script>
+    </body>
+</html>

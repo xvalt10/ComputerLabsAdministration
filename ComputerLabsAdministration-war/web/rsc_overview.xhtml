@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+
+    <body >
+
+        <ui:composition template="./templates/basicTemplate.xhtml">
+
+            <ui:define name="content">
+                <f:view>
+                    <h:panelGroup layout="block" class="page-header"><h:outputText value="Resource overview" class="h1"/></h:panelGroup>
+                    <ol class="breadcrumb">
+                        <li>
+                            <i class="fa fa-dashboard"></i>  <h:link outcome="index"> Dashboard</h:link>
+                        </li>
+                        <li>
+                            <i class="fa fa-wrench"></i> Resource management
+                        </li>
+                        <li class="active">
+                            Resource overview
+                        </li>
+                    </ol>
+
+                    <h:form   prependId="false"  class="form-horizontal" >
+
+                        <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
+
+
+
+
+
+
+                        <div class="form-group">
+                            <h:outputLabel class="control-label col-sm-1" value="Classroom:" for="classRoomId" />
+                            <div class="col-sm-3">
+                                <h:selectOneMenu class="form-control" id="classRoomId" value="#{resourceManagedBean.classroom.classRoomId}" title="ClassRoomId" required="true" requiredMessage="The ClassRoomId field is required.">
+                                    <!-- TODO: update below reference to list of available items-->
+                                    <f:ajax event="change" execute="@form" render='@form'/>
+                                    <f:selectItem itemLabel="Select a classroom" itemDisabled="true"/>
+                                    <f:selectItems value="#{labManagedBean.availableClassrooms}" var="classroom" itemLabel="#{classroom.roomNumber}" itemValue="#{classroom.classRoomId}"/>
+                                </h:selectOneMenu>
+                            </div>
+                            <h:message for="classRoomId"/>               
+                        </div>
+
+
+
+                        <c:forEach items="#{resourceManagedBean.getSeatCountPerClassroom(resourceManagedBean.classroom.classRoomId)}" step='3' varStatus="iterRow">
+                            <h:panelGroup layout="block" class="row" style="margin-bottom: 20px">
+                                <c:forEach items="#{resourceManagedBean.getSeatCountPerClassroom(resourceManagedBean.classroom.classRoomId)}" var="seatNumber" begin="#{iterRow.index}" end="#{resourceManagedBean.getSeatCountPerClassroom(resourceManagedBean.classroom.classRoomId).size()-iterRow.index>3?iterRow.index+2:resourceManagedBean.getSeatCountPerClassroom(resourceManagedBean.classroom.classRoomId).size()}">
+                                    <div class="col-sm-3">
+                                        <div class="panel panel-info">
+                                             <div class="panel-heading" ><h3 class="panel-title"><i class="fa fa-desktop"></i> <h:outputText value=' Seat no.#{seatNumber}'/></h3></div>
+
+                                            <div class="panel-body">
+                                                <h:panelGroup layout='block' class='thumbnail'>
+                                                    <h:graphicImage  library="images" name="computer.png" />
+                                                </h:panelGroup> 
+                                                <h:panelGroup class='caption'>
+                                                    <h:panelGrid columns='1'>
+                                                        <c:forEach items="#{resourceManagedBean.getHardwarePerSeatAndClassroom(resourceManagedBean.classroom.classRoomId,seatNumber)}" var='hardware' >
+                                                            <h:outputText value="#{hardware.type}"/>
+                                                            <c:forEach items="#{resourceManagedBean.getInstalledSoftware(hardware.hardwareId)}" var='software' >
+                                                                <h:outputText value='#{software.softwareId.type}'/>
+                                                            </c:forEach>
+                                                            <div class="form-group">        
+                                                                <div class=" col-sm-10">                                
+                                                                    <h:commandButton class="btn btn-info" value="More info..."/> 
+                                                                </div>
+                                                            </div>
+                                                        </c:forEach>
+                                                    </h:panelGrid>
+
+                                                </h:panelGroup>  
+                                            </div>
+                                        </div>
+                                    </div>                                    
+
+                                </c:forEach>
+
+
+                            </h:panelGroup>
+
+                        </c:forEach>
+
+
+                    </h:form>
+
+
+                </f:view>
+            </ui:define>
+
+        </ui:composition>
+
+        <script>
+            load();
+        </script>
+    </body>
+</html>

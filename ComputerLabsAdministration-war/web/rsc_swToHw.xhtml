@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+
+    <body >
+
+        <ui:composition template="./templates/basicTemplate.xhtml">
+
+            <ui:define name="content">
+                <f:view>
+                    <h:panelGroup layout="block" class="page-header"><h:outputText value="Add software to hardware" class="h1"/></h:panelGroup>
+                    <ol class="breadcrumb">
+                        <li>
+                            <i class="fa fa-dashboard"></i>  <h:link outcome="index"> Dashboard</h:link>
+                        </li>
+                        <li>
+                            <i class="fa fa-wrench"></i> Resource management
+                        </li>
+                        <li class="active">
+                            Add software to hardware
+                        </li>
+                    </ol>
+
+                    <h:form   prependId="false"  class="form-horizontal" >
+
+                        <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
+                        
+      
+
+
+
+
+
+                  
+                                
+                        <div class="form-group">
+                            <h:outputLabel class="control-label col-sm-3" value="SoftwareId:" for="softwareId" />
+                            <div class="col-sm-3">
+                                <h:selectOneMenu class="form-control" id="softwareId" value="#{resourceManagedBean.softwareByComputer.softwareId.softwareId}" title="SoftwareId" required="true" requiredMessage="The SoftwareId field is required.">
+                                    <!-- TODO: update below reference to list of available items-->
+                                    <f:selectItems value="#{resourceManagedBean.availableSoftware()}" var='software' itemLabel="#{software.type}" itemValue='#{software.softwareId}'/>
+                                </h:selectOneMenu>
+                            </div>
+                            <h:message for='softwareId'/>             
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel class="control-label col-sm-3" value="ComputerId:" for="computerId" />
+                            <div class="col-sm-3">
+                                <h:selectOneMenu class="form-control" id="computerId" value="#{resourceManagedBean.softwareByComputer.computerId.hardwareId}" title="ComputerId" required="true" requiredMessage="The ComputerId field is required.">
+                                    <!-- TODO: update below reference to list of available items-->
+                                    <f:selectItems value="#{resourceManagedBean.availableHardware()}"  var="computer" itemLabel="#{computer.type}-Room:#{computer.classRoomId.roomNumber}-Seat no.#{computer.seatNo}" itemValue="#{computer.hardwareId}"/>
+                                </h:selectOneMenu>
+                            </div>
+                            <h:message for='computerId'/>         
+                        </div>
+                                
+                           
+
+                        <div class="form-group">        
+                            <div class="col-sm-offset-3 col-sm-10">                                
+                                <h:commandButton class="btn btn-primary" value='Add software to workstation' action='#{resourceManagedBean.addSofwareToComputerStation(resourceManagedBean.softwareByComputer.computerId.hardwareId, resourceManagedBean.softwareByComputer.softwareId.softwareId)}'/>
+                            </div>
+                        </div>
+                        
+
+                    </h:form>
+
+
+
+                </f:view>
+            </ui:define>
+
+        </ui:composition>
+
+        <script>
+            load();
+        </script>
+    </body>
+</html>

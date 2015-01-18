@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+
+    <body >
+
+        <ui:composition template="./templates/basicTemplate.xhtml">
+
+            <ui:define name="content">
+                <f:view>
+                    <h:panelGroup layout="block" class="page-header"><h:outputText value="Software" class="h1"/></h:panelGroup>
+                    <ol class="breadcrumb">
+                        <li>
+                            <i class="fa fa-dashboard"></i>  <h:link outcome="index"> Dashboard</h:link>
+                        </li>
+                        <li>
+                            <i class="fa fa-wrench"></i> Resource management
+                        </li>
+                        <li class="active">
+                            Software
+                        </li>
+                    </ol>
+                    <h:panelGroup layout="block" style="margin-bottom: 10px">
+
+                        <h:button class="btn btn-primary" value="Add New"  onclick="PF('dialog').show(); return false;" />
+                    </h:panelGroup>
+                    <h:form   prependId="false"  class="form-horizontal" >
+                        <p:dialog  header="Add new software" widgetVar="dialog" modal="true" resizable="false" style="position: absolute;">
+
+                        <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
+                        
+      
+                        <div class="form-group">
+                            <h:outputLabel class="control-label col-sm-5" value="Type:" for="type" />
+                            <div class="col-sm-5">
+                                <h:inputText class="form-control" id="type" value="#{resourceManagedBean.software.type}" title="Type" required="true" requiredMessage="The Type field is required."/>
+                            </div>
+                            <h:message for="type"/>
+                        </div>
+          
+
+                  
+                                
+                        <div class="form-group">
+                            <h:outputLabel class="control-label col-sm-5" value="Date of purchase:" for="dateOfPurchase" />
+                            <div class="col-sm-5">
+                                <h:inputText  class="form-control datepicker" id="dateOfPurchase"  value="#{resourceManagedBean.software.dateOfPurchae}" title="DateOfPurchae" required="true" requiredMessage="The DateOfPurchae field is required.">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:inputText>
+                            </div>
+                            <h:message for="dateOfPurchase"/>              
+                        </div>
+
+                        <div class="form-group">
+                            <h:outputLabel class="control-label col-sm-5"  value="Date of licence expiration:" for="expirationOfLicence" />
+                            <div class="col-sm-5">
+                                <h:inputText class="form-control datepicker" id="expirationOfLicence" value="#{resourceManagedBean.software.expirationOfLicence}" title="ExpirationOfLicence" required="true" requiredMessage="The ExpirationOfLicence field is required.">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:inputText>
+                            </div>
+                                <h:message for="expirationOfLicence"/>
+                        </div>
+
+
+                        
+                        
+
+                        <div class="form-group">
+                            <h:outputLabel class="control-label col-sm-5"  value="CurrentState:" for="currentState" />
+                            <div class="col-sm-5">
+                                <h:inputText class="form-control" id="currentState" value="#{resourceManagedBean.software.currentState}" title="CurrentState" />
+                            </div>
+
+                            <h:message for="currentState"/>
+                        </div>
+
+                       
+
+                        <div class="form-group">        
+                            <div class="col-sm-offset-5 col-sm-5">
+                                <h:commandButton class="btn btn-primary" value="Add software"  onclick="PF('dialog').hide();" >
+                                    <f:ajax execute="@form" render="softwareDataTable" listener="#{resourceManagedBean.addSoftware()}" />
+                                </h:commandButton>
+                            </div>
+                        </div>
+                        </p:dialog>
+                        <h:panelGroup id="view_form" layout="block" class="panel panel-primary" >
+                            <div class="panel-heading" ><h3 class="panel-title"><i class="fa fa-table"></i> List of purchased software</h3></div>
+
+
+                            <h:dataTable id="softwareDataTable" value="#{resourceManagedBean.availableSoftware()}" var="item" class="panel-body table table-responsive table-bordered table-striped">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="SoftwareId"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.softwareId}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="DateOfPurchae"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.dateOfPurchae}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="ExpirationOfLicence"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.expirationOfLicence}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Type"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.type}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="CurrentState"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.currentState}"/>
+                                </h:column>
+                            </h:dataTable>                         
+                        </h:panelGroup>
+                    </h:form>
+
+
+
+                </f:view>
+            </ui:define>
+
+        </ui:composition>
+
+        <script>
+            load();
+        </script>
+    </body>
+</html>
