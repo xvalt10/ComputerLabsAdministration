@@ -11,48 +11,86 @@
 
             <ui:define name="content">
                 <f:view>
+                     <h:panelGroup layout="block" class="page-header">
+                        <h:outputText value="User registration" class='h1' />
+                        </h:panelGroup>
 
-
-                    <h:form>
-                        <h1><h:outputText value="User registration"/></h1>
+                    <h:form class="form-horizontal">
+   
                         <h:messages globalOnly="true" infoClass="alert alert-success" style="list-style-type: none;padding-left: 0px"/>
-                        <h:panelGrid columns="3">
                             
-                            <h:outputLabel value="RoleId:" for="roleId" />
-                            <h:selectOneMenu id="roleId" value="#{userManagedBean.user.roleId}" title="RoleId" required="true" requiredMessage="The RoleId field is required." converter='userCategoryConverter'>
+                            
+                            <div class="form-group">
+                                <h:outputLabel class="control-label col-sm-2"  value="RoleId:" for="roleId" />
+                                                            <div class="col-sm-3">
+
+                            <h:selectOneMenu class="form-control" id="roleId" value="#{userManagedBean.user.roleId}" title="RoleId" required="true" requiredMessage="The RoleId field is required." converter='userCategoryConverter'>
                                 <f:selectItem itemValue="1" itemLabel="#{userManagedBean.loadUserRole(1).roleName}"/>
                                 <f:selectItem itemValue="2" itemLabel="#{userManagedBean.loadUserRole(2).roleName}"/>
                                 <f:selectItem itemValue="3" itemLabel="#{userManagedBean.loadUserRole(3).roleName}"/>
                             </h:selectOneMenu>
-                            <h:message for="roleId"/>
-                            
-                            <h:outputLabel value="Name:" for="name" />
-                            <h:inputText id="name" value="#{userManagedBean.user.name}" title="Username" required="true" requiredMessage="The Name field is required."/>
+                                                                                            </div>
+                                     <h:message for="roleId"/>
+
+                            </div>
+                        
+                            <div class="form-group">
+                            <h:outputLabel class="control-label col-sm-2" value="Name:" for="name" />
+                            <div class="col-sm-3">
+                            <h:inputText class="form-control" id="name" value="#{userManagedBean.user.name}" title="Username" required="true" requiredMessage="The Name field is required."/>
+                            </div>
                             <h:message for="name"/>
-                            
-                            <h:outputLabel value="Username:" for="username" />
-                            <h:inputText id="username" value="#{userManagedBean.user.username}" title="Username" required="true" requiredMessage="The Username field is required."/>
+                            </div>
+                        
+                            <div class="form-group">
+                            <h:outputLabel class="control-label col-sm-2" value="Username:" for="username" />
+                            <div class="col-sm-3">
+                            <h:inputText class="form-control" id="username" value="#{userManagedBean.user.username}" title="Username" required="true" requiredMessage="The Username field is required."/>
+                            </div>
                             <h:message for="username"/>
-                            
-                            <h:outputLabel value="Password:" for="password" />
-                            <h:inputText id="password" value="#{userManagedBean.user.password}" title="Password" required="true" requiredMessage="The Password field is required."/>
+                            </div>                        
+                        
+                        
+                            <div class="form-group">
+                            <h:outputLabel class="control-label col-sm-2" value="Password:" for="password" />
+                            <div class="col-sm-3">
+                            <h:inputSecret class="form-control" id="password" value="#{userManagedBean.user.password}" title="Password" required="true" requiredMessage="The Password field is required."/>
+                            </div>
                             <h:message for="password"/>
+                            </div>          
                             
-                            <h:outputLabel value="Email:" for="email" />
-                            <h:inputText id="email" value="#{userManagedBean.user.email}" title="Email" required="true" requiredMessage="The Email field is required."/>
+                            <div class="form-group">
+                            <h:outputLabel class="control-label col-sm-2" value="Email:" for="email" />
+                            <div class="col-sm-3">
+                            <h:inputText class="form-control" id="email" value="#{userManagedBean.user.email}" title="Email" required="true" requiredMessage="The Email field is required."/>
+                            </div>
                             <h:message for="email"/>
-                            
-                            <h:outputLabel value="MobileNumber:" for="mobileNumber" />
-                            <h:inputText id="mobileNumber" value="#{userManagedBean.user.mobileNumber}" title="MobileNumber" />
+                            </div>                    
+         
+                             <div class="form-group">
+                            <h:outputLabel class="control-label col-sm-2" value="MobileNumber:" for="mobileNumber" />
+                            <div class="col-sm-3">
+                            <h:inputText class="form-control" id="mobileNumber" value="#{userManagedBean.user.mobileNumber}" title="MobileNumber" />
+                            </div>
                             <h:message for="mobileNumber"/>
-                            
-                            <h:outputLabel value="Department:" for="department" />
-                            <h:inputText id="department" value="#{userManagedBean.user.department}" title="Department" />
+                            </div>   
+                        
+                            <div class="form-group">
+                            <h:outputLabel class="control-label col-sm-2" value="Department:" for="department" />
+                            <div class="col-sm-3">
+                            <h:inputText class="form-control" id="department" value="#{userManagedBean.user.department}" title="Department" />
+                            </div>
                             <h:message for="department"/>
+                            </div>   
+
                             
-                            <h:commandButton value="Register User" action="#{userManagedBean.registerUser()}"/>
+                            <div class="form-group">        
+                              <div class="col-sm-offset-2 col-sm-10">
+                            <h:commandButton class="btn btn-primary" value="Register User" action="#{userManagedBean.registerUser()}"/>
+                           </div>
+                                </div>
                             
-                       </h:panelGrid>
+                            
                     </h:form>
                     
 

@@ -16,8 +16,18 @@
 
 
                     <h:form>
-                        <h:panelGroup layout="block" class="page-header" style="margin-top:20px">
-                            <h:outputText value="Complaint Details" class="h2"/>                        </h:panelGroup>
+                        <h:panelGroup layout="block" class="page-header" ">
+                            <h:outputText value="Complaint Details" class="h1"/>                        
+                        </h:panelGroup>
+                        <ol class="breadcrumb">
+                            <li>
+                                <i class="fa fa-dashboard"></i>  <h:link outcome="index"> Dashboard</h:link>
+                            </li>
+                            <li class="active">
+                                <i class="fa fa-wrench"></i> Complaint Details
+                            </li>
+                        </ol>
+
                         <p:tabView>
                             <p:tab title="Complaint Description">
                                 <h:panelGrid columns="2">

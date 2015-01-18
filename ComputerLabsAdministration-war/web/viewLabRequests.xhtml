@@ -12,9 +12,18 @@
 
             <ui:define name="content">
                 <f:view>
-
- <h1><h:outputText value="Pending lab requests"/></h1>
- <h:panelGroup layout="block" class="alert alert-info">
+                        <h:panelGroup layout="block" class="page-header">
+                            <h:outputText value="Pending lab requests" class="h1"/>
+                        </h:panelGroup>
+                        <ol class="breadcrumb">
+                            <li>
+                                <i class="fa fa-dashboard"></i>  <h:link outcome="index"> Dashboard</h:link>
+                            </li>
+                            <li class="active">
+                                <i class="fa fa-wrench"></i> Pending lab requests
+                            </li>
+                        </ol>
+                        <h:panelGroup layout="block" class="alert alert-info">
                         <h:outputText  value="Currently you have no pending lab requests."/>
                         </h:panelGroup>
                     <h:form rendered="#{labManagedBean.pendingLabrequests.size()>0}">

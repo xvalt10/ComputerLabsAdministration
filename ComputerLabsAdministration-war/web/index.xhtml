@@ -12,9 +12,15 @@
 
             <ui:define name="content">
                 
-                <h:panelGroup layout="block" class="page-header" style="margin-top:20px">
-                        <h:outputText value="ComputerLabs Administration" class="h2"/>
-                    </h:panelGroup>
+
+                        <h:panelGroup layout="block" class="page-header">
+                            <h:outputText value="ComputerLabs Administration" class="h1"/>
+                        </h:panelGroup>
+<ol class="breadcrumb">
+                            <li class="active">
+                                <i class="fa fa-dashboard"></i> Dashboard
+                            </li>
+                        </ol>
                 <h:panelGroup layout='block' class="alert alert-success" rendered="#{facesContext.externalContext.userPrincipal!=null}" style="margin-top:10px">
                         <h:outputText value="Welcome #{facesContext.externalContext.userPrincipal}! You are logged in to the ComputerLabs administration." />
                     </h:panelGroup>

@@ -14,47 +14,66 @@
 
 
                     <h:form>
-                        <h1><h:outputText value="#{param.typeOfComplaints}"/></h1>
+                        <h:panelGroup layout="block" class="page-header">
+
+                            <h:outputText value="#{param.typeOfComplaints}" class="h1" />
+                        </h:panelGroup>
+                        <ol class="breadcrumb">
+                            <li>
+                                <i class="fa fa-dashboard"></i>  <a href="/ComputerLabsAdministration-war/faces/index.xhtml"> Dashboard</a>
+                            </li>
+                            <li class="active">
+                                <i class="fa fa-wrench"></i> View assigned complaints
+
+                            </li>
+                        </ol>
                         <h:outputText value="No complaints currently." rendered="#{complaintsManagedBean.complaints.size()==0}"/>
-                                  <h:dataTable value="#{complaintsManagedBean.complaints}" var="item" class="table table-striped" rendered="#{complaintsManagedBean.complaints.size()>0}">
-                            
-                            <h:column>
-                                <f:facet name="header">
+
+                        <div class="table-responsive">
+
+
+
+                            <h:dataTable value="#{complaintsManagedBean.complaints}" var="item" class="table table-hover table-striped" rendered="#{complaintsManagedBean.complaints.size()>0}">
+
+                                <h:column>
+                                    <f:facet name="header">
                                         <h:outputText value="ComplaintId"/>
-                                </f:facet><h:commandLink action="#{complaintsManagedBean.loadComplaintDetails(item.complaintId)}">
-                                <h:outputText value="#{item.complaintId}"/></h:commandLink>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="SubmissionTimestamp"/>
-                                </f:facet>
-                                <h:outputText value="#{item.submissionTimestamp}">
-                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                </h:outputText>
-                            </h:column>
-                           
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="ComplaintTitle"/>
-                                </f:facet>
-                                <h:outputText value="#{item.complaintTitle}"/>
-                            </h:column>
-                         
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="CurrentStatus"/>
-                                </f:facet>
-                                <h:outputText value="#{item.currentStatus}"/>
-                            </h:column>
-                          
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="AssignedTo"/>
-                                </f:facet>
-                                <h:outputText value="#{item.assignedTo.username}"/>
-                            </h:column>
-                            
-                        </h:dataTable>
+                                    </f:facet><h:commandLink action="#{complaintsManagedBean.loadComplaintDetails(item.complaintId)}">
+                                        <h:outputText value="#{item.complaintId}"/></h:commandLink>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="SubmissionTimestamp"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.submissionTimestamp}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="ComplaintTitle"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.complaintTitle}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="CurrentStatus"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.currentStatus}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="AssignedTo"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.assignedTo.username}"/>
+                                </h:column>
+
+                            </h:dataTable>
+                        </div>
+
                     </h:form>
                 </f:view>
 

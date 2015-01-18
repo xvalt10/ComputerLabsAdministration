@@ -11,22 +11,35 @@
 
             <ui:define name="content">
                 <f:view>
-                    <h:panelGroup layout="block" class="page-header"><h1>Login</h1></h:panelGroup>
+                    <h:panelGroup layout="block" class="page-header"><h:outputText value="Login" class="h1"/></h:panelGroup>
                    
                     <h:panelGroup layout='block' class="alert alert-danger" rendered="#{facesContext.externalContext.requestParameterMap!='{}'}">
                      <h:outputText value="Wrong username or password."  rendered="#{facesContext.externalContext.requestParameterMap!='{}'}" />
                     </h:panelGroup>
-                    <h:form id="login" onsubmit="document.getElementById('login').action = 'j_security_check'" prependId="false">
-                        <h:panelGrid columns="3">
-                            <h:outputLabel value="Username:" for="j_username" />
-                            <h:inputText  title="Username" id="j_username" class="form-control"/>
+                    <h:form class="form-horizontal" id="login" onsubmit="document.getElementById('login').action = 'j_security_check'" prependId="false">
+
+                            <div class="form-group">
+                            <h:outputLabel class="control-label col-sm-2" value="Username:" for="j_username" />
+                            <div class="col-sm-3">
+                                <h:inputText  title="Username" id="j_username" class="form-control "/>
+                            </div>
                             <h:message for="username" />
+                            </div>
 
-                            <h:outputLabel value="Password:" for="j_password" />
+                            <div class="form-group">
+
+                            <h:outputLabel class="control-label col-sm-2" value="Password:" for="j_password" />
+                            <div class="col-sm-3">
                             <h:inputSecret   title="Password" required="true" requiredMessage="The Password field is required." id="j_password" class="form-control"/>
+                            </div>
                             <h:message for="password" />
-
-                            <h:commandButton class="btn btn-default" value="Login"/>
+                            </div>
+                            <div class="form-group">        
+                              <div class="col-sm-offset-2 col-sm-10">
+                            <h:commandButton class="btn btn-primary" value="Login"/>
+                           </div>
+                                </div>
+                           
                                 
                             
                           
@@ -34,7 +47,7 @@
 
 
 
-                        </h:panelGrid>
+                    
   
                     </h:form>
 
