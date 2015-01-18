@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+
+    <body >
+
+        <ui:composition template="./templates/basicTemplate.xhtml">
+
+            <ui:define name="content">
+                <f:view>
+                    <h:panelGroup layout="block" class="page-header"><h:outputText value="Hardware" class="h1"/></h:panelGroup>
+                    <ol class="breadcrumb">
+                        <li>
+                            <i class="fa fa-dashboard"></i>  <h:link outcome="index"> Dashboard</h:link>
+                        </li>
+                        <li>
+                            <i class="fa fa-wrench"></i> Resource management
+                        </li>
+                        <li class="active">
+                            Hardware
+                        </li>
+                    </ol>
+                    <h:panelGroup layout="block" style="margin-bottom: 10px">
+
+                        <h:button class="btn btn-primary" value="Add New"  onclick="PF('dialog').show(); return false;" />
+                    </h:panelGroup>
+                    <h:form   prependId="false"  class="form-horizontal" >
+                        <p:dialog  header="Add new hardware" widgetVar="dialog" modal="true" resizable="false" style="position: absolute;">
+
+                        <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
+                        <div class="form-group">
+                            <h:outputLabel class="control-label col-sm-5" value="Type:" for="type" />
+                            <div class="col-sm-5">
+                                <h:inputText class="form-control" id="type" value="#{resourceManagedBean.hardware.type}" title="Type" required="true" requiredMessage="The Type field is required."/>
+                            </div>
+                            <h:message for="type"/>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel class="control-label col-sm-5" value="Date of purchase:" for="dateOfPurchase" />
+                            <div class="col-sm-5">
+                                <h:inputText  id="dateOfPurchase" class="form-control datepicker" value="#{resourceManagedBean.hardware.dateOfPurchase}" title="DateOfPurchase" required="true" requiredMessage="The DateOfPurchase field is required.">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:inputText>
+                            </div>
+
+                            <h:message for="dateOfPurchase"/>              
+                        </div>
+
+                        <div class="form-group">
+                            <h:outputLabel class="control-label col-sm-5"  value="Date of warranty expiration:" for="expirationOfWarranty" />
+                            <div class="col-sm-5">
+                                <h:inputText id="expirationOfWarranty" class="form-control datepicker" value="#{resourceManagedBean.hardware.expirationOfWarranty}" title="ExpirationOfWarranty" required="true" requiredMessage="The ExpirationOfWarranty field is required.">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:inputText>
+                            </div>
+                            <h:message for="expirationOfWarranty"/>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <h:outputLabel class="control-label col-sm-5" value="Current state:" for="currentState" />
+                            <div class="col-sm-5">
+                                <h:inputText class="form-control" id="currentState" value="#{resourceManagedBean.hardware.currentState}" title="CurrentState" />
+                            </div>
+
+                            <h:message for="currentState"/>
+                        </div>
+
+                        <div class="form-group">
+                            <h:outputLabel class="control-label col-sm-5" value="Classroom:" for="classRoom" />
+                            <div class="col-sm-5">
+                                <h:selectOneMenu class="form-control" id="classRoom" value="#{resourceManagedBean.classroom.classRoomId}" title="ClassRoomId" required="true" requiredMessage="The ClassRoomId field is required.">
+                                    <!-- TODO: update below reference to list of available items-->
+                                    <f:selectItems value="#{labManagedBean.availableClassrooms}" var="classroom" itemLabel="#{classroom.roomNumber}" itemValue="#{classroom.classRoomId}"/>
+                                </h:selectOneMenu>
+                            </div>
+
+                            <h:message for="classRoom"/>
+                        </div>
+
+
+                        <div class="form-group">
+                            <h:outputLabel class="control-label col-sm-5" value="Seat number:" for="seat" />
+                            <div class="col-sm-5">
+                                <h:inputText class="form-control" id="seat" value="#{resourceManagedBean.hardware.seatNo}" title="seat" />
+                            </div>
+                            <h:message for="seat"/>
+                        </div>   
+
+                        <div class="form-group">        
+                            <div class="col-sm-offset-5 col-sm-5">
+                                <h:commandButton class="btn btn-primary" value="Add hardware"  onclick="PF('dialog').hide();" >
+                                    <f:ajax listener="#{resourceManagedBean.addHardware(resourceManagedBean.classroom.classRoomId)}" render="hardwareDataTable" execute="@form" />
+                                </h:commandButton>
+                            </div>
+                        </div>
+                                                </p:dialog>
+                        <h:panelGroup id="view_form" layout="block" class="panel panel-primary" >
+                            <div class="panel-heading" ><h3 class="panel-title"><i class="fa fa-table"></i> List of purchased hardware</h3></div>
+
+
+                            <h:dataTable id="hardwareDataTable" value="#{resourceManagedBean.availableHardware()}" var="item" class="panel-body table table-responsive table-bordered table-striped">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="HardwareId"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.hardwareId}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="DateOfPurchase"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.dateOfPurchase}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="ExpirationOfWarranty"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.expirationOfWarranty}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Type"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.type}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="CurrentState"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.currentState}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Room number"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.classRoomId.roomNumber}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Seat number"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.seatNo}"/>
+                                </h:column>
+                            </h:dataTable>                             
+                        </h:panelGroup>
+                    </h:form>
+
+
+
+                </f:view>
+            </ui:define>
+
+        </ui:composition>
+
+        <script>
+            load();
+        </script>
+    </body>
+</html>
