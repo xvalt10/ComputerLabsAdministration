@@ -14,11 +14,13 @@
 
 
                     <h:form>
-                        <h1><h:outputText value="Submit complaint" /></h1>
+                        <h:panelGroup layout="block" class="page-header">
+                        <h:outputText value="Submit complaint" class="h2"/>
+                        </h:panelGroup>
                         
                         <h:messages globalOnly="true" style="list-style-type: none;padding-left: 0px" infoClass="alert alert-success"/>
                         
-                        <h:panelGrid columns="3">
+                        <h:panelGrid columns="3" columnClasses="text-topalign">
                             
                             <h:outputLabel value="Complaint title:" for="complaintTitle"/>
                             <h:inputText id="complaintTitle" value="#{complaintsManagedBean.complaint.complaintTitle}" title="ComplaintTitle" required="true" requiredMessage="The ComplaintTitle field is required."/>

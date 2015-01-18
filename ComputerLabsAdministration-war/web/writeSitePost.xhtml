@@ -15,13 +15,15 @@
 
 
                     <h:form enctype="multipart/form-data">
-                        <h1><h:outputText value="Write new post for the lab news section"/></h1>
-                        <h:panelGrid columns="2">
+                        <h:panelGroup layout="block" class="page-header">
+                        <h:outputText value="New site post (computer lab news section)" class="h2"/>
+                        </h:panelGroup>
+                        <h:panelGrid columns="2" columnClasses="text-topalign">
                             
                             <h:outputLabel value="PostTitle:" for="postTitle" />
                             <h:inputText id="postTitle" value="#{sitePostManagedBean.post.postTitle}" title="PostTitle" />
                             <h:outputLabel value="PostText:" for="postText" />
-                            <h:inputText id="postText" value="#{sitePostManagedBean.post.postText}" title="PostText" />
+                            <h:inputTextarea rows="10" cols="50" id="postText" value="#{sitePostManagedBean.post.postText}" title="PostText" />
                            
                            
                             

@@ -15,7 +15,7 @@
 
             <ui:define name="content">
                 <f:view>
-                    <ul class="nav nav-tabs" style="margin-top:10px;border-bottom: none"> 
+                    <ul id="tabsList" class="nav nav-tabs" style="margin-top:10px;border-bottom: none"> 
                         <li id="classroomTab" class="active"><a href="#">Classrooms</a></li> 
                         <li id="hardwareTab"><a href="#">Hardware</a></li> 
                         <li id="softwareTab"><a href="#">Software</a></li> 
@@ -147,7 +147,9 @@
 
 
 
-                                <h:commandButton value="Add hardware" action="#{resourceManagedBean.addHardware(resourceManagedBean.classroom.classRoomId)}"/> 
+                                <h:commandButton value="Add hardware" action="#{resourceManagedBean.addHardware(resourceManagedBean.classroom.classRoomId)}"/>
+                                    
+                                
 
 
 

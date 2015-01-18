@@ -10,11 +10,15 @@ import entities.Hardware;
 import entities.InstalledSoftware;
 import entities.Software;
 import helperClasses.JsfUtil;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import sessionBeans.ClassroomsFacade;
 import sessionBeans.HardwareFacade;
@@ -123,12 +127,16 @@ public class ResourceManagedBean {
     
     }
       
-      public String editHardware(){
+      public void editHardware(){
       hardwareFacade.edit(hardware);
       JsfUtil.addSuccessMessage("Hardware "+hardware.getType()+" has been successfully edited.");
       hardware=new Hardware();
       
-       return "resourcesMgmt";
+         try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("resourcesMgmt.xhtml?tab=hardware");
+        } catch (IOException ex) {
+            Logger.getLogger(ResourceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
       }
     
     public String editClassroom() {
@@ -141,12 +149,16 @@ public class ResourceManagedBean {
           
     }
     
-     public String editSoftware(){
+     public void editSoftware(){
       softwareFacade.edit(software);
       JsfUtil.addSuccessMessage("Software "+software.getType()+" has been successfully edited.");
       software=new Software();
       
-       return "resourcesMgmt";
+         try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("resourcesMgmt.xhtml?tab=software");
+        } catch (IOException ex) {
+            Logger.getLogger(ResourceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
       }
     
     public void deleteHardware(int hardwareId){
@@ -167,6 +179,11 @@ public class ResourceManagedBean {
         hardwareFacade.create(hardware);
         JsfUtil.addSuccessMessage("Hardware "+hardware.getType()+" has been successfully added.");
         hardware=new Hardware();
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("resourcesMgmt.xhtml?tab=hardware");
+        } catch (IOException ex) {
+            Logger.getLogger(ResourceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public List<Hardware> availableHardware(){
@@ -189,12 +206,23 @@ public class ResourceManagedBean {
         softwareFacade.create(software);
         JsfUtil.addSuccessMessage("Software "+software.getType()+" has been successfully added.");
         software=new Software();
+          try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("resourcesMgmt.xhtml?tab=software");
+        } catch (IOException ex) {
+            Logger.getLogger(ResourceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void addSofwareToComputerStation(int hardwareId, int softwareId) {
         softwareByComputer.setComputerId(hardwareFacade.find(hardwareId));
         softwareByComputer.setSoftwareId(softwareFacade.find(softwareId));
         installedSoftwareFacade.create(softwareByComputer);
+        
+          try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("resourcesMgmt.xhtml?tab=overview");
+        } catch (IOException ex) {
+            Logger.getLogger(ResourceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public List<InstalledSoftware> getInstalledSoftware(int computerId){

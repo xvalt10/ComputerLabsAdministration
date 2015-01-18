@@ -14,8 +14,10 @@
 
 
                     <h:form>
-                        <h1><h:outputText value="#{param.typeOfComplaints}"/></h1>
-                        <h:outputText value="No complaints currently." rendered="#{complaintsManagedBean.complaints.size()==0}"/>
+                        <h:panelGroup layout="block" class="page-header">
+                        <h:outputText value="#{param.typeOfComplaints}" class="h2"/>
+                        </h:panelGroup>
+                        <h:outputText value="#{param.typeOfComplaints=='Submitted complaints'?'You haven\'t submitted any complaints.':'No complaints are currently assigned to you.'}" rendered="#{complaintsManagedBean.complaints.size()==0}"/>
                                   <h:dataTable value="#{complaintsManagedBean.complaints}" var="item" class="table table-striped" rendered="#{complaintsManagedBean.complaints.size()>0}">
                             
                             <h:column>

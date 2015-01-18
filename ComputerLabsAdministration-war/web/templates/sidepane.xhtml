@@ -24,8 +24,8 @@
               
             <li><h:link value="Lab request" outcome='labRequest' rendered="#{userManagedBean.getUserRole().equals('headOfDepartment')||userManagedBean.getUserRole().equals('admin')}"/></li>
           <li><h:link value='Lab schedule' outcome='schedule' /></li> 
-          <li><h:link value='Resource management' outcome='resourcesMgmt' /></li> 
-          <li><h:link value='Write a post' outcome='writeSitePost' /></li> 
+          <li><h:link value='Resource management' outcome='resourcesMgmt' rendered="#{facesContext.externalContext.userPrincipal!=null}"/></li> 
+          <li><h:link value='Write a post' outcome='writeSitePost' rendered="#{userManagedBean.getUserRole().equals('headOfDepartment')||userManagedBean.getUserRole().equals('instructor')}"/></li> 
            <li><h:link value='Computer lab news' outcome='labNews' /></li> 
           
           </ul>

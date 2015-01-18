@@ -12,14 +12,14 @@
 
             <ui:define name="content">
                 
-                <h:panelGroup layout="block" class="page-header" style="margin-top:20px">
+                <h:panelGroup layout="block" class="page-header" style="margin-top:20px;text-align: center">
                         <h:outputText value="ComputerLabs Administration" class="h2"/>
                     </h:panelGroup>
                 <h:panelGroup layout='block' class="alert alert-success" rendered="#{facesContext.externalContext.userPrincipal!=null}" style="margin-top:10px">
                         <h:outputText value="Welcome #{facesContext.externalContext.userPrincipal}! You are logged in to the ComputerLabs administration." />
                     </h:panelGroup>
                 
-                <h:panelGroup layout="block" style="row">
+<!--                <h:panelGroup layout="block" style="row">
                     <h:panelGroup layout="block" class="col col-sm-6">
                         Admin section
                     </h:panelGroup>
@@ -37,7 +37,61 @@
                         Instructor section
                     </h:panelGroup>
                    
-                </h:panelGroup>
+                </h:panelGroup>-->
+                
+                <div class="container">
+                    <br></br>
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+     
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+
+      <div class="item active">
+          <h:graphicImage library="images" name="coverImage1.jpg"  height="400"/>
+       
+        <div class="carousel-caption">
+          <h3>Bring students and instructors closer together</h3>
+          <p>Post updates to course lab web pages, view lab schedule and much more...</p>
+        </div>
+      </div>
+
+      <div class="item">
+        <h:graphicImage library="images" name="coverImage2.jpg"   height="400"/>
+        <div class="carousel-caption">
+          <h3>Manage hardware and software</h3>
+          <p>ComputerLabs Administration allows you to easily track the state of your equipment conditions.</p>
+        </div>
+      </div>
+    
+      <div class="item">
+       <h:graphicImage library="images" name="coverImage5.jpg"  height="400"/>
+        <div class="carousel-caption">
+          <h3 >Manage complaints via a ticketing system</h3>
+          <p >Computer labs administration offers you a complete solution for complaints management.</p>
+        </div>
+      </div>
+
+  
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
                
             </ui:define>
 
