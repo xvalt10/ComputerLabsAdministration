@@ -30,21 +30,21 @@
                             <h:outputLabel value="Name:" for="name" />
                             <ui:remove>Generates input field for name with prepared alert messages for empty field</ui:remove>
                             <h:inputText id="name" value="#{userManagedBean.user.name}" title="Username" required="true" requiredMessage="The Name field is required."/>
-                            <ui:remove>Generates allert messages</ui:remove>
+                            <ui:remove>Generates alert messages</ui:remove>
                             <h:message for="name"/>
 
                             <ui:remove>Generates Label for Username input field</ui:remove>
                             <h:outputLabel value="Username:" for="username" />
                             <ui:remove>Generates input field for username with prepared alert messages for empty field</ui:remove>
                             <h:inputText id="username" value="#{userManagedBean.user.username}" title="Username" required="true" requiredMessage="The Username field is required."/>
-                            <ui:remove>Generates allert messages</ui:remove>
+                            <ui:remove>Generates alert messages</ui:remove>
                             <h:message for="username"/>
 
                             <ui:remove>Generates Label for Password input field</ui:remove>
                             <h:outputLabel value="Password:" for="password" />
                             <ui:remove>Generates input field for password with prepared alert messages for empty field</ui:remove>
                             <h:inputSecret id="password" value="#{userManagedBean.user.password}" title="Password" required="true" requiredMessage="The Password field is required."/>
-                            <ui:remove>Generates allert messages</ui:remove>
+                            <ui:remove>Generates alert messages</ui:remove>
                             <h:message for="password"/>
 
                             <ui:remove>Generates Label for Email input field</ui:remove>
@@ -54,7 +54,7 @@
                                 <ui:remove>Pattern for email validation</ui:remove> 
                                 <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                             </h:inputText>
-                            <ui:remove>Generates allert messages</ui:remove>
+                            <ui:remove>Generates alert messages</ui:remove>
                             <h:message for="email"/>
 
                             <ui:remove>Generates Label for Number input field</ui:remove>
@@ -62,9 +62,9 @@
                             <ui:remove>Generates input field for number with prepared alert messages for not / wrongly filled field</ui:remove>
                             <h:inputText id="mobileNumber" value="#{userManagedBean.user.mobileNumber}" title="MobileNumber" validatorMessage="Invalid number format!" >
                                 <ui:remove>Pattern for number validation</ui:remove> 
-                                <f:validateRegex pattern="^$|^+[0-9]{12}$" />
+                                <f:validateRegex pattern="^$|^\+[0-9]{12}$" />
                             </h:inputText>
-                            <ui:remove>Generates allert messages</ui:remove>
+                            <ui:remove>Generates alert messages</ui:remove>
                             <h:message for="mobileNumber"/>
 
                             <ui:remove>Generates Label for Department input field</ui:remove>
