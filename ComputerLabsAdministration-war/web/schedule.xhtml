@@ -11,7 +11,7 @@
         <ui:composition template="./templates/basicTemplate.xhtml">
 
             <ui:define name="content">
-                <h:panelGroup layout="block" class="page-header" style="margin-top:20px"><h:outputText value="Computer Labs Schedule" class="h2"/></h:panelGroup>
+                <h:panelGroup layout="block" class="page-header" ><h:outputText value="Computer Labs Schedule" class="h1"/></h:panelGroup>
                 
                 <c:forEach items="#{labManagedBean.getAvailableClassrooms()}" var="classroom">
                     <h:outputText class="h4" value="Classroom no.#{classroom.roomNumber}"/>
