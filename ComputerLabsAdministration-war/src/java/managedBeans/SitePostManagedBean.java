@@ -15,6 +15,7 @@ import java.io.OutputStream;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -141,6 +142,15 @@ public class SitePostManagedBean implements Serializable {
         post.setSubmittedBy(usersFacade.getUserByUsername(FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName()));
     sitePostFacade.create(post);
     post=new SitePost();
+    }
+    
+    
+    public List<Integer> countLabsWithPosts(){
+    return sitePostFacade.countPostsByLabId();
+    }
+    
+    public List<SitePost> postsByLabId(int computerLabId){
+    return sitePostFacade.getPostsByLabId(computerLabId);
     }
     
 }

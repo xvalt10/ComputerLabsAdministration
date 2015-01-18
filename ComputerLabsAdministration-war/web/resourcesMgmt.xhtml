@@ -40,21 +40,21 @@
                                 <h:message for="roomNumber"/>
 
                                 <h:commandButton value="Add classroom" action="#{resourceManagedBean.addClassroom()}"/>
-                                  
-                                
-                                
-                                
-                                    
-                               
-                                
+
+
+
+
+
+
+
                             </h:panelGrid>
                             <h:panelGroup layout='block' class='page-header'>
                                 <h:outputText value="Computer labs classrooms" class="h1"/>
                             </h:panelGroup>
-                            
-                            
-                            </h:form>
-                        
+
+
+                        </h:form>
+
                         <h:form >
                             <h:dataTable  id="classroomDataTable" value="#{labManagedBean.availableClassrooms}" var="item" class="table table-responsive table-bordered table-striped">
                                 <h:column>
@@ -62,45 +62,45 @@
                                         <h:outputText value="ClassRoomId"/>
                                     </f:facet>
                                     <h:outputText class="classRoomText" value="#{item.classRoomId}"/>
-                                   
-                                    
-                                    
+
+
+
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="NumberOfSeats"/>
                                     </f:facet>
                                     <h:outputText class="seatText" value="#{item.numberOfSeats}"/>
-                                    
-                                    
-                                    
+
+
+
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="RoomNumber"/>
                                     </f:facet>
                                     <h:outputText class="roomNumberText" value="#{item.roomNumber}"/>
-                                    
-                                    
-                                    
+
+
+
                                 </h:column>
-                                 <h:column>
+                                <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Action"/>
                                     </f:facet>
-                                     
-                                     
-                                     <h:commandLink class="btn btn-default"  value="Edit" action="#{resourceManagedBean.loadClassroom(item.classRoomId)}" style="margin-right:10px">
-                                         <f:param name="update" value="classroom"/>
-                                     </h:commandLink>
-                                         
-                                         
-                                    
-                                     <h:commandButton class="btn btn-danger" value="Remove" >
-                                         <f:ajax event="click" listener="#{resourceManagedBean.deleteClassroom(item.classRoomId)}" render="@form"/>
-                                     </h:commandButton>
-                                                                      
-                                     
+
+
+                                    <h:commandLink class="btn btn-default"  value="Edit" action="#{resourceManagedBean.loadClassroom(item.classRoomId)}" style="margin-right:10px">
+                                        <f:param name="update" value="classroom"/>
+                                    </h:commandLink>
+
+
+
+                                    <h:commandButton class="btn btn-danger" value="Remove" >
+                                        <f:ajax event="click" listener="#{resourceManagedBean.deleteClassroom(item.classRoomId)}" render="@form"/>
+                                    </h:commandButton>
+
+
                                 </h:column>
                             </h:dataTable>
                         </h:form>
@@ -148,11 +148,11 @@
 
 
                                 <h:commandButton value="Add hardware" action="#{resourceManagedBean.addHardware(resourceManagedBean.classroom.classRoomId)}"/> 
-                                    
-                                
-                               
-                        
-                                
+
+
+
+
+
                             </h:panelGrid> 
                         </h:form>
                         <h:form>
@@ -206,22 +206,22 @@
                                     </f:facet>
                                     <h:outputText value="#{item.seatNo}"/>
                                 </h:column>
-                                 <h:column>
+                                <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Action"/>
                                     </f:facet>
-                                     
-                                     
-                                     <h:commandLink class="btn btn-default"  value="Edit" action="#{resourceManagedBean.loadHardware(item.hardwareId)}" style="margin-right:10px">
-                                         <f:param name="update" value="hardware"/>
-                                     </h:commandLink>
-                                         
-                                         
-                                    
-                                     <h:commandButton class="btn btn-danger" value="Remove" >
-                                         <f:ajax event="click" listener="#{resourceManagedBean.deleteHardware(item.hardwareId)}" render="@form"/>
-                                     </h:commandButton>
-                                 </h:column>
+
+
+                                    <h:commandLink class="btn btn-default"  value="Edit" action="#{resourceManagedBean.loadHardware(item.hardwareId)}" style="margin-right:10px">
+                                        <f:param name="update" value="hardware"/>
+                                    </h:commandLink>
+
+
+
+                                    <h:commandButton class="btn btn-danger" value="Remove" >
+                                        <f:ajax event="click" listener="#{resourceManagedBean.deleteHardware(item.hardwareId)}" render="@form"/>
+                                    </h:commandButton>
+                                </h:column>
                             </h:dataTable>
                         </h:form>
                     </h:panelGroup>
@@ -254,15 +254,15 @@
                                 <h:message for="currentState"/>
 
                                 <h:commandButton value="Add software" action="#{resourceManagedBean.addSoftware()}"/>
-                                 
-                                
+
+
                             </h:panelGrid>  </h:form>
-                            <h:panelGroup layout='block' class='page-header'>
-                                <h:outputText value="List of purchased software:" class="h1"/>
-                            </h:panelGroup>
-                      
+                        <h:panelGroup layout='block' class='page-header'>
+                            <h:outputText value="List of purchased software:" class="h1"/>
+                        </h:panelGroup>
+
                         <h:form>
-                            
+
                             <h:dataTable id="softwareDataTable" value="#{resourceManagedBean.availableSoftware()}" var="item" class="table table-responsive table-bordered table-striped">
                                 <h:column>
                                     <f:facet name="header">
@@ -298,22 +298,22 @@
                                     </f:facet>
                                     <h:outputText value="#{item.currentState}"/>
                                 </h:column>
-                                     <h:column>
+                                <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Action"/>
                                     </f:facet>
-                                     
-                                     
-                                         <h:commandLink class="btn btn-default"  value="Edit" action="#{resourceManagedBean.loadSoftware(item.softwareId)}" style="margin-right:10px">
-                                         <f:param name="update" value="software"/>
-                                     </h:commandLink>
-                                         
-                                         
-                                    
-                                     <h:commandButton class="btn btn-danger" value="Remove" >
-                                         <f:ajax event="click" listener="#{resourceManagedBean.deleteSoftware(item.softwareId)}" render="@form"/>
-                                     </h:commandButton>
-                                 </h:column>
+
+
+                                    <h:commandLink class="btn btn-default"  value="Edit" action="#{resourceManagedBean.loadSoftware(item.softwareId)}" style="margin-right:10px">
+                                        <f:param name="update" value="software"/>
+                                    </h:commandLink>
+
+
+
+                                    <h:commandButton class="btn btn-danger" value="Remove" >
+                                        <f:ajax event="click" listener="#{resourceManagedBean.deleteSoftware(item.softwareId)}" render="@form"/>
+                                    </h:commandButton>
+                                </h:column>
                             </h:dataTable>
                         </h:form>
                     </h:panelGroup>
@@ -324,8 +324,9 @@
                             <h:panelGroup layout='block' class='page-header' style='margin-top:0px'>
                                 <h:outputText value="Add software to hardware:" class="h1"/>
                             </h:panelGroup>
+                            <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
                             <h:panelGrid columns="3">
-                                <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
+
                                 <h:outputLabel value="SoftwareId:" for="softwareId" />
                                 <h:selectOneMenu id="softwareId" value="#{resourceManagedBean.softwareByComputer.softwareId.softwareId}" title="SoftwareId" required="true" requiredMessage="The SoftwareId field is required.">
                                     <!-- TODO: update below reference to list of available items-->
@@ -347,59 +348,90 @@
                     </h:panelGroup>
 
 
-<h:panelGroup id="overviewForm" layout="block" class="panel panel-default" style="padding:10px">
-    <h:panelGroup layout='block' class="page-header" style='margin-top:0px'>
-        <h:outputText class='h1' value='Resources overview'/>
-    </h:panelGroup>
-                    <h:form >
-                        <h:outputLabel value="Classroom:" for="classRoomId" />
+                    <h:panelGroup id="overviewForm" layout="block" class="panel panel-default" style="padding:10px">
+                        <h:panelGroup layout='block' class="page-header" style='margin-top:0px'>
+                            <h:outputText class='h1' value='Resources overview'/>
+                        </h:panelGroup>
+                        <h:form prependId="false">
+                            <h:outputLabel value="Classroom:" for="classRoomId" />
 
-                        <h:selectOneMenu id="classRoomId" value="#{resourceManagedBean.classroom.classRoomId}" title="ClassRoomId" required="true" requiredMessage="The ClassRoomId field is required.">
-                            <!-- TODO: update below reference to list of available items-->
-                            <f:ajax event="change" execute="@form" render='@form'/>
-                            <f:selectItem itemLabel="Select a classroom" itemDisabled="true"/>
-                            <f:selectItems value="#{labManagedBean.availableClassrooms}" var="classroom" itemLabel="#{classroom.roomNumber}" itemValue="#{classroom.classRoomId}"/>
-                        </h:selectOneMenu>
-                        <h:message for="classRoomId"/>
+                            <h:selectOneMenu id="classRoomId" value="#{resourceManagedBean.classroom.classRoomId}" title="ClassRoomId" required="true" requiredMessage="The ClassRoomId field is required.">
+                                <!-- TODO: update below reference to list of available items-->
+                                <f:ajax event="change" execute="@form" render='@form'/>
+                                <f:selectItem itemLabel="Select a classroom" itemDisabled="true"/>
+                                <f:selectItems value="#{labManagedBean.availableClassrooms}" var="classroom" itemLabel="#{classroom.roomNumber}" itemValue="#{classroom.classRoomId}"/>
+                            </h:selectOneMenu>
+                            <h:message for="classRoomId"/>
 
-                        <c:forEach items="#{resourceManagedBean.getSeatCountPerClassroom(resourceManagedBean.classroom.classRoomId)}" step='3' varStatus="iterRow">
-                            <h:panelGroup layout="block" class="row" style="margin-bottom: 20px">
-                                <c:forEach items="#{resourceManagedBean.getSeatCountPerClassroom(resourceManagedBean.classroom.classRoomId)}" var="seatNumber" begin="#{iterRow.index}" end="#{resourceManagedBean.getSeatCountPerClassroom(resourceManagedBean.classroom.classRoomId).size()-iterRow.index>3?iterRow.index+2:resourceManagedBean.getSeatCountPerClassroom(resourceManagedBean.classroom.classRoomId).size()}">
-                                    <h:panelGroup layout="block" class="col-sm-4" >
-                                        <h:outputText value='Seat no.#{seatNumber}'/>
-                                        <h:panelGroup layout='block' class='thumbnail'>
-                                            <h:graphicImage  library="images" name="computer.png" />
-                                        </h:panelGroup> 
-                                        <h:panelGroup class='caption'>
-                                            <h:panelGrid columns='1'>
-                                                <c:forEach items="#{resourceManagedBean.getHardwarePerSeatAndClassroom(resourceManagedBean.classroom.classRoomId,seatNumber)}" var='hardware' >
-                                                    <h:outputText value="#{hardware.type}"/>
-                                                    <c:forEach items="#{resourceManagedBean.getInstalledSoftware(hardware.hardwareId)}" var='software' >
-                                                        <h:outputText value='#{software.softwareId.type}'/>
+                            <c:forEach items="#{resourceManagedBean.getSeatCountPerClassroom(resourceManagedBean.classroom.classRoomId)}" step='3' varStatus="iterRow">
+                                <h:panelGroup layout="block" class="row" style="margin-bottom: 20px">
+                                    <c:forEach items="#{resourceManagedBean.getSeatCountPerClassroom(resourceManagedBean.classroom.classRoomId)}" var="seatNumber" begin="#{iterRow.index}" end="#{resourceManagedBean.getSeatCountPerClassroom(resourceManagedBean.classroom.classRoomId).size()-iterRow.index>3?iterRow.index+2:resourceManagedBean.getSeatCountPerClassroom(resourceManagedBean.classroom.classRoomId).size()}">
+                                        <h:panelGroup layout="block" class="col-sm-4" >
+                                            <h:outputText value='Seat no.#{seatNumber}'/>
+                                            <h:panelGroup layout='block' class='thumbnail'>
+                                                <h:graphicImage  library="images" name="computer.png" />
+                                            </h:panelGroup> 
+                                            <h:panelGroup class='caption'>
+                                                <h:panelGrid columns='1'>
+                                                    <c:forEach items="#{resourceManagedBean.getHardwarePerSeatAndClassroom(resourceManagedBean.classroom.classRoomId,seatNumber)}" var='hardware' >
+
+
+                                                        <p:commandButton value="#{hardware.type}" id="infoBtnHW#{hardware.hardwareId}" icon="ui-icon-search" />
+
+
+                                                        <p:overlayPanel id="imagePanel" for="infoBtnHW#{hardware.hardwareId}"  >
+                                                            <h:panelGrid columns="2" class="table table-striped">
+                                                                <h:outputText value="Type:"/>
+                                                                <h:outputText value="#{hardware.type}"/>
+                                                                <h:outputText value="Purchase date:"/>
+                                                                <h:outputText value="#{hardware.dateOfPurchase}"/>
+                                                                <h:outputText value="Warranty expiration:"/>
+                                                                <h:outputText value="#{hardware.expirationOfWarranty}"/>
+                                                                <h:outputText value="Current state:"/>
+                                                                <h:outputText value="#{hardware.currentState}"/>
+                                                            </h:panelGrid>
+                                                        </p:overlayPanel>
+
+                                                        <c:forEach items="#{resourceManagedBean.getInstalledSoftware(hardware.hardwareId)}" var='software' >
+                                                            
+                                                            <p:commandButton value="#{software.softwareId.type}" id="infoBtnSW#{hardware.hardwareId}#{software.softwareId.softwareId}" icon="ui-icon-search" />
+                                                            <p:overlayPanel id="imagePanel" for="infoBtnSW#{hardware.hardwareId}#{software.softwareId.softwareId}"  >
+                                                                <h:panelGrid columns="2" class="table table-striped">
+                                                                    <h:outputText value="SW name:"/>
+                                                                    <h:outputText value="#{software.softwareId.type}"/>
+                                                                    <h:outputText value="Purchase date:"/>
+                                                                    <h:outputText value="#{software.softwareId.dateOfPurchae}"/>
+                                                                    <h:outputText value="Licence expiration:"/>
+                                                                    <h:outputText value="#{software.softwareId.expirationOfLicence}"/>
+                                                                 
+                                                                </h:panelGrid>
+                                                            </p:overlayPanel>
+
+                                                        </c:forEach>
+
+
                                                     </c:forEach>
-                                                    <h:commandButton value="More info..."/> 
+                                                </h:panelGrid>
 
-                                                </c:forEach>
-                                            </h:panelGrid>
-
-                                        </h:panelGroup>    
-                                    </h:panelGroup>      
-                                </c:forEach>
+                                            </h:panelGroup>    
+                                        </h:panelGroup>      
+                                    </c:forEach>
 
 
-                            </h:panelGroup>
+                                </h:panelGroup>
 
-                        </c:forEach>
-                    </h:form>
-</h:panelGroup>
+                            </c:forEach>
+                        </h:form>
+                    </h:panelGroup>
+
+                    <script>
+                        $(document).ready(loadTabs());
+                    </script>
 
                 </f:view>
             </ui:define>
 
         </ui:composition>
 
-        <script>
-            $(document).ready(loadTabs());
-        </script>
     </body>
 </html>

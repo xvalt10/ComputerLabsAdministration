@@ -246,6 +246,10 @@ public class LabManagedBean {
     public List<ComputerLabs> getAllComputerLabs(){
     return computerLabsFacade.findAll();
     }
+    
+    public String getLabNameByLabId(int labId){
+    return computerLabsFacade.find(labId).getLabName();
+    }
     /**
      * Creates a new instance of LabManagedBean
      */

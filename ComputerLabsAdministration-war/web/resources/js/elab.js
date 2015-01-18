@@ -5,6 +5,7 @@
  */
 
  function loadTabs(){
+     
      $("#addClassroomForm").show();
      $("#addSoftwareForm").hide();
      $("#addHardwareForm").hide();

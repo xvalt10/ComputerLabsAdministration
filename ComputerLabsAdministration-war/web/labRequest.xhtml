@@ -6,17 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:outputScript library="js" name="jquery.js"/>
-    <script>
-        $(document).ready(function () {
-            $(".timeslot").on('click', function () {
-                $(".timeslot-selected").removeClass("timeslot-selected");
-                $(this).addClass("timeslot-selected");
 
-            });
-
-        });
-
-    </script>
 
     <body>
 
@@ -75,6 +65,18 @@
                 </c:forEach>
                         <h:commandButton value="Send request for approval" action="#{labManagedBean.saveLabRequest()}"/>
                     </h:form>
+                    
+                        <script>
+        $(document).ready(function () {
+            $(".timeslot").on('click', function () {
+                $(".timeslot-selected").removeClass("timeslot-selected");
+                $(this).addClass("timeslot-selected");
+
+            });
+
+        });
+
+    </script>
                 </f:view>
 
 

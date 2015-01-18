@@ -6,6 +6,7 @@
 package sessionBeans;
 
 import entities.SitePost;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,6 +27,16 @@ public class SitePostFacade extends AbstractFacade<SitePost> {
 
     public SitePostFacade() {
         super(SitePost.class);
+    }
+    
+    public List<Integer> countPostsByLabId(){
+        return em.createNativeQuery("select distinct labId from SitePost").getResultList();  
+        
+    
+    }
+    
+    public List<SitePost> getPostsByLabId(int labId){
+    return em.createNativeQuery("select * from SitePost where labId=? order by SubmissionDate desc",SitePost.class).setParameter(1, labId).getResultList();
     }
     
 }

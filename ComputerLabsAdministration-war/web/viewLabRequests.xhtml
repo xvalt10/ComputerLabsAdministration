@@ -13,13 +13,13 @@
             <ui:define name="content">
                 <f:view>
 
- <h1><h:outputText value="Pending lab requests"/></h1>
- <h:panelGroup layout="block" class="alert alert-info" rendered="#{labManagedBean.pendingLabrequests.size()==0}">
+                    <h1><h:outputText value="Pending lab requests"/></h1>
+                    <h:panelGroup layout="block" class="alert alert-info" rendered="#{labManagedBean.pendingLabrequests.size()==0}">
                         <h:outputText  value="Currently you have no pending lab requests." />
-                        </h:panelGroup>
-                    <h:form rendered="#{labManagedBean.pendingLabrequests.size()>0}">
-                       
-                        
+                    </h:panelGroup>
+                    <h:form rendered="#{labManagedBean.pendingLabrequests.size()>0}" prependId="false">
+
+
                         <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
                         <h:dataTable value="#{labManagedBean.pendingLabrequests}" var="item" class='table table-striped' >
                             <h:column>
@@ -46,51 +46,51 @@
                                 </f:facet>
                                 <h:outputText value="#{item.approvalStatus}"/>
                             </h:column>
-                             <h:column>
-                                
+                            <h:column>
+
                                 <h:commandButton value="Approve" class='btn btn-success'>
                                     <f:ajax listener="#{labManagedBean.approveLabRequest(item.scheduleId)}" render="@form"/>
                                 </h:commandButton>
                             </h:column>
-                             <h:column>
-                               
+                            <h:column>
+
                                 <h:commandButton value="Reject" class='btn btn-danger' >
-                                    <f:ajax listener="#{labManagedBean.rejectLabRequest(item.scheduleId)}" render="@form"/>
-                                    </h:commandButton>
+                                    <f:ajax listener="#{labManagedBean.rejectLabRequest(item.scheduleId)}" render="scheduleTable"/>
+                                </h:commandButton>
                             </h:column>
                         </h:dataTable>
-                        
+
                         Current schedule:
-                          <c:forEach items="#{labManagedBean.getAvailableClassrooms()}" var="classroom">
-                    <h:outputText class="h4" value="Classroom no.#{classroom.roomNumber}"/>
-                <table border="1" style="margin-bottom:10px" >
-                    <c:forEach items="#{labManagedBean.numberOfDaysSchoolIsOpened(classroom.classRoomId)}" var="day">
-                                <tr>
-                                    <td style="padding:10px" >
-                                        <h:outputText value="#{labManagedBean.getDayOfWeek(day)}"/></td>
-                                    <c:forEach items="#{labManagedBean.timeslotsPerDay(day, classroom.classRoomId)}" var="slot">
-                                        <td class="timeslot" style="padding: 10px;cursor: pointer"  >
-                                            <h:panelGrid columns="1" onclick="#{labManagedBean.setTimeSlot(slot)}">
-                                                <h:outputText value="#{userManagedBean.getInstructorNameForTimeSlot(slot)}" rendered="#{slot.isOccupied}"/>
-                                                <h:outputText value="#{labManagedBean.formatTimeFromTimeslot(slot)}"/>
-                                                <h:outputText value="#{slot.isOccupied?'Reserved':'Available'}"/>
-                                                <f:ajax event="click" listener="#{labManagedBean.selectTimeSlot(event, slot)}"/>
-                                            </h:panelGrid>
-                                        </td>
-                                    </c:forEach>
+                        <c:forEach items="#{labManagedBean.getAvailableClassrooms()}" var="classroom">
+                            <h:outputText class="h4" value="Classroom no.#{classroom.roomNumber}"/>
+                            <table id="scheduleTable" border="1" style="margin-bottom:10px" >
+                                <c:forEach items="#{labManagedBean.numberOfDaysSchoolIsOpened(classroom.classRoomId)}" var="day">
+                                    <tr>
+                                        <td style="padding:10px" >
+                                            <h:outputText value="#{labManagedBean.getDayOfWeek(day)}"/></td>
+                                        <c:forEach items="#{labManagedBean.timeslotsPerDay(day, classroom.classRoomId)}" var="slot">
+                                            <td class="timeslot" style="padding: 10px;cursor: pointer"  >
+                                                <h:panelGrid columns="1" onclick="#{labManagedBean.setTimeSlot(slot)}">
+                                                    <h:outputText value="#{userManagedBean.getInstructorNameForTimeSlot(slot)}" rendered="#{slot.isOccupied}"/>
+                                                    <h:outputText value="#{labManagedBean.formatTimeFromTimeslot(slot)}"/>
+                                                    <h:outputText value="#{slot.isOccupied?'Reserved':'Available'}"/>
+                                                    <f:ajax event="click" listener="#{labManagedBean.selectTimeSlot(event, slot)}"/>
+                                                </h:panelGrid>
+                                            </td>
+                                        </c:forEach>
 
-                                </tr>
-
-
-                            </c:forEach>
+                                    </tr>
 
 
+                                </c:forEach>
 
 
 
 
-                        </table>
-                </c:forEach>
+
+
+                            </table>
+                        </c:forEach>
                     </h:form>
                 </f:view>
 
