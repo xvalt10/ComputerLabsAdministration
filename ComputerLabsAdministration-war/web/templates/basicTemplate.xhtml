@@ -15,76 +15,75 @@
         <h:outputStylesheet name="./font-awesome/css/font-awesome.min.css"/>
         <h:outputStylesheet name="./css/plugins/morris.css"/>
         <h:outputStylesheet name="./css/elab.css"/>
-  
-        
-        
-        
-       <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"/>
+
+
+
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"/>
         <h:outputScript library="js" name="jquery.js"/>
         <h:outputScript library="js" name="bootstrap.js"/>
         <h:outputScript library="js" name="jquery-ui.min.js"/>
         <h:outputScript library="js" name="elab.js"/>
+
         <script>
-  $(function() {
-    $( ".datepicker" ).datepicker();
-  });
-  </script>
-       
-        
-        
+            $(function () {
+
+
+                $(".datepicker").datepicker();
+            });
+        </script>
+
+
+
 
         <title>Facelets Template</title>
-        
+
         <script>
-            $(document).ready(function(){
-                
-                $(".nav-tabs li").on('click',function(){
+            $(document).ready(function () {
+
+                $(".nav-tabs li").on('click', function () {
                     $(this).closest($(".nav-tabs")).find("li").removeClass("active");
                     $(this).addClass("active");
-                    
+
                 })
             });
-            
+
         </script>
     </h:head>
 
     <h:body>
-            <div id="wrapper">
+        <div id="wrapper">
 
-        <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <!-- Brand and toggle get grouped for better mobile display -->
+            <!-- Navigation -->
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                <!-- Brand and toggle get grouped for better mobile display -->
 
-              <ui:insert name="top">
+                <ui:insert name="top">
                     <ui:include src="header.xhtml"/>
 
-               </ui:insert>
-                                <ui:insert name="left">
-                        <ui:include src="sidepane.xhtml"/>
-                    </ui:insert> 
+                </ui:insert>
+                <ui:insert name="left">
+                    <ui:include src="sidepane.xhtml"/>
+                </ui:insert> 
 
-            <!-- /.navbar-collapse -->
-        </nav>
+                <!-- /.navbar-collapse -->
+            </nav>
 
-        <div id="page-wrapper">
+            <div id="page-wrapper">
 
-            <div class="container-fluid">
-
-                        <div id="content"  class="col-sm-9" style='border:1px solid #dddddd;border-radius: 4px;padding-right:15px;padding-left: 15px;padding-bottom:15px'>
+                <div class="container-fluid">
                     <ui:insert name="content">Content</ui:insert>
-                </div>
 
+
+                </div>
+                <!-- /.container-fluid -->
 
             </div>
-            <!-- /.container-fluid -->
+            <!-- /#page-wrapper -->
 
         </div>
-        <!-- /#page-wrapper -->
+        <!-- /#wrapper -->
 
-    </div>
-    <!-- /#wrapper -->
-        
-        
+
 
 
 
