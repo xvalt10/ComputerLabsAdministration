@@ -3,38 +3,76 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
-    <f:view>
-                <h:form>
 
-                    <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+    <f:view>
+        <h:form>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-              <li class='active'><h:link outcome="index" >Dashboard</h:link>
-            </li>              
-              <li><h:link value="Submit complaint" outcome="submitComplaint" rendered="#{userManagedBean.getUserRole().equals('instructor')||userManagedBean.getUserRole().equals('headOfDepartment')}"/>
-            </li>
-              <li><h:commandLink value="View submitted complaints" action="#{complaintsManagedBean.getSubmittedComplaintsByUser()}" rendered="#{userManagedBean.getUserRole().equals('instructor')||userManagedBean.getUserRole().equals('headOfDepartment')}">
-                    <f:param name='typeOfComplaints' value='Submitted Complaints'/>
-                    </h:commandLink>
-            </li>
-                <li><h:commandLink value="View assigned complaints" action="#{complaintsManagedBean.getComplaintsAssignedToUser()}" rendered="#{userManagedBean.getUserRole().equals('admin')||userManagedBean.getUserRole().equals('technicalStaff')}" >
-                    <f:param name='typeOfComplaints' value='Assigned Complaints'/>
-                    </h:commandLink>
-            </li>
-              
-              <li><h:link value='Pending lab requests' outcome='viewLabRequests' rendered="#{userManagedBean.getUserRole().equals('admin')}"/></li>
-              
-            <li><h:link value="Lab request" outcome='labRequest' rendered="#{userManagedBean.getUserRole().equals('headOfDepartment')||userManagedBean.getUserRole().equals('admin')}"/></li>
-          <li><h:link value='Lab schedule' outcome='schedule' /></li> 
-          <li><h:link value='Resource management' outcome='resourcesMgmt' /></li> 
+                    <li>
+                        <h:link outcome="index" ><i class="fa fa-fw fa-dashboard"></i> Dashboard</h:link>
+                    </li>              
+                    <li>
+                        <h:link outcome="submitComplaint" rendered="#{userManagedBean.getUserRole().equals('instructor')||userManagedBean.getUserRole().equals('headOfDepartment')}">
+                            <i class="fa fa-fw fa-edit"></i> Submit complaint
+                        </h:link>
+                    </li>
+                    <li>
+                        <h:commandLink action="#{complaintsManagedBean.getSubmittedComplaintsByUser()}" rendered="#{userManagedBean.getUserRole().equals('instructor')||userManagedBean.getUserRole().equals('headOfDepartment')}">
+                            <f:param name='typeOfComplaints' value='Submitted Complaints'/>
+                            <i class="fa fa-fw fa-desktop"></i> View submitted complaints
+                        </h:commandLink>
+                    </li>
+                    <li>
+                        <h:commandLink  action="#{complaintsManagedBean.getComplaintsAssignedToUser()}" rendered="#{userManagedBean.getUserRole().equals('admin')||userManagedBean.getUserRole().equals('technicalStaff')}" >
+                            <f:param name='typeOfComplaints' value='Assigned Complaints'/>
+                            <i class="fa fa-fw fa-desktop"></i> View assigned complaints
+                        </h:commandLink>
+                    </li>
+
+                    <li>
+                        <h:link  outcome='viewLabRequests' rendered="#{userManagedBean.getUserRole().equals('admin')}">
+                            <i class="fa fa-fw fa-desktop"></i> Pending lab requests
+                        </h:link>
+                    </li>
+
+                    <li>
+                        <h:link  outcome='labRequest' rendered="#{userManagedBean.getUserRole().equals('headOfDepartment')||userManagedBean.getUserRole().equals('admin')}" >
+                            <i class="fa fa-fw fa-edit"></i> Lab request
+                        </h:link>
+                    </li>
+                    <li>
+                        <h:link outcome='schedule' ><i class="fa fa-fw fa-table"></i> Lab schedule</h:link>
+                    </li> 
+
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo" class="" aria-expanded="true"><i class="fa fa-fw fa-wrench"></i> Resource management <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo" class="collapse in" aria-expanded="true">
+                            <li>
+                                <h:link  outcome='rsc_classrooms' value="Classrooms" />
+
+                            </li>
+                            <li>
+                                <h:link  outcome='rsc_hardware' value="Hardware" />
+                            </li>
+                            <li>
+                                <h:link  outcome='rsc_software' value="Software" />
+                            </li>
+                            <li>
+                                <h:link  outcome='rsc_swToHw' value="Add software to hardware" />
+                            </li>
+                            <li>
+                               <h:link  outcome='rsc_overview' value="Resource overview" />
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
-        
-   
+
+
         </h:form>
-        
+
     </f:view>
 </html>
 
