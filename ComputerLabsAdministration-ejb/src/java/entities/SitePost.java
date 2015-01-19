@@ -44,14 +44,16 @@ public class SitePost implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "sitePostId")
     private Integer sitePostId;
+    @NotNull
     @Size(max = 50)
     @Column(name = "postTitle")
     private String postTitle;
+    @NotNull
     @Size(max = 2147483647)
     @Column(name = "postText")
     private String postText;
     @Basic(optional = false)
-    @NotNull
+    
     @Size(min = 1, max = 2147483647)
     @Column(name = "attachmentFileName")
     private String attachmentFileName;

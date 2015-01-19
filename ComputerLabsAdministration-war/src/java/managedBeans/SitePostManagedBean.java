@@ -6,6 +6,7 @@
 package managedBeans;
 
 import entities.SitePost;
+import helperClasses.JsfUtil;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -98,6 +99,7 @@ public class SitePostManagedBean implements Serializable {
     public void uploadFile() throws IOException {
 
         // Extract file name from content-disposition header of file part
+        if (file!=null){
         String fileName = file.getSubmittedFileName();
         System.out.println("***** fileName: " + fileName);
 
@@ -128,6 +130,7 @@ public class SitePostManagedBean implements Serializable {
                 inputStream.close();
             }
         }
+        }
 
     }
     
@@ -142,9 +145,11 @@ public class SitePostManagedBean implements Serializable {
         }
         post.setSubmissionDate(new Date());
         post.setLabId(computerLabsFacade.find(labId));
-        post.setAttachmentFileName(file.getSubmittedFileName());
+        if (file!=null){
+        post.setAttachmentFileName(file.getSubmittedFileName());}
         post.setSubmittedBy(usersFacade.getUserByUsername(FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName()));
         sitePostFacade.create(post);
+        JsfUtil.addSuccessMessage("The post has been successfully added to the Lab news page.");
         post = new SitePost();
     }
 

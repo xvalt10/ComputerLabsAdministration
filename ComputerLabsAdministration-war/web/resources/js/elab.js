@@ -68,12 +68,30 @@ function showResourcesOverview(){
    
 }
 
+function showComplaintPanel(){
+    activateTab("#complaintTab");
+      $("#complaintPanel").show();
+    $("#solutionPanel").hide();
+    
+}
+function showSolutionPanel(){
+    
+    activateTab("#solutionTab");
+      $("#complaintPanel").hide();
+    $("#solutionPanel").show();
+    
+}
 
+function loadComplaintTabs(){
+    
+     $("#complaintTab").on("click", showComplaintPanel);
+    $("#solutionTab").on("click", showSolutionPanel);
+}
 
 function loadTabs() {
     
-   
-    
+  
+     
     switch(get('tab')) {
        
     case 'hardware':showHardwareTab();
@@ -94,4 +112,5 @@ function loadTabs() {
     $("#softwareTab").on("click", showSoftwareTab );
     $("#addSWtoHWTab").on("click", showSoftwaretoHardwareTab);
     $("#overviewTab").on("click", showResourcesOverview);
+        
 }

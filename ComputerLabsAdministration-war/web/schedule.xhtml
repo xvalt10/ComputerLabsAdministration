@@ -23,9 +23,11 @@
                                     <c:forEach items="#{labManagedBean.timeslotsPerDay(day, classroom.classRoomId)}" var="slot">
                                         <td class="timeslot" style="padding: 10px;"  >
                                             <h:panelGrid columns="1" onclick="#{labManagedBean.setTimeSlot(slot)}">
+                                                <h:outputText value="#{labManagedBean.getLabNameByTimeSlot(slot)}"/>
                                                 <h:outputText value="#{userManagedBean.getInstructorNameForTimeSlot(slot)}" rendered="#{slot.isOccupied}"/>
                                                 <h:outputText value="#{labManagedBean.formatTimeFromTimeslot(slot)}"/>
                                                 <h:outputText value="#{slot.isOccupied?'Reserved':'Available'}"/>
+                                                <h:outputText value="AS:#{labManagedBean.getLabApprovalStatusByTimeslot(slot)}" rendered="#{slot.isOccupied}"/>
                                                 <f:ajax event="click" listener="#{labManagedBean.selectTimeSlot(event, slot)}"/>
                                             </h:panelGrid>
                                         </td>

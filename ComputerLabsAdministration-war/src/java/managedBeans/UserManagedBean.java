@@ -108,6 +108,11 @@ public class UserManagedBean {
         List<Users> instructorsByDepartment = usersFacade.findInstructorsByDepartment(department);
         return instructorsByDepartment;
     }
+    
+    public List<Users> getAllInstructors(UserRoles role){
+        List<Users> allInstructors=usersFacade.findAllInstructors(role);
+        return allInstructors;
+    }
 
     /**
      * Finds all the technical stuff the admin can assign a specific complaint

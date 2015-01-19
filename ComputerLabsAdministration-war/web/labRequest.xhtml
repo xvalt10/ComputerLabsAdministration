@@ -27,6 +27,9 @@
                             <h:inputText id="labName" value="#{labManagedBean.computerLab.labName}" title="LabName" required="true" requiredMessage="The LabName field is required."/>
                             <h:outputLabel value="Instructor:" for="instructor" />
                             <h:selectOneMenu id="instructor" value="#{labManagedBean.computerLab.instructor.userId}" title="Instructor" required="true" requiredMessage="The Instructor field is required." >
+                                <c:if test="#{userManagedBean.getUserRole().equals('admin')}">
+                                    <f:selectItems value="#{userManagedBean.getAllInstructors(userManagedBean.loadUserRole(2))}" var='instructor' itemLabel="#{instructor.name}" itemValue="#{instructor.userId}" />
+                                </c:if>
                                 <f:selectItems value="#{userManagedBean.instructorsByDepartment}" var='instructor' itemLabel="#{instructor.name}" itemValue="#{instructor.userId}" />
                             </h:selectOneMenu>
 

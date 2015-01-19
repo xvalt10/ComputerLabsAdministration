@@ -6,6 +6,7 @@
 package managedBeans;
 
 import entities.Classrooms;
+import entities.Complaints;
 import entities.ComputerLabs;
 import entities.Schedule;
 import entities.Timeslot;
@@ -49,39 +50,39 @@ public class LabManagedBean {
     private Schedule schedule;
     private Timeslot timeSlot;
     private Users instructor;
-
+    
     public Users getInstructor() {
         return instructor;
     }
-
+    
     public void setInstructor(Users instructor) {
         this.instructor = instructor;
     }
-
+    
     public Timeslot getTimeSlot() {
         return timeSlot;
     }
-
+    
     public void setTimeSlot(Timeslot timeSlot) {
         this.timeSlot = timeSlot;
     }
-
+    
     public void selectTimeSlot(AjaxBehaviorEvent event, Timeslot slot) {
         this.timeSlot = slot;
     }
-
+    
     public Schedule getSchedule() {
         return schedule;
     }
-
+    
     public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
     }
-
+    
     public ComputerLabs getComputerLab() {
         return computerLab;
     }
-
+    
     public void setComputerLab(ComputerLabs computerLab) {
         this.computerLab = computerLab;
     }
@@ -118,17 +119,17 @@ public class LabManagedBean {
                 break;
             default:
                 dayOfWeek = "";
-
+            
         }
         return dayOfWeek;
-
+        
     }
-
+    
     public void saveSchedule(int labId, int timeslotId) {
-
+        
         schedule = new Schedule();
         computerLab = new ComputerLabs();
-
+        
     }
 
     /**
@@ -170,7 +171,7 @@ public class LabManagedBean {
     public void saveLabRequest() {
         if (timeSlot.getIsOccupied()) {
             JsfUtil.addErrorMessage("The slot you selected is occupied. Select a different one");
-
+            
         } else {
             timeSlot.setIsOccupied(true);
             timeslotFacade.edit(timeSlot);
@@ -179,18 +180,25 @@ public class LabManagedBean {
             schedule.setLabId(computerLab);
             schedule.setTimeslotId(timeSlot);
             scheduleFacade.create(schedule);
-
+            
             JsfUtil.addSuccessMessage("The request has been successfully submitted.");
         }
-
+        
     }
 
     /**
      * Fetches all pending lab requests from the db
+     *
      * @return list of schedule objects with status - 'Pending'
      */
     public List<Schedule> getPendingLabrequests() {
         return scheduleFacade.findPendingLabRequests();
+    }
+    
+    public String clearComputerLab() {
+        computerLab = new ComputerLabs();
+        computerLab.setInstructor(new Users());
+        return "labRequest";
     }
 
     /**
@@ -206,8 +214,9 @@ public class LabManagedBean {
 
     /**
      * Formats the date of a timeslot to (HH:mm - HH:mm)
+     *
      * @param slot
-     * @return 
+     * @return
      */
     public String formatTimeFromTimeslot(Timeslot slot) {
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -216,7 +225,8 @@ public class LabManagedBean {
 
     /**
      * Used by admin to approve submitted lab request
-     * @param scheduleId 
+     *
+     * @param scheduleId
      */
     public void approveLabRequest(int scheduleId) {
         schedule = scheduleFacade.find(scheduleId);
@@ -225,36 +235,45 @@ public class LabManagedBean {
         scheduleFacade.edit(schedule);
         Timeslot timeslot = schedule.getTimeslotId();
         JsfUtil.addSuccessMessage("Request for the timeslot " + getDayOfWeek(timeslot.getDay()) + " " + formatTimeFromTimeslot(timeslot) + "(Room no." + timeslot.getClassRoomId().getRoomNumber() + ") has been approved for the computer lab " + schedule.getLabId().getLabName() + ".");
-
+        
     }
 
     /**
      * Used by admin to reject submitted lab request
-     * @param scheduleId 
+     *
+     * @param scheduleId
      */
     public void rejectLabRequest(int scheduleId) {
         schedule = scheduleFacade.find(scheduleId);
-        schedule.setApprovalStatus("Rejected");
+        //schedule.setApprovalStatus("Rejected");
         schedule.getTimeslotId().setIsOccupied(false);
         timeslotFacade.edit(schedule.getTimeslotId());
         scheduleFacade.edit(schedule);
         Timeslot timeslot = schedule.getTimeslotId();
         JsfUtil.addErrorMessage("Request for the timeslot " + getDayOfWeek(timeslot.getDay()) + " " + formatTimeFromTimeslot(timeslot) + "(Room no." + timeslot.getClassRoomId().getRoomNumber() + ") has been rejected for the computer lab " + schedule.getLabId().getLabName() + ".");
-
-    }
-
-    public List<ComputerLabs> getAllComputerLabs(){
-    return computerLabsFacade.findAll();
+        scheduleFacade.remove(schedule);
     }
     
-    public String getLabNameByLabId(int labId){
-    return computerLabsFacade.find(labId).getLabName();
+    public List<ComputerLabs> getAllComputerLabs() {
+        return computerLabsFacade.findAll();
+    }
+    
+    public String getLabNameByLabId(int labId) {
+        return computerLabsFacade.find(labId).getLabName();
+    }
+    
+    public String getLabNameByTimeSlot(Timeslot slot) {
+        return scheduleFacade.findLabnameByTimeslot(slot);
+    }
+
+    public String getLabApprovalStatusByTimeslot(Timeslot slot){
+    return scheduleFacade.findLabApprovalStatusByTimeslot(slot);
     }
     /**
      * Creates a new instance of LabManagedBean
-     */
+     */    
     public LabManagedBean() {
-
+        
     }
-
+    
 }

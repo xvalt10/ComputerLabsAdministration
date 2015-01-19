@@ -48,6 +48,10 @@ public class UsersFacade extends AbstractFacade<Users> {
     return em.createNamedQuery("Users.findByDepartment", Users.class).setParameter("department", department).getResultList();
     }
     
+    public List<Users> findAllInstructors(UserRoles role){
+    return em.createNamedQuery("Users.findByRoleId", Users.class).setParameter("roleId", role).getResultList();
+    }
+    
     public List<Users> findUsersWithRoleTechnicalStaff(){
         UserRoles role=userRolesFacade.find(3);
     return em.createNamedQuery("Users.findByRoleId", Users.class).setParameter("roleId", role).getResultList();

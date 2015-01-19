@@ -46,4 +46,21 @@ public class ScheduleFacade extends AbstractFacade<Schedule> {
     
     }
     
+    public String findLabnameByTimeslot(Timeslot slot){
+        try{
+        return (String) em.createNativeQuery("select labName from ComputerLabs c join Schedule s on c.labId=s.labId where s.timeslotId=?").setParameter(1, slot.getTimeslotId()).getSingleResult();
+        }catch(NoResultException e){
+        return "";
+        }
+    }
+    
+      public String findLabApprovalStatusByTimeslot(Timeslot slot){
+        try{
+        return (String) em.createNativeQuery("select approvalStatus from ComputerLabs c join Schedule s on c.labId=s.labId where s.timeslotId=?").setParameter(1, slot.getTimeslotId()).getSingleResult();
+        }catch(NoResultException e){
+        return "";
+        }
+    }
+    
+  
 }

@@ -6,10 +6,11 @@
     
     <f:view>
         <h:form>
+            
           <ul class="nav nav-pills nav-stacked">
               <li style="text-align:center;border-bottom: 1px solid #dddddd"><h3><span class="glyphicon glyphicon-list"/> Main Menu</h3></li>
               
-              <li><h:link value="Submit complaint" outcome="submitComplaint" rendered="#{userManagedBean.getUserRole().equals('instructor')||userManagedBean.getUserRole().equals('headOfDepartment')}"/>
+              <li><h:commandLink value="Submit complaint" action="#{complaintsManagedBean.clearComplaint()}" rendered="#{userManagedBean.getUserRole().equals('instructor')||userManagedBean.getUserRole().equals('headOfDepartment')}"/>
             </li>
               <li><h:commandLink value="View submitted complaints" action="#{complaintsManagedBean.getSubmittedComplaintsByUser()}" rendered="#{userManagedBean.getUserRole().equals('instructor')||userManagedBean.getUserRole().equals('headOfDepartment')}">
                     <f:param name='typeOfComplaints' value='Submitted Complaints'/>
@@ -22,7 +23,7 @@
               
               <li><h:link value='Pending lab requests' outcome='viewLabRequests' rendered="#{userManagedBean.getUserRole().equals('admin')}"/></li>
               
-            <li><h:link value="Lab request" outcome='labRequest' rendered="#{userManagedBean.getUserRole().equals('headOfDepartment')||userManagedBean.getUserRole().equals('admin')}"/></li>
+              <li><h:commandLink value="Lab request" action='#{labManagedBean.clearComputerLab()}' rendered="#{userManagedBean.getUserRole().equals('headOfDepartment')||userManagedBean.getUserRole().equals('admin')}"/></li>
           <li><h:link value='Lab schedule' outcome='schedule' /></li> 
           <li><h:link value='Resource management' outcome='resourcesMgmt' rendered="#{facesContext.externalContext.userPrincipal!=null}"/></li> 
           <li><h:link value='Write a post' outcome='writeSitePost' rendered="#{userManagedBean.getUserRole().equals('headOfDepartment')||userManagedBean.getUserRole().equals('instructor')}"/></li> 

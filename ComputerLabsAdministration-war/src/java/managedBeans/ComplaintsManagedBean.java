@@ -8,15 +8,19 @@ package managedBeans;
 import entities.Complaints;
 import entities.Users;
 import helperClasses.JsfUtil;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import sessionBeans.ComplaintsFacade;
 import sessionBeans.UsersFacade;
 
@@ -119,7 +123,7 @@ public class ComplaintsManagedBean {
     user=usersFacade.find(userId);
     complaint.setAssignedTo(user);
     complaintsFacade.edit(complaint);
-    JsfUtil.addSuccessMessage("Ticket with id:"+complaint.getComplaintId()+" has ben assigned to user:"+user.getName());
+    JsfUtil.addSuccessMessage("Ticket with id:"+complaint.getComplaintId()+" has been assigned to user:"+user.getName());
     }
     
     /**
@@ -136,10 +140,19 @@ public class ComplaintsManagedBean {
      * Sets the current status of complaint to solved and updates the relevant DB entry
      */
     public void closeComplaint(){
-    complaint.setCurrentStatus("Solved");
-    complaintsFacade.edit(complaint);
+      
+            complaint.setCurrentStatus("Solved");
+            complaintsFacade.edit(complaint);
+            
+            JsfUtil.addSuccessMessage("Ticket with id:"+complaint.getComplaintId()+" has ben closed");
+           // complaint=new Complaints();
+            
+            
+        }
     
-    JsfUtil.addSuccessMessage("Ticket with id:"+complaint.getComplaintId()+" has ben closed");
+    public String clearComplaint(){
+    complaint=new Complaints();
+    return "submitComplaint";
     }
     
     @PostConstruct

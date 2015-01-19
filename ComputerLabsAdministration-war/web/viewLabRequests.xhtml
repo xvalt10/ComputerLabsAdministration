@@ -12,15 +12,17 @@
 
             <ui:define name="content">
                 <f:view>
-
-                    <h1><h:outputText value="Pending lab requests"/></h1>
+                    <h:panelGroup layout="block" class="page-header">
+                    <h:outputText value="Pending lab requests" class="h2"/>
+                    </h:panelGroup>
+                    <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
                     <h:panelGroup layout="block" class="alert alert-info" rendered="#{labManagedBean.pendingLabrequests.size()==0}">
                         <h:outputText  value="Currently you have no pending lab requests." />
                     </h:panelGroup>
                     <h:form rendered="#{labManagedBean.pendingLabrequests.size()>0}" prependId="false">
 
 
-                        <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
+                     
                         <h:dataTable value="#{labManagedBean.pendingLabrequests}" var="item" class='table table-striped' >
                             <h:column>
                                 <f:facet name="header">
@@ -54,13 +56,12 @@
                             </h:column>
                             <h:column>
 
-                                <h:commandButton value="Reject" class='btn btn-danger' >
-                                    <f:ajax listener="#{labManagedBean.rejectLabRequest(item.scheduleId)}" render="scheduleTable"/>
-                                </h:commandButton>
+                                <h:commandButton value="Reject" class='btn btn-danger' action="#{labManagedBean.rejectLabRequest(item.scheduleId)}"/>
+                                    
                             </h:column>
                         </h:dataTable>
 
-                        Current schedule:
+                        <h:outputText value="Current schedule:" class="h2" style="margin-bottom: 10px"/><br></br>
                         <c:forEach items="#{labManagedBean.getAvailableClassrooms()}" var="classroom">
                             <h:outputText class="h4" value="Classroom no.#{classroom.roomNumber}"/>
                             <table id="scheduleTable" border="1" style="margin-bottom:10px" >
