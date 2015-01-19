@@ -10,6 +10,7 @@
         <ui:composition template="./basicTemplate.xhtml">
 
             <ui:define name="content">
+                 <!-- Form for posting updates to the labNews.xhtml page-->
                 <h:form enctype="multipart/form-data">
                         <h1><h:outputText value="Send a post to the computer lab site" /></h1>
                         
@@ -18,11 +19,11 @@
                         <h:panelGrid columns="3">
                             
                             <h:outputLabel value="Post title:" for="postTitle"/>
-                            <h:inputText id="postTitle" value="#{}" title="ComplaintTitle" required="true" requiredMessage="The ComplaintTitle field is required."/>
+                            <h:inputText id="postTitle" value="#{sitePostManagedBean.post.postTitle}" title="ComplaintTitle" required="true" requiredMessage="The ComplaintTitle field is required."/>
                             <h:message for="postTitle"/>
                            
                             <h:outputLabel value="Post text:" for="postText" />
-                            <h:inputTextarea id="postText" value="#{}" title="ComplaintBody" cols="50" rows="10" required="true" requiredMessage="The ComplaintBody field is required."/>
+                            <h:inputTextarea id="postText" value="#{sitePostManagedBean.post.postText}" title="ComplaintBody" cols="50" rows="10" required="true" requiredMessage="The ComplaintBody field is required."/>
                             <h:message for="postText"/>
                             
                               <h:outputLabel value="Upload attachments:" for="uploadAttachments" />
@@ -30,7 +31,7 @@
                             <h:messages for="uploadAttachments"/>
                             
                            
-                            <h:commandButton  action="#{}" value="Submit complaint"/>
+                            <h:commandButton  action="#{sitePostManagedBean.publishPost()}" value="Submit complaint"/>
                            
                            
                             

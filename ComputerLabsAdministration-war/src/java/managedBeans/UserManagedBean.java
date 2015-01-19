@@ -173,7 +173,7 @@ public class UserManagedBean {
     /**
      * Encrypts password using the SHA-256 algorithm
      * @param password
-     * @return encrypted password
+     * @return encrypted password which is later on stored in the db
      */
     public String encryptPassword(String password) {
         MessageDigest md;

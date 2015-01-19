@@ -5,7 +5,6 @@
  */
 package managedBeans;
 
-
 import entities.SitePost;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -36,24 +35,24 @@ import sessionBeans.UsersFacade;
 @ManagedBean
 @SessionScoped
 public class SitePostManagedBean implements Serializable {
+
+    //injection of EJBs used in the class
     @EJB
     private UsersFacade usersFacade;
     @EJB
     private ComputerLabsFacade computerLabsFacade;
     @EJB
     private SitePostFacade sitePostFacade;
-    
-    
-    
-    
-    
-    
+
+    //declaration of private variables
     Part file;
-    
-    
     private SitePost post;
     private int labId;
 
+    //base path where the uploaded files will be stored to
+    private final static String UPLOAD_BASE_PATH = "C:" + File.separator + "images" + File.separator;
+
+    //getters and setters for private variables
     public int getLabId() {
         return labId;
     }
@@ -69,8 +68,6 @@ public class SitePostManagedBean implements Serializable {
     public void setFile(Part file) {
         this.file = file;
     }
-    
-    
 
     public SitePost getPost() {
         return post;
@@ -80,57 +77,64 @@ public class SitePostManagedBean implements Serializable {
         this.post = post;
     }
 
-    public void uploadFile() throws IOException{
-        
- 
-		// Extract file name from content-disposition header of file part
-		String fileName = file.getSubmittedFileName();
-		System.out.println("***** fileName: " + fileName);
- 
-		String basePath = "C:" + File.separator + "images" + File.separator;
-		File outputFilePath = new File(basePath + fileName);
- 
-		// Copy uploaded file to destination path
-		InputStream inputStream = null;
-		OutputStream outputStream = null;
-		try {
-			inputStream = file.getInputStream();
-			outputStream = new FileOutputStream(outputFilePath);
- 
-			int read = 0;
-			final byte[] bytes = new byte[1024];
-			while ((read = inputStream.read(bytes)) != -1) {
-				outputStream.write(bytes, 0, read);
-			}
- 
-//			statusMessage = "File upload successfull !!";
-		} catch (IOException e) {
-			e.printStackTrace();
-//			statusMessage = "File upload failed !!";
-		} finally {
-			if (outputStream != null) {
-				outputStream.close();
-			}
-			if (inputStream != null) {
-				inputStream.close();
-			}
-		}
-		
-	}
-    
-    
-    
-    @PostConstruct
-    public void init(){
-    post=new SitePost();
-    }
     /**
      * Creates a new instance of SitePostManagedBean
      */
     public SitePostManagedBean() {
     }
+
+    /**
+     * Initialisation of private variables;
+     */
+    @PostConstruct
+    public void init() {
+        post = new SitePost();
+    }
+
+    /**
+     * Method saves uploaded file to local disk.
+     * @throws IOException
+     */
+    public void uploadFile() throws IOException {
+
+        // Extract file name from content-disposition header of file part
+        String fileName = file.getSubmittedFileName();
+        System.out.println("***** fileName: " + fileName);
+
+        File outputFilePath = new File(UPLOAD_BASE_PATH + fileName);
+
+        // Copy uploaded file to destination path
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        try {
+            inputStream = file.getInputStream();
+            outputStream = new FileOutputStream(outputFilePath);
+
+            int read = 0;
+            final byte[] bytes = new byte[1024];
+            while ((read = inputStream.read(bytes)) != -1) {
+                outputStream.write(bytes, 0, read);
+            }
+
+//			statusMessage = "File upload successfull !!";
+        } catch (IOException e) {
+            e.printStackTrace();
+//			statusMessage = "File upload failed !!";
+        } finally {
+            if (outputStream != null) {
+                outputStream.close();
+            }
+            if (inputStream != null) {
+                inputStream.close();
+            }
+        }
+
+    }
     
-    public void publishPost(){
+    /**
+     * Method persists the SitePost object into the DB.
+     */
+    public void publishPost() {
         try {
             uploadFile();
         } catch (IOException ex) {
@@ -140,17 +144,25 @@ public class SitePostManagedBean implements Serializable {
         post.setLabId(computerLabsFacade.find(labId));
         post.setAttachmentFileName(file.getSubmittedFileName());
         post.setSubmittedBy(usersFacade.getUserByUsername(FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName()));
-    sitePostFacade.create(post);
-    post=new SitePost();
+        sitePostFacade.create(post);
+        post = new SitePost();
     }
-    
-    
-    public List<Integer> countLabsWithPosts(){
-    return sitePostFacade.countPostsByLabId();
+
+    /**
+     * Counts all the posts for a specific computer lab.
+     * @return 
+     */
+    public List<Integer> countLabsWithPosts() {
+        return sitePostFacade.countPostsByLabId();
     }
-    
-    public List<SitePost> postsByLabId(int computerLabId){
-    return sitePostFacade.getPostsByLabId(computerLabId);
+
+    /**
+     * Fetches records from the SitePost which belong to the specified computerlab.
+     * @param computerLabId - id of the computerLab stored in the DB
+     * @return 
+     */
+    public List<SitePost> postsByLabId(int computerLabId) {
+        return sitePostFacade.getPostsByLabId(computerLabId);
     }
-    
+
 }

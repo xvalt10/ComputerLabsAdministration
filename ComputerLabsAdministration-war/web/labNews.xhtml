@@ -31,8 +31,9 @@
                             </h:panelGroup>
                             <h:panelGroup layout="block" id="collapse#{post.sitePostId}" class="panel-collapse collapse in">
                                 <h:panelGroup layout="block" class="panel-body"><h:outputText value="#{post.postText}"/>
-                                    
-                                    <h:outputLink value="/ComputerLabsAdministration-war/images/#{post.attachmentFileName}" rendered='#{post.attachmentFileName!=null}' >Download attachment</h:outputLink>
+                               
+                                     <!-- Download attachment link is displayed when the an attachment is available for the post. -->
+                                    <h:outputLink value="/ComputerLabsAdministration-war/images/#{post.attachmentFileName}" rendered='#{post.attachmentFileName!=null}'>Download attachment</h:outputLink>
                                 </h:panelGroup>
                             </h:panelGroup>
                         </h:panelGroup>

@@ -13,10 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Tomas
- */
+
 @WebServlet(urlPatterns = "/Logout")
 public class LogoutServlet extends HttpServlet {
 
@@ -32,6 +29,8 @@ public class LogoutServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+     //used to invalidate the current session -> user is logged out
      request.logout();  
    response.sendRedirect(request.getContextPath()); 
     }

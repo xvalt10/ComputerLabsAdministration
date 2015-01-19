@@ -38,6 +38,10 @@ public class JsfUtil {
         }
     }
     
+    /**
+     * Method returns the name of the user which is currently logged in.
+     * @return 
+     */
     public  static String getUserNameOfLoggedInUser(){
     return FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
     }

@@ -15,7 +15,7 @@
             <ui:define name="content">
                 <f:view>
 
-
+                    <!-- Lab request form -->
                     <h:form>
                         <h:panelGroup layout="block" class="page-header" style="margin-top:20px">
                             <h:outputText value="Lab request" class="h2"/>
@@ -32,51 +32,46 @@
 
                         </h:panelGrid>
                         <h:outputLabel value="Select timeslot:"  /><br></br>
+
+                        <!-- Generates computer lab schedule based on the data stored in the db -->
+                        <c:forEach items="#{labManagedBean.getAvailableClassrooms()}" var="classroom">
+                            <h:outputText class="h4" value="Classroom no.#{classroom.roomNumber}"/>
+                            <table border="1" style="margin-bottom:20px" >
+                                <c:forEach items="#{labManagedBean.numberOfDaysSchoolIsOpened(classroom.classRoomId)}" var="day">
+                                    <tr>
+                                        <td style="padding:10px" >
+                                            <h:outputText value="#{labManagedBean.getDayOfWeek(day)}"/></td>
+                                        <c:forEach items="#{labManagedBean.timeslotsPerDay(day, classroom.classRoomId)}" var="slot">
+                                            <td class="timeslot" style="padding: 10px;cursor: pointer"  >
+                                                <h:panelGrid columns="1" onclick="#{labManagedBean.setTimeSlot(slot)}">
+                                                    <h:outputText value="#{userManagedBean.getInstructorNameForTimeSlot(slot)}" rendered="#{slot.isOccupied}"/>
+                                                    <h:outputText value="#{labManagedBean.formatTimeFromTimeslot(slot)}"/>
+                                                    <h:outputText value="#{slot.isOccupied?'Reserved':'Available'}"/>
+                                                    <f:ajax event="click" listener="#{labManagedBean.selectTimeSlot(event, slot)}"/>
+                                                </h:panelGrid>
+                                            </td>
+                                        </c:forEach>
+
+                                    </tr>
+                                </c:forEach>
+
+                            </table>
+                        </c:forEach>
                         
-                          <c:forEach items="#{labManagedBean.getAvailableClassrooms()}" var="classroom">
-                    <h:outputText class="h4" value="Classroom no.#{classroom.roomNumber}"/>
-                <table border="1" style="margin-bottom:20px" >
-                    <c:forEach items="#{labManagedBean.numberOfDaysSchoolIsOpened(classroom.classRoomId)}" var="day">
-                                <tr>
-                                    <td style="padding:10px" >
-                                        <h:outputText value="#{labManagedBean.getDayOfWeek(day)}"/></td>
-                                    <c:forEach items="#{labManagedBean.timeslotsPerDay(day, classroom.classRoomId)}" var="slot">
-                                        <td class="timeslot" style="padding: 10px;cursor: pointer"  >
-                                            <h:panelGrid columns="1" onclick="#{labManagedBean.setTimeSlot(slot)}">
-                                                <h:outputText value="#{userManagedBean.getInstructorNameForTimeSlot(slot)}" rendered="#{slot.isOccupied}"/>
-                                                <h:outputText value="#{labManagedBean.formatTimeFromTimeslot(slot)}"/>
-                                                <h:outputText value="#{slot.isOccupied?'Reserved':'Available'}"/>
-                                                <f:ajax event="click" listener="#{labManagedBean.selectTimeSlot(event, slot)}"/>
-                                            </h:panelGrid>
-                                        </td>
-                                    </c:forEach>
-
-                                </tr>
-
-
-                            </c:forEach>
-
-
-
-
-
-
-                        </table>
-                </c:forEach>
                         <h:commandButton value="Send request for approval" action="#{labManagedBean.saveLabRequest()}"/>
                     </h:form>
-                    
-                        <script>
-        $(document).ready(function () {
-            $(".timeslot").on('click', function () {
-                $(".timeslot-selected").removeClass("timeslot-selected");
-                $(this).addClass("timeslot-selected");
 
-            });
+                    <script>
+                        $(document).ready(function () {
+                            $(".timeslot").on('click', function () {
+                                $(".timeslot-selected").removeClass("timeslot-selected");
+                                $(this).addClass("timeslot-selected");
 
-        });
+                            });
 
-    </script>
+                        });
+
+                    </script>
                 </f:view>
 
 

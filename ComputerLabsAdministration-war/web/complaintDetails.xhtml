@@ -14,7 +14,7 @@
             <ui:define name="content">
                 <f:view>
 
-
+                    <!-- Form which displays complaint details -->
                     <h:form>
                         <h:panelGroup layout="block" class="page-header" style="margin-top:20px">
                             <h:outputText value="Complaint Details" class="h2"/>                        </h:panelGroup>
@@ -33,28 +33,29 @@
                                     <h:outputText value="#{complaintsManagedBean.complaint.complaintTitle}" title="ComplaintTitle"/>
                                     <h:outputText value="AssignedTo:"/>
                                     <h:outputText value="#{complaintsManagedBean.complaint.assignedTo.username}" title="AssignedTo"/>
-                                    
+
                                     <h:outputText value="CurrentStatus:"/>
                                     <h:outputText value="#{complaintsManagedBean.complaint.currentStatus}" title="CurrentStatus"/>
-                                     <h:outputText value="Reassign defect to:"/>
-                                <h:panelGrid columns="2">
-                                
-                                    <h:selectOneMenu id="instructor" value="#{complaintsManagedBean.user.userId}" title="Instructor" required="true" requiredMessage="The Instructor field is required." style="margin-right: 10px">
-                                        <f:selectItems value="#{userManagedBean.technicalStaffUsers}" var='techStaff' itemLabel="#{techStaff.name}" itemValue="#{techStaff.userId}" />
-                            </h:selectOneMenu>
-                                    <h:commandButton value="Reassign ticket" action="#{complaintsManagedBean.assignComplaintToUser(complaintsManagedBean.complaint.complaintId, complaintsManagedBean.user.userId)}"/>
+                                    <h:outputText value="Reassign defect to:"/>
+                                    <h:panelGrid columns="2">
+
+                                        <h:selectOneMenu id="instructor" value="#{complaintsManagedBean.user.userId}" title="Instructor" required="true" requiredMessage="The Instructor field is required." style="margin-right: 10px">
+                                            <f:selectItems value="#{userManagedBean.technicalStaffUsers}" var='techStaff' itemLabel="#{techStaff.name}" itemValue="#{techStaff.userId}" />
+                                        </h:selectOneMenu>
+                                        <h:commandButton value="Reassign ticket" action="#{complaintsManagedBean.assignComplaintToUser(complaintsManagedBean.complaint.complaintId, complaintsManagedBean.user.userId)}"/>
+                                    </h:panelGrid>
                                 </h:panelGrid>
-                                </h:panelGrid>
-                               
+
 
                             </p:tab>
 
+                            <!-- Tab where solution details are displayed -->
                             <p:tab title="Complaint Solution">
 
                                 <h:outputText value="Complaint hasn't been solved yet." rendered="#{!complaintsManagedBean.isComplaintSolved()}"/> 
-                               <h:messages infoClass="alert alert-success" globalOnly="True"/>
+                                <h:messages infoClass="alert alert-success" globalOnly="True"/>
                                 <h:panelGrid columns="2" rendered="#{(userManagedBean.userRole.equals('admin')||userManagedBean.userRole.equals('technicalStaff')) &amp;&amp; !complaintsManagedBean.isComplaintSolved()}">
-                                    
+
                                     <h:outputLabel value="SolutionTitle:" for="solutionTitle" />
                                     <h:inputText id="solutionTitle" value="#{complaintsManagedBean.complaint.solutionTitle}" title="SolutionTitle" required="true"/>
                                     <h:outputLabel value="SolutionBody:" for="solutionBody" />
@@ -65,7 +66,7 @@
                                     <h:commandButton value='Close ticket' action='#{complaintsManagedBean.closeComplaint()}'/>
 
                                 </h:panelGrid>
-                                
+
                                 <h:panelGrid columns="2" rendered="#{complaintsManagedBean.isComplaintSolved()}">
                                     <h:outputText value="SolutionTitle:"/>
                                     <h:outputText value="#{complaintsManagedBean.complaint.solutionTitle==null}" title="SolutionTitle"/>
