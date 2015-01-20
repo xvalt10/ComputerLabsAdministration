@@ -23,6 +23,8 @@
   $(function() {
     $( ".datepicker" ).datepicker();
   });
+  
+ 
   </script>
        
         
@@ -37,7 +39,14 @@
                     $(this).closest($(".nav-tabs")).find("li").removeClass("active");
                     $(this).addClass("active");
                     
-                })
+                });
+                 $("#complaints").on('click',function(){
+      alert('ji');
+     $("#submitComplaint").slideToggle(); 
+     $("#viewSubmittedComplaints").slideToggle();
+     $("#viewAssigndComplaints").slideToggle();
+      
+  });
             });
             
         </script>

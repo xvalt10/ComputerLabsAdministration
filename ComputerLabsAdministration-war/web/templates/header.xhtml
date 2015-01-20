@@ -42,6 +42,7 @@
                     </form>
                     <h:form>
                         <ul class="nav navbar-nav navbar-right" >
+                            <li><a><h:panelGroup layout="inline" class="glyphicon glyphicon-user" rendered="#{facesContext.externalContext.userPrincipal!=null}">  </h:panelGroup><h:outputText value="#{userManagedBean.usersFullName}" rendered="#{facesContext.externalContext.userPrincipal!=null}"/></a></li>
                             <li><h:outputLink value="/ComputerLabsAdministration-war/Logout" rendered="#{facesContext.externalContext.userPrincipal!=null}" >Logout</h:outputLink></li>
                             <li><h:link value="Sign In" outcome="login" rendered="#{facesContext.externalContext.userPrincipal==null}"/></li>
 

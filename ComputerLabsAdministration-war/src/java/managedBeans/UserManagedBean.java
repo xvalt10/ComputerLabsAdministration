@@ -128,10 +128,14 @@ public class UserManagedBean {
      * Persists user into the db after successful registration, encrypts the password using the SHA-256 algorithm.
      */
     public void registerUser() {
+        if(!isUsernameUnique()){
+        JsfUtil.addErrorMessage("The username already exists. Please enter a different one.");
+        }
+        else{
         user.setPassword(encryptPassword(user.getPassword()));
         usersFacade.create(user);
         JsfUtil.addSuccessMessage("User " + user.getUsername() + "has been successfully registered.");
-        user = new Users();
+        user = new Users();}
     }
 
     /**
@@ -198,5 +202,16 @@ public class UserManagedBean {
 
         return sb.toString();
     }
-
+    
+    /**
+     * Method check whether the username the user entered is unique
+     * @return true if the username is unique
+     */
+    public boolean isUsernameUnique(){
+        return usersFacade.checkIfUsernameIsUnique(user.getUsername());
+    }
+    
+    public String getUsersFullName(){
+    return usersFacade.getUserByUsername(JsfUtil.getUserNameOfLoggedInUser()).getName();
+    }
 }

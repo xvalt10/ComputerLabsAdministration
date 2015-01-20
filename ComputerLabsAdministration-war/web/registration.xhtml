@@ -7,20 +7,7 @@
 
     <h:head>
         <h:outputStylesheet name="./css/bootstrap.css"/>
-        <script>
-
-
-            function checkIfPasswordsMatch() {
-
-                if ($("#password").val() !== $("#confirmPassword").val()) {
-                    $("#confirmPasswordError").text("Passwords do not match.").removeClass().addClass("label label-danger");
-
-                }
-                else {
-                    $("#confirmPasswordError").text("").removeClass().addClass("label label-success");
-                }
-            }
-        </script>
+      
     </h:head>
 
     <body>
@@ -31,11 +18,11 @@
                 <f:view>
 
 
-                    <h:form>
+                    <h:form prependId="false">
                         <h:panelGroup layout="block" class="page-header">
                             <h:outputText value="User registration" class="h2"/>
                         </h:panelGroup>
-                        <h:messages globalOnly="true" infoClass="alert alert-success" style="list-style-type: none;padding-left: 0px"/>
+                        <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger" style="list-style-type: none;padding-left: 0px"/>
                         <h:panelGrid columns="3">
 
                             <h:outputLabel value="RoleId:" for="roleId" />
@@ -63,17 +50,16 @@
                             <ui:remove>Generates Label for Password input field</ui:remove>
                             <h:outputLabel value="Password:" for="password" />
                             <ui:remove>Generates input field for password with prepared alert messages for empty field</ui:remove>
-                            <h:inputSecret id="password" value="#{userManagedBean.user.password}" title="Password" required="true" requiredMessage="The Password field is required."/>
+                            <h:inputSecret redisplay="true" id="password" value="#{userManagedBean.user.password}" title="Password" required="true" requiredMessage="The Password field is required."/>
                             <ui:remove>Generates alert messages</ui:remove>
                             <h:message for="password" />
                             
                             <ui:remove>Generates Label for Password input field</ui:remove>
                             <h:outputLabel value="Confirm password:" for="confirmPassword" />
                             <ui:remove>Generates input field for password with prepared alert messages for empty field</ui:remove>
-                            <h:inputSecret id="confirmPassword" value="#{userManagedBean.user.password}" title="Password" required="true" requiredMessage="The Password field is required.">
+                            <h:inputSecret redisplay="true" id="confirmPassword" value="#{userManagedBean.user.password}" title="Password" required="true" requiredMessage="The Password field is required.">
                             <f:ajax event="change" onevent="checkIfPasswordsMatch"/>
                             </h:inputSecret>
-
                             <ui:remove>Generates alert messages</ui:remove>
                             <h:message for="password" id="confirmPasswordError"/>
 
@@ -108,6 +94,20 @@
 
                         </h:panelGrid>
                     </h:form>
+                      <script>
+
+
+            function checkIfPasswordsMatch() {
+
+                if ($("#password").val() !== $("#confirmPassword").val()) {
+                    $("#confirmPasswordError").text("Passwords do not match.").removeClass().addClass("label label-danger");
+
+                }
+                else {
+                    $("#confirmPasswordError").text("").removeClass().addClass("label label-success");
+                }
+            }
+        </script>
                 </f:view>
 
             </ui:define>

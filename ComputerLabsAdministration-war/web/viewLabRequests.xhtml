@@ -50,9 +50,8 @@
                             </h:column>
                             <h:column>
 
-                                <h:commandButton value="Approve" class='btn btn-success'>
-                                    <f:ajax listener="#{labManagedBean.approveLabRequest(item.scheduleId)}" render="@form"/>
-                                </h:commandButton>
+                                <h:commandButton value="Approve" class='btn btn-success' action="#{labManagedBean.approveLabRequest(item.scheduleId)}"/>
+                                  
                             </h:column>
                             <h:column>
 

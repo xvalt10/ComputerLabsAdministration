@@ -57,4 +57,10 @@ public class UsersFacade extends AbstractFacade<Users> {
     return em.createNamedQuery("Users.findByRoleId", Users.class).setParameter("roleId", role).getResultList();
     }
   
+    public boolean checkIfUsernameIsUnique(String password){
+        
+    int count=(int) em.createNativeQuery("select count(username) from Users where username=?").setParameter(1, password).getSingleResult();
+        return count==0;
+    }  
+    
 }
