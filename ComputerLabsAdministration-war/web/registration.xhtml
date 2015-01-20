@@ -5,6 +5,24 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
+    <h:head>
+        <h:outputStylesheet name="./css/bootstrap.css"/>
+        <script>
+
+
+            function checkIfPasswordsMatch() {
+
+                if ($("#password").val() !== $("#confirmPassword").val()) {
+                    $("#confirmPasswordError").text("Passwords do not match.").removeClass().addClass("label label-danger");
+
+                }
+                else {
+                    $("#confirmPasswordError").text("").removeClass().addClass("label label-success");
+                }
+            }
+        </script>
+    </h:head>
+
     <body>
 
         <ui:composition template="./templates/basicTemplate.xhtml">
@@ -15,7 +33,7 @@
 
                     <h:form>
                         <h:panelGroup layout="block" class="page-header">
-                        <h:outputText value="User registration" class="h2"/>
+                            <h:outputText value="User registration" class="h2"/>
                         </h:panelGroup>
                         <h:messages globalOnly="true" infoClass="alert alert-success" style="list-style-type: none;padding-left: 0px"/>
                         <h:panelGrid columns="3">
@@ -47,7 +65,17 @@
                             <ui:remove>Generates input field for password with prepared alert messages for empty field</ui:remove>
                             <h:inputSecret id="password" value="#{userManagedBean.user.password}" title="Password" required="true" requiredMessage="The Password field is required."/>
                             <ui:remove>Generates alert messages</ui:remove>
-                            <h:message for="password"/>
+                            <h:message for="password" />
+                            
+                            <ui:remove>Generates Label for Password input field</ui:remove>
+                            <h:outputLabel value="Confirm password:" for="confirmPassword" />
+                            <ui:remove>Generates input field for password with prepared alert messages for empty field</ui:remove>
+                            <h:inputSecret id="confirmPassword" value="#{userManagedBean.user.password}" title="Password" required="true" requiredMessage="The Password field is required.">
+                            <f:ajax event="change" onevent="checkIfPasswordsMatch"/>
+                            </h:inputSecret>
+
+                            <ui:remove>Generates alert messages</ui:remove>
+                            <h:message for="password" id="confirmPasswordError"/>
 
                             <ui:remove>Generates Label for Email input field</ui:remove>
                             <h:outputLabel value="Email:" for="email" />
