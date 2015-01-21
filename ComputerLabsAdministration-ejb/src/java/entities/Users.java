@@ -42,6 +42,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByMobileNumber", query = "SELECT u FROM Users u WHERE u.mobileNumber = :mobileNumber"),
     @NamedQuery(name = "Users.findByDepartment", query = "SELECT u FROM Users u WHERE u.department = :department")})
 public class Users implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Collection<Notification> notificationCollection;
     @OneToMany(mappedBy = "submittedBy")
     private Collection<SitePost> sitePostCollection;
     @Basic(optional = false)
@@ -223,6 +225,15 @@ public class Users implements Serializable {
 
     public void setSitePostCollection(Collection<SitePost> sitePostCollection) {
         this.sitePostCollection = sitePostCollection;
+    }
+
+    @XmlTransient
+    public Collection<Notification> getNotificationCollection() {
+        return notificationCollection;
+    }
+
+    public void setNotificationCollection(Collection<Notification> notificationCollection) {
+        this.notificationCollection = notificationCollection;
     }
     
 }
