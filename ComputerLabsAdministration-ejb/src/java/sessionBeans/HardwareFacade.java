@@ -5,11 +5,18 @@
  */
 package sessionBeans;
 
+import com.sun.xml.ws.security.impl.policy.Constants;
 import entities.Hardware;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
 
 /**
  *
@@ -44,4 +51,21 @@ public class HardwareFacade extends AbstractFacade<Hardware> {
         return resultList;
     }
     
+    /**
+     * Method fetches records from Hardware if the warranty of the HW expires in less than one week
+     * @return list of hardware where the warranty will expire in less than one week
+     */
+    public List<Hardware> findHardwareWithExpiredWarranty(){
+
+//        
+       return em.createNativeQuery("select * from Hardware where warrantyExpirationDate<GETDATE()-7").getResultList();
+        
+    }
+   //        CriteriaBuilder cb=getEntityManager().getCriteriaBuilder();
+//    javax.persistence.criteria.CriteriaQuery cq = cb.createQuery(Hardware.class);
+//    Root<Hardware> records=cq.from(Hardware.class);
+//    Metamodel m=em.getMetamodel();
+//    EntityType<Hardware> Hardware_=m.entity(Hardware.class);
+//    Date currentDate=new Date();
+//    cq.where(cb.gt(records.get(Hardware_.getAttribute("warrantyExpirationDate")),new Date()));
 }

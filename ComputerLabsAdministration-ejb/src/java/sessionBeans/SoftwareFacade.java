@@ -5,7 +5,9 @@
  */
 package sessionBeans;
 
+import entities.Hardware;
 import entities.Software;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,4 +30,7 @@ public class SoftwareFacade extends AbstractFacade<Software> {
         super(Software.class);
     }
     
+     public List<Software> findSoftwareWithExpiredLicence(){ 
+       return em.createNativeQuery("select * from Software where licenceExpirationDate< GETDATE()-7").getResultList();
+    }
 }

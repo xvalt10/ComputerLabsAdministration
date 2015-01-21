@@ -211,7 +211,24 @@ public class UserManagedBean {
         return usersFacade.checkIfUsernameIsUnique(user.getUsername());
     }
     
+    /**
+     * Method returns the first name and last name of the user which is currently logged in
+     * @return 
+     */
     public String getUsersFullName(){
     return usersFacade.getUserByUsername(JsfUtil.getUserNameOfLoggedInUser()).getName();
     }
+    
+    public String loadCurrentUserProfile(){
+    user=usersFacade.getUserByUsername(JsfUtil.getUserNameOfLoggedInUser());
+    return "updateProfile";
+    }
+    
+    public void updateUserProfile(){
+    usersFacade.edit(user);
+    JsfUtil.addSuccessMessage("Your profile details have been successfully updated.");
+    
+    }
+    
+    
 }
