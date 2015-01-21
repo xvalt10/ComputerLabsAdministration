@@ -58,7 +58,7 @@ public class HardwareFacade extends AbstractFacade<Hardware> {
     public List<Hardware> findHardwareWithExpiredWarranty(){
 
 //        
-       return em.createNativeQuery("select * from Hardware where warrantyExpirationDate<GETDATE()-7").getResultList();
+       return em.createNativeQuery("select * from Hardware where expirationOfWarranty<GETDATE()",Hardware.class).getResultList();
         
     }
    //        CriteriaBuilder cb=getEntityManager().getCriteriaBuilder();

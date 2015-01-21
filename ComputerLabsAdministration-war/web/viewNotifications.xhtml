@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./templates/basicTemplate.xhtml">
+
+            <ui:define name="content">
+                <f:view>
+
+
+                    <h:form>
+                        <h:panelGroup layout="block" class="page-header">
+                        <h:outputText class="h2" value="Received notifications"/>
+                        </h:panelGroup>
+                        
+                        <h:dataTable value="#{notificationManagedBean.notificationsForCurrentUser}" var="item" class="table table-bordered table-striped">
+                          
+                              <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="CreationTimestamp"/>
+                                </f:facet>
+                                <h:outputText value="#{item.creationTimestamp}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="NotificationTitle"/>
+                                </f:facet>
+                                <h:outputText value="#{item.notificationTitle}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="NotificationText"/>
+                                </f:facet>
+                                <h:outputText value="#{item.notificationText}"/>
+                            </h:column>
+                          
+                        
+                          
+                        </h:dataTable>
+                    </h:form>
+                </f:view>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -28,7 +28,7 @@
                             <h:panelGroup layout='block' class='page-header' style='margin-top:0px'>
                                 <h:outputText value="Add classroom" class="h1"/>
                             </h:panelGroup>
-                            <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
+                            <h:messages id="classroomMessages" globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
                             <h:panelGrid columns="3">
 
                                 <h:outputLabel value="NumberOfSeats:" for="numberOfSeats" />
@@ -111,14 +111,14 @@
                             <h:panelGroup layout='block' class='page-header' style='margin-top:0px'>
                                 <h:outputText value="Add hardware" class="h1" />
                             </h:panelGroup>
-                            <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
+                            <h:messages id="hardwareMessages" globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
                             <h:panelGrid columns="3">
 
-                                <h:outputLabel value="Date of purchase:" for="dateOfPurchase" />
-                                <h:inputText id="dateOfPurchase" class="datepicker" value="#{resourceManagedBean.hardware.dateOfPurchase}" title="DateOfPurchase" required="true" requiredMessage="The DateOfPurchase field is required.">
+                                <h:outputLabel value="Date of purchase:" for="dateOfPurchaseHW" />
+                                <h:inputText id="dateOfPurchaseHW" class="datepicker" value="#{resourceManagedBean.hardware.dateOfPurchase}" title="DateOfPurchase" required="true" requiredMessage="The DateOfPurchase field is required.">
                                     <f:convertDateTime pattern="MM/dd/yyyy" />
                                 </h:inputText>
-                                <h:message for="dateOfPurchase"/>              
+                                <h:message for="dateOfPurchaseHW"/>              
 
                                 <h:outputLabel  value="Date of warranty expiration:" for="expirationOfWarranty" />
                                 <h:inputText id="expirationOfWarranty" class="datepicker" value="#{resourceManagedBean.hardware.expirationOfWarranty}" title="ExpirationOfWarranty" required="true" requiredMessage="The ExpirationOfWarranty field is required.">
@@ -126,13 +126,13 @@
                                 </h:inputText>
                                 <h:message for="expirationOfWarranty"/>
 
-                                <h:outputLabel value="Type:" for="type" />
-                                <h:inputText id="type" value="#{resourceManagedBean.hardware.type}" title="Type" required="true" requiredMessage="The Type field is required."/>
-                                <h:message for="type"/>
+                                <h:outputLabel value="Type:" for="HWtype" />
+                                <h:inputText id="HWtype" value="#{resourceManagedBean.hardware.type}" title="Type" required="true" requiredMessage="The Type field is required."/>
+                                <h:message for="HWtype"/>
 
-                                <h:outputLabel value="Current state:" for="currentState" />
-                                <h:inputText id="currentState" value="#{resourceManagedBean.hardware.currentState}" title="CurrentState" />
-                                <h:message for="currentState"/>
+                                <h:outputLabel value="Current state:" for="HWcurrentState" />
+                                <h:inputText id="HWcurrentState" value="#{resourceManagedBean.hardware.currentState}" title="CurrentState" />
+                                <h:message for="HWcurrentState"/>
 
                                 <h:outputLabel value="Classroom:" for="classRoom" />
                                 <h:selectOneMenu id="classRoom" value="#{resourceManagedBean.classroom.classRoomId}" title="ClassRoomId" required="true" requiredMessage="The ClassRoomId field is required.">
@@ -229,11 +229,11 @@
                     </h:panelGroup>
 
                     <h:panelGroup id="addSoftwareForm" layout="block" class="panel panel-default" style="padding:10px">
-                        <h:form>
+                        <h:form prependId="false">
                             <h:panelGroup layout='block' class='page-header' style='margin-top:0px'>
                                 <h:outputText value="Add Software" class="h1"/>
                             </h:panelGroup>
-                            <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
+                            <h:messages id="softwareMessages" globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
                             <h:panelGrid columns="3">
                                 <h:outputLabel value="Date of purchase:" for="dateOfPurchase" />
                                 <h:inputText id="dateOfPurchase" class="datepicker" value="#{resourceManagedBean.software.dateOfPurchae}" title="DateOfPurchae" required="true" requiredMessage="The DateOfPurchae field is required.">
@@ -322,11 +322,11 @@
 
 
                     <h:panelGroup id="addSWtoHWForm" layout="block" class="panel panel-default" style="padding:10px">
-                        <h:form >
+                        <h:form prependId="false" >
                             <h:panelGroup layout='block' class='page-header' style='margin-top:0px'>
                                 <h:outputText value="Add software to hardware:" class="h1"/>
                             </h:panelGroup>
-                            <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
+                            <h:messages id="swhwMessages" globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
                             <h:panelGrid columns="3">
 
                                 <h:outputLabel value="SoftwareId:" for="softwareId" />

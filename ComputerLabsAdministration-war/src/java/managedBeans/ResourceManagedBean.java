@@ -114,6 +114,7 @@ public class ResourceManagedBean {
         JsfUtil.addSuccessMessage("Hardware " + hardware.getType() + " has been successfully added.");
         hardware = new Hardware();
         try {
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
             FacesContext.getCurrentInstance().getExternalContext().redirect("resourcesMgmt.xhtml?tab=hardware");
         } catch (IOException ex) {
             Logger.getLogger(ResourceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -128,6 +129,7 @@ public class ResourceManagedBean {
         JsfUtil.addSuccessMessage("Software " + software.getType() + " has been successfully added.");
         software = new Software();
         try {
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
             FacesContext.getCurrentInstance().getExternalContext().redirect("resourcesMgmt.xhtml?tab=software");
         } catch (IOException ex) {
             Logger.getLogger(ResourceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -145,6 +147,7 @@ public class ResourceManagedBean {
         installedSoftwareFacade.create(softwareByComputer);
 
         try {
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
             FacesContext.getCurrentInstance().getExternalContext().redirect("resourcesMgmt.xhtml?tab=overview");
         } catch (IOException ex) {
             Logger.getLogger(ResourceManagedBean.class.getName()).log(Level.SEVERE, null, ex);

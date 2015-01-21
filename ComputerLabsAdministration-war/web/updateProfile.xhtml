@@ -13,25 +13,20 @@
                 <h:panelGroup layout="block" class="page-header">
                     <h:outputText value="Update user profile" class="h2"/>
                 </h:panelGroup>
+                <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
 
                 <f:view>
 
 
                     <h:form>
-                        <h1><h:outputText value="User profile"/></h1>
+                        
                         <h:panelGrid columns="3">
                             
                             <h:outputLabel value="Name:" for="name" />
                             <h:inputText id="name" value="#{userManagedBean.user.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
                             <h:message for='name'/>
 
-                            <h:outputLabel value="Username:" for="username" />
-                            <h:inputText id="username" value="#{userManagedBean.user.username}" title="Username" required="true" requiredMessage="The Username field is required."/>
-                            <h:message for='username'/>
-
-                            <h:outputLabel value="Password:" for="password" />
-                            <h:inputSecret redisplay="true" id="password" value="#{userManagedBean.user.password}" title="Password" required="true" requiredMessage="The Password field is required."/>
-                            <h:message for='password'/>
+                            
 
                             <h:outputLabel value="Email:" for="email" />
                             <h:inputText id="email" value="#{userManagedBean.user.email}" title="Email" required="true" requiredMessage="The Email field is required."/>

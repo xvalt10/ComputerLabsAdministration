@@ -118,6 +118,7 @@ public class ComplaintsManagedBean {
         complaintsFacade.create(complaint);
         JsfUtil.addSuccessMessage("Complaint has been succesfully submitted.");
         notificationFacade.createNotification("Submitted complaint:"+complaint.getComplaintTitle(), complaint.getComplaintBody(), usersFacade.getAdmin());
+        
     }
 
     /**
@@ -131,7 +132,7 @@ public class ComplaintsManagedBean {
         user = usersFacade.find(userId);
         complaint.setAssignedTo(user);
         complaintsFacade.edit(complaint);
-        notificationFacade.createNotification("Ticket assigned:"+complaint.getComplaintId(), complaint.getComplaintBody(), user);
+        notificationFacade.createNotification("Ticket assigned:Id "+complaint.getComplaintId(), complaint.getComplaintBody(), user);
         JsfUtil.addSuccessMessage("Ticket with id:" + complaint.getComplaintId() + " has been assigned to user:" + user.getName());
     }
 

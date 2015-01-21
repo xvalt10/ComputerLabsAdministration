@@ -31,6 +31,6 @@ public class SoftwareFacade extends AbstractFacade<Software> {
     }
     
      public List<Software> findSoftwareWithExpiredLicence(){ 
-       return em.createNativeQuery("select * from Software where licenceExpirationDate< GETDATE()-7").getResultList();
+       return em.createNativeQuery("select * from Software where expirationOfLicence< GETDATE()",Software.class).getResultList();
     }
 }

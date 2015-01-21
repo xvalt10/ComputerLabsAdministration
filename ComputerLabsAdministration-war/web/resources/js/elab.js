@@ -18,8 +18,10 @@ function activateTab(tabId){
 }
 
 function showClassroomTab() {
+    
     activateTab("#classroomTab");
-  
+
+  $("#classroomMessages").hide();
     $("#addClassroomForm").show();
     $("#addSoftwareForm").hide();
     $("#addHardwareForm").hide();
@@ -28,6 +30,8 @@ function showClassroomTab() {
 }
 function showHardwareTab() {
    activateTab("#hardwareTab");
+   
+   $("#hardwareMessages").hide();
     
     $("#addClassroomForm").hide();
     $("#addSoftwareForm").hide();
@@ -38,6 +42,8 @@ function showHardwareTab() {
 }
 
 function showSoftwareTab(){
+    
+    $("#softwareMessages").hide();
     activateTab("#softwareTab");
       $("#addClassroomForm").hide();
     $("#addSoftwareForm").show();
@@ -48,7 +54,55 @@ function showSoftwareTab(){
 }
 
 function showSoftwaretoHardwareTab(){
+    
+    $("#swhwMessages").hide();
     activateTab("#addSWtoHWTab");
+      $("#addClassroomForm").hide();
+    $("#addSoftwareForm").hide();
+    $("#addHardwareForm").hide();
+    $("#addSWtoHWForm").show();
+    $("#overviewForm").hide();
+    
+}
+
+function showClassroomTab2() {
+    
+    activateTab("#classroomTab");
+    $("#classroomMessages").show();
+    $("#addClassroomForm").show();
+    $("#addSoftwareForm").hide();
+    $("#addHardwareForm").hide();
+    $("#addSWtoHWForm").hide();
+    $("#overviewForm").hide();
+}
+function showHardwareTab2() {
+   activateTab("#hardwareTab");
+   
+   $("#hardwareMessages").show();
+    $("#addClassroomForm").hide();
+    $("#addSoftwareForm").hide();
+    $("#addHardwareForm").show();
+    $("#addSWtoHWForm").hide();
+    $("#overviewForm").hide();
+
+}
+
+function showSoftwareTab2(){
+    
+    activateTab("#softwareTab");
+    $("#softwareMessages").show();
+      $("#addClassroomForm").hide();
+    $("#addSoftwareForm").show();
+    $("#addHardwareForm").hide();
+    $("#addSWtoHWForm").hide();
+    $("#overviewForm").hide();
+    
+}
+
+function showSoftwaretoHardwareTab2(){
+    
+    activateTab("#addSWtoHWTab");
+    $("#swhwMessages").show();
       $("#addClassroomForm").hide();
     $("#addSoftwareForm").hide();
     $("#addHardwareForm").hide();
@@ -94,15 +148,15 @@ function loadTabs() {
      
     switch(get('tab')) {
        
-    case 'hardware':showHardwareTab();
+    case 'hardware':showHardwareTab2();
         break;
-    case 'software':showSoftwareTab();  
+    case 'software':showSoftwareTab2();  
         break;
-    case 'swTohw':showSoftwaretoHardwareTab(); 
+    case 'swTohw':showSoftwaretoHardwareTab2(); 
         break;
-    case 'overview':showResourcesOverview();
+    case 'overview':showResourcesOverview2();
     break;
-    default: showClassroomTab();
+    default: showClassroomTab2();
         break;
        
 }

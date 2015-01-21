@@ -21,6 +21,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.event.AjaxBehaviorEvent;
 import sessionBeans.ClassroomsFacade;
 import sessionBeans.ComputerLabsFacade;
+import sessionBeans.NotificationFacade;
 import sessionBeans.ScheduleFacade;
 import sessionBeans.TimeslotFacade;
 import sessionBeans.UsersFacade;
@@ -32,6 +33,8 @@ import sessionBeans.UsersFacade;
 @ManagedBean
 @SessionScoped
 public class LabManagedBean {
+    @EJB
+    private NotificationFacade notificationFacade;
 
     //injection of session beans used for CRUD operations on the DB
     @EJB
@@ -44,7 +47,7 @@ public class LabManagedBean {
     private ClassroomsFacade classroomsFacade;
     @EJB
     private TimeslotFacade timeslotFacade;
-
+    
     //declaration of variables
     private ComputerLabs computerLab;
     private Schedule schedule;
@@ -181,6 +184,7 @@ public class LabManagedBean {
             schedule.setTimeslotId(timeSlot);
             scheduleFacade.create(schedule);
             
+            notificationFacade.createNotification("Lab request", "Requested lab:"+computerLab.getLabName()+" Timeslot:"+formatTimeFromTimeslot(timeSlot)+ " Classroom:"+timeSlot.getClassRoomId().getRoomNumber(), usersFacade.getAdmin());
             JsfUtil.addSuccessMessage("The request has been successfully submitted.");
         }
         
@@ -234,6 +238,10 @@ public class LabManagedBean {
         schedule.getTimeslotId().setIsOccupied(true);
         scheduleFacade.edit(schedule);
         Timeslot timeslot = schedule.getTimeslotId();
+        List<Users> usersFromDepartment=usersFacade.findInstructorsByDepartment(schedule.getLabId().getInstructor().getDepartment());
+        for(Users user:usersFromDepartment){
+        notificationFacade.createNotification("Lab request approved", "Requested lab:"+computerLab.getLabName()+" Timeslot:"+formatTimeFromTimeslot(timeSlot)+ " Classroom:"+timeSlot.getClassRoomId().getRoomNumber(), user);
+        }
         JsfUtil.addSuccessMessage("Request for the timeslot " + getDayOfWeek(timeslot.getDay()) + " " + formatTimeFromTimeslot(timeslot) + "(Room no." + timeslot.getClassRoomId().getRoomNumber() + ") has been approved for the computer lab " + schedule.getLabId().getLabName() + ".");
         
     }
@@ -252,6 +260,10 @@ public class LabManagedBean {
         Timeslot timeslot = schedule.getTimeslotId();
         JsfUtil.addErrorMessage("Request for the timeslot " + getDayOfWeek(timeslot.getDay()) + " " + formatTimeFromTimeslot(timeslot) + "(Room no." + timeslot.getClassRoomId().getRoomNumber() + ") has been rejected for the computer lab " + schedule.getLabId().getLabName() + ".");
         scheduleFacade.remove(schedule);
+         List<Users> usersFromDepartment=usersFacade.findInstructorsByDepartment(schedule.getLabId().getInstructor().getDepartment());
+        for(Users user:usersFromDepartment){
+        notificationFacade.createNotification("Lab request rejected", "Requested lab:"+computerLab.getLabName()+" Timeslot:"+formatTimeFromTimeslot(timeSlot)+ " Classroom:"+timeSlot.getClassRoomId().getRoomNumber(), user);
+        }
     }
     
     public List<ComputerLabs> getAllComputerLabs() {
