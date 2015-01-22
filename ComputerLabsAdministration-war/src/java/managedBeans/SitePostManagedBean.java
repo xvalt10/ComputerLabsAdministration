@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -51,7 +52,7 @@ public class SitePostManagedBean implements Serializable {
     private int labId;
 
     //base path where the uploaded files will be stored to
-    private final static String UPLOAD_BASE_PATH = "C:" + File.separator + "images" + File.separator;
+    private final static String UPLOAD_BASE_PATH = "C:" + File.separator + "uploads" + File.separator;
 
     //getters and setters for private variables
     public int getLabId() {
@@ -92,6 +93,20 @@ public class SitePostManagedBean implements Serializable {
         post = new SitePost();
     }
 
+    public List<String> listAllUploadedFiles(){
+         File directory = new File(UPLOAD_BASE_PATH);
+         List<String> fileNames=new ArrayList<>();
+
+    // get all the files from a directory
+    File[] fList = directory.listFiles();
+    for (File f : fList) {
+        if (f.isFile()) {
+           fileNames.add(f.getName());
+        } 
+    }
+    return fileNames;
+    }
+    
     /**
      * Method saves uploaded file to local disk.
      * @throws IOException

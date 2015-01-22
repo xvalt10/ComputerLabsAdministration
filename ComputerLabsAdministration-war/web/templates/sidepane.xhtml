@@ -7,9 +7,9 @@
     <f:view>
         <h:form prependId="false">
 
-            <ul class="nav nav-pills nav-stacked">
+            <ul class="nav nav-pills nav-stacked" rendered='#{facesContext.externalContext.userPrincipal!=null}'>
                 <li style="text-align:center;border-bottom: 1px solid #dddddd"><h3><span class="glyphicon glyphicon-list"/> Main Menu</h3></li>
-                <li id="complaint" ><h:panelGroup layout="block" class="alert alert-info" style="margin-bottom:5px;cursor: pointer;background-color: #FEFEFE;padding:5px"><h:outputText value="1. Complaints management"/></h:panelGroup></li>
+                <li id="complaint" ><h:panelGroup layout="block" class="alert alert-info" style="margin-bottom:5px;cursor: pointer;background-color: #FEFEFE;padding:5px"  ><h:outputText value="Complaints management" rendered='#{facesContext.externalContext.userPrincipal!=null}'/></h:panelGroup></li>
                 <li id="submitComplaint" style="overflow: hidden;"><h:commandLink value="Submit complaint" action="#{complaintsManagedBean.clearComplaint()}" rendered="#{userManagedBean.getUserRole().equals('instructor')||userManagedBean.getUserRole().equals('headOfDepartment')}"/>
                 </li>
                 <li id="viewSubmittedComplaints"><h:commandLink value="View submitted complaints" action="#{complaintsManagedBean.getSubmittedComplaintsByUser()}" rendered="#{userManagedBean.getUserRole().equals('instructor')||userManagedBean.getUserRole().equals('headOfDepartment')}">
@@ -20,15 +20,10 @@
                         <f:param name='typeOfComplaints' value='Assigned Complaints'/>
                     </h:commandLink>
                 </li>
-
-
-
-
-
             </ul>
 
             <ul class="nav nav-sidebar">
-                <li><h:panelGroup layout="block" class="alert alert-info" style="margin-bottom:5px;cursor: pointer;background-color: #FEFEFE;padding:5px"><h:outputText value="2. Computer labs"/></h:panelGroup></li>
+                <li><h:panelGroup layout="block" class="alert alert-info" style="margin-bottom:5px;cursor: pointer;background-color: #FEFEFE;padding:5px" ><h:outputText value="Computer labs"/></h:panelGroup></li>
                 <li><h:link value='Pending lab requests' outcome='viewLabRequests' rendered="#{userManagedBean.getUserRole().equals('admin')}"/></li>
 
                 <li><h:commandLink value="Lab request" action='#{labManagedBean.clearComputerLab()}' rendered="#{userManagedBean.getUserRole().equals('headOfDepartment')||userManagedBean.getUserRole().equals('admin')}"/></li>
@@ -36,10 +31,15 @@
                 <li><h:link value='Write a post' outcome='writeSitePost' rendered="#{userManagedBean.getUserRole().equals('headOfDepartment')||userManagedBean.getUserRole().equals('instructor')}"/></li> 
                 <li><h:link value='Computer lab news' outcome='labNews' /></li>
             </ul>
-            <ul class="nav nav-sidebar">
-                <li><h:panelGroup layout="block" class="alert alert-info" style="margin-bottom:5px;cursor: pointer;background-color: #FEFEFE;padding:5px"><h:outputText value="3. Equipment management"/></h:panelGroup></li>
+            
+            <ul class="nav nav-sidebar" rendered='#{facesContext.externalContext.userPrincipal!=null}'>
+                <li><h:panelGroup layout="block" class="alert alert-info" style="margin-bottom:5px;cursor: pointer;background-color: #FEFEFE;padding:5px"><h:outputText value="Equipment management"/></h:panelGroup></li>
                 <li><h:link value='Resource management' outcome='resourcesMgmt' rendered="#{facesContext.externalContext.userPrincipal!=null}"/></li> 
+                <li><h:link value='Upload equipment documentation' outcome='documentEquipmentConditions'</li>
             </ul>
+            
+            
+            
         </h:form>
 
     </f:view>

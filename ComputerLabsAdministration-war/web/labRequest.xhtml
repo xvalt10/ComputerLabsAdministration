@@ -11,27 +11,31 @@
     <body>
 
         <ui:composition template="./templates/basicTemplate.xhtml">
-
             <ui:define name="content">
                 <f:view>
-
                     <!-- Lab request form -->
-                    <h:form>
+                    <h:form class="form-horizontal">
                         <h:panelGroup layout="block" class="page-header" style="margin-top:20px">
                             <h:outputText value="Lab request" class="h2"/>
                         </h:panelGroup>
                         <h:messages infoClass="alert alert-success" errorClass="alert alert-danger" globalOnly="true"/>
-                        <h:panelGrid columns="2">
+                        <h:panelGrid columns="3">
+                            <h:panelGroup class="form-group">
+                                <h:outputLabel value="LabName:" for="labName" />
+                                <h:inputText class="form-control" id="labName" value="#{labManagedBean.computerLab.labName}" title="LabName" required="true" requiredMessage="The LabName field is required."/>
+                                <h:message for="labName"/>
+                            </h:panelGroup>
 
-                            <h:outputLabel value="LabName:" for="labName" />
-                            <h:inputText id="labName" value="#{labManagedBean.computerLab.labName}" title="LabName" required="true" requiredMessage="The LabName field is required."/>
-                            <h:outputLabel value="Instructor:" for="instructor" />
-                            <h:selectOneMenu id="instructor" value="#{labManagedBean.computerLab.instructor.userId}" title="Instructor" required="true" requiredMessage="The Instructor field is required." >
-                                <c:if test="#{userManagedBean.getUserRole().equals('admin')}">
-                                    <f:selectItems value="#{userManagedBean.getAllInstructors(userManagedBean.loadUserRole(2))}" var='instructor' itemLabel="#{instructor.name}" itemValue="#{instructor.userId}" />
-                                </c:if>
-                                <f:selectItems value="#{userManagedBean.instructorsByDepartment}" var='instructor' itemLabel="#{instructor.name}" itemValue="#{instructor.userId}" />
-                            </h:selectOneMenu>
+                            <h:panelGroup class="form-group">
+                                <h:outputLabel value="Instructor:" for="instructor" />
+                                <h:selectOneMenu class="form-control" id="instructor" value="#{labManagedBean.computerLab.instructor.userId}" title="Instructor" required="true" requiredMessage="The Instructor field is required." >
+                                    <c:if test="#{userManagedBean.getUserRole().equals('admin')}">
+                                        <f:selectItems value="#{userManagedBean.getAllInstructors(userManagedBean.loadUserRole(2))}" var='instructor' itemLabel="#{instructor.name}" itemValue="#{instructor.userId}" />
+                                    </c:if>
+                                    <f:selectItems value="#{userManagedBean.instructorsByDepartment}" var='instructor' itemLabel="#{instructor.name}" itemValue="#{instructor.userId}" />
+                                </h:selectOneMenu>
+                                <h:message for="instructor"/>
+                            </h:panelGroup>
 
                         </h:panelGrid>
                         <h:outputLabel value="Select timeslot:"  /><br></br>
@@ -60,7 +64,7 @@
 
                             </table>
                         </c:forEach>
-                        
+
                         <h:commandButton value="Send request for approval" action="#{labManagedBean.saveLabRequest()}"/>
                     </h:form>
 

@@ -16,76 +16,85 @@
 
                     <!-- Form which displays complaint details -->
                     <h:form prependId="false">
-                    
+
                         <h:panelGroup id="descriptionPanel" layout="block" class="page-header" style="margin-top:20px">
                             <h:outputText value="Complaint Details" class="h2"/>                        </h:panelGroup>
-                            <h:messages infoClass="alert alert-success" globalOnly="True"/>
-                                <ul id="tabsList" class="nav nav-tabs" style="margin-top:10px;border-bottom: none"> 
-                        <li id="complaintTab" class="active"><a href="#">Complaint Description</a></li> 
-                        <li id="solutionTab"><a href="#">Complaint solution</a></li> 
+                        <h:messages infoClass="alert alert-success" globalOnly="True"/>
+                        <ul id="tabsList" class="nav nav-tabs" style="margin-top:10px;border-bottom: none"> 
+                            <li id="complaintTab" class="active"><a href="#">Complaint Description</a></li> 
+                            <li id="solutionTab"><a href="#">Complaint solution</a></li> 
                         </ul>
-                            <h:panelGroup id="complaintPanel" layout="block" class="panel panel-default" style="padding: 20px">
-                                <h:panelGrid columns="2">
-                                    <h:outputText value="ComplaintId:"/>
-                                    <h:outputText value="#{complaintsManagedBean.complaint.complaintId}" title="ComplaintId"/>
-                                    <h:outputText value="SubmissionTimestamp:"/>
-                                    <h:outputText value="#{complaintsManagedBean.complaint.submissionTimestamp}" title="SubmissionTimestamp">
-                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                    </h:outputText>
-                                    <h:outputText value="ComplaintBody:"/>
-                                    <h:outputText value="#{complaintsManagedBean.complaint.complaintBody}" title="ComplaintBody"/>
-                                    <h:outputText value="ComplaintTitle:"/>
-                                    <h:outputText value="#{complaintsManagedBean.complaint.complaintTitle}" title="ComplaintTitle"/>
-                                    <h:outputText value="AssignedTo:"/>
-                                    <h:outputText value="#{complaintsManagedBean.complaint.assignedTo.username}" title="AssignedTo"/>
+                        <h:panelGroup id="complaintPanel" layout="block" class="panel panel-default" style="padding: 20px">
+                            <h:panelGrid columns="2">
+                                <h:outputText value="ComplaintId:"/>
+                                <h:outputText value="#{complaintsManagedBean.complaint.complaintId}" title="ComplaintId"/>
+                                <h:outputText value="SubmissionTimestamp:"/>
+                                <h:outputText value="#{complaintsManagedBean.complaint.submissionTimestamp}" title="SubmissionTimestamp">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+                                <h:outputText value="ComplaintBody:"/>
+                                <h:outputText value="#{complaintsManagedBean.complaint.complaintBody}" title="ComplaintBody"/>
+                                <h:outputText value="ComplaintTitle:"/>
+                                <h:outputText value="#{complaintsManagedBean.complaint.complaintTitle}" title="ComplaintTitle"/>
+                                <h:outputText value="AssignedTo:"/>
+                                <h:outputText value="#{complaintsManagedBean.complaint.assignedTo.username}" title="AssignedTo"/>
 
-                                    <h:outputText value="CurrentStatus:"/>
-                                    <h:outputText value="#{complaintsManagedBean.complaint.currentStatus}" title="CurrentStatus"/>
-                                    <h:outputText value="Reassign defect to:" rendered="#{!complaintsManagedBean.isComplaintSolved()}"/>
-                                    <h:panelGrid columns="2" rendered="#{!complaintsManagedBean.isComplaintSolved()}">
+                                <h:outputText value="CurrentStatus:"/>
+                                <h:outputText value="#{complaintsManagedBean.complaint.currentStatus}" title="CurrentStatus"/>
+                                <h:outputText value="Reassign defect to:" rendered="#{!complaintsManagedBean.isComplaintSolved()}"/>
+                                <h:panelGrid columns="2" rendered="#{!complaintsManagedBean.isComplaintSolved()}">
 
-                                        <h:selectOneMenu id="instructor" value="#{complaintsManagedBean.user.userId}" title="Instructor" required="true" requiredMessage="The Instructor field is required." style="margin-right: 10px">
-                                            <f:selectItems value="#{userManagedBean.technicalStaffUsers}" var='techStaff' itemLabel="#{techStaff.name}" itemValue="#{techStaff.userId}" />
-                                        </h:selectOneMenu>
-                                        <h:commandButton value="Reassign ticket" action="#{complaintsManagedBean.assignComplaintToUser(complaintsManagedBean.complaint.complaintId, complaintsManagedBean.user.userId)}"/>
-                                    </h:panelGrid>
+                                    <h:selectOneMenu id="instructor" value="#{complaintsManagedBean.user.userId}" title="Instructor" required="true" requiredMessage="The Instructor field is required." style="margin-right: 10px">
+                                        <f:selectItems value="#{userManagedBean.technicalStaffUsers}" var='techStaff' itemLabel="#{techStaff.name}" itemValue="#{techStaff.userId}" />
+                                    </h:selectOneMenu>
+                                    <h:commandButton value="Reassign ticket" action="#{complaintsManagedBean.assignComplaintToUser(complaintsManagedBean.complaint.complaintId, complaintsManagedBean.user.userId)}"/>
                                 </h:panelGrid>
-                            </h:panelGroup>
-                            </h:form>
+                            </h:panelGrid>
+                        </h:panelGroup>
+                    </h:form>
 
-                            <!-- Tab where solution details are displayed -->
-                          
-                            <h:panelGroup id="solutionPanel" layout="block" class="panel panel-default" style="display:none;padding:20px">
-                                  <h:form>
-                                <h:outputText value="Complaint hasn't been solved yet." rendered="#{(userManagedBean.userRole.equals('instructor')||userManagedBean.userRole.equals('headOfDepartment')) &amp;&amp; !complaintsManagedBean.isComplaintSolved()} "/> 
-                                
-                                <h:panelGrid columns="2" rendered="#{(userManagedBean.userRole.equals('admin')||userManagedBean.userRole.equals('technicalStaff')) &amp;&amp; !complaintsManagedBean.isComplaintSolved()}">
+                    <!-- Tab where solution details are displayed -->
 
+                    <h:panelGroup id="solutionPanel" layout="block" class="panel panel-default" style="display:none;padding:20px">
+                        <h:form class="form-horizontal">
+                            <h:outputText value="Complaint hasn't been solved yet." rendered="#{(userManagedBean.userRole.equals('instructor')||userManagedBean.userRole.equals('headOfDepartment')) &amp;&amp; !complaintsManagedBean.isComplaintSolved()} "/> 
+
+                            <h:panelGrid columns="3" rendered="#{(userManagedBean.userRole.equals('admin')||userManagedBean.userRole.equals('technicalStaff')) &amp;&amp; !complaintsManagedBean.isComplaintSolved()}">
+
+                                <h:panelGroup layout="block" class="form-group">
                                     <h:outputLabel value="SolutionTitle:" for="solutionTitle" />
-                                    <h:inputText id="solutionTitle" value="#{complaintsManagedBean.complaint.solutionTitle}" title="SolutionTitle" required="true"/>
+                                    <h:inputText class="form-control" id="solutionTitle" value="#{complaintsManagedBean.complaint.solutionTitle}" title="SolutionTitle" required="true"/>
+                                    <h:message for="solutionTitle"/>
+                                </h:panelGroup>
+
+                                <h:panelGroup layout="block" class="form-group">
                                     <h:outputLabel value="SolutionBody:" for="solutionBody" />
-                                    <h:inputTextarea id="solutionBody" cols='50' rows="10" value="#{complaintsManagedBean.complaint.solutionBody}" required="true" title="SolutionBody" />
-<!--                                    <h:outputLabel value="CurrentStatus:" for="currentStatus" />
-                                    <h:inputText id="currentStatus" value="#{complaintsManagedBean.complaint.currentStatus}" title="CurrentStatus" />-->
-
-                                    <h:commandButton value='Close ticket' action='#{complaintsManagedBean.closeComplaint()}'/>
-
-                                </h:panelGrid>
-
-                                <h:panelGrid columns="2" rendered="#{complaintsManagedBean.isComplaintSolved()}">
-                                    <h:outputText value="SolutionTitle:"/>
-                                    <h:outputText value="#{complaintsManagedBean.complaint.solutionTitle==null}" title="SolutionTitle"/>
-                                    <h:outputText value="SolutionBody:"/>
-                                    <h:outputText value="#{complaintsManagedBean.complaint.solutionBody}" title="SolutionBody"/>
-                                </h:panelGrid>
-                          </h:form>
-                            </h:panelGroup>
-                    
+                                    <h:inputTextarea class="form-control" id="solutionBody" cols='50' rows="10" value="#{complaintsManagedBean.complaint.solutionBody}" required="true" title="SolutionBody" />
+                                    <h:message for="solutionBody"/>
+                                </h:panelGroup>
 
 
+                                <!--                               <h:outputLabel value="CurrentStatus:" for="currentStatus" />
+                                <h:inputText id="currentStatus" value="#{complaintsManagedBean.complaint.currentStatus}" title="CurrentStatus" />-->
+
+                                <h:commandButton class="btn btn-default" value='Close ticket' action='#{complaintsManagedBean.closeComplaint()}'/>
+
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="2" rendered="#{complaintsManagedBean.isComplaintSolved()}">
+                                <h:outputText value="SolutionTitle:"/>
+                                <h:outputText value="#{complaintsManagedBean.complaint.solutionTitle==null}" title="SolutionTitle"/>
+                                <h:outputText value="SolutionBody:"/>
+                                <h:outputText value="#{complaintsManagedBean.complaint.solutionBody}" title="SolutionBody"/>
+                            </h:panelGrid>
+                        </h:form>
+                    </h:panelGroup>
 
 
-<script>
+
+
+
+                    <script>
                         $(document).ready(loadComplaintTabs());
                     </script>
                 </f:view>
