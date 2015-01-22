@@ -13,28 +13,36 @@
                 <f:view>
 
 
-                    <h:form>
+                    <h:form class="form-horizontal">
                         <h:panelGroup layout="block" class="page-header">
-                        <h:outputText value="Submit complaint" class="h2"/>
+                            <h:outputText value="Submit complaint" class="h2"/>
                         </h:panelGroup>
-                        
+
                         <h:messages globalOnly="true" style="list-style-type: none;padding-left: 0px" infoClass="alert alert-success"/>
-                        
-                        <h:panelGrid columns="3" columnClasses="text-topalign">
-                            
-                            <h:outputLabel value="Complaint title:" for="complaintTitle"/>
-                            <h:inputText id="complaintTitle" value="#{complaintsManagedBean.complaint.complaintTitle}" title="ComplaintTitle" required="true" requiredMessage="The ComplaintTitle field is required."/>
-                            <h:message for="complaintTitle"/>
+
+
+
+                        <h:panelGroup layout="block" class="form-group">
+                            <h:outputLabel value="Complaint title:" for="complaintTitle" class="col-sm-2 control-label"/>
+                            <h:panelGroup layout="block" class="col-sm-5">
+                                <h:inputText class="form-control" id="complaintTitle" value="#{complaintsManagedBean.complaint.complaintTitle}" title="ComplaintTitle" required="true" requiredMessage="The ComplaintTitle field is required."/>
+                            </h:panelGroup>
+
+                            <h:message class="errorMessage col-sm-5" for="complaintTitle"/>
+                        </h:panelGroup>
+
+                        <h:panelGroup layout="block" class="form-group">
+                            <h:outputLabel value="Complaint text:" for="complaintBody" class="col-sm-2 control-label"/>
+                            <h:panelGroup layout="block" class="col-sm-5">                 
+                                <h:inputTextarea class="form-control" id="complaintBody" value="#{complaintsManagedBean.complaint.complaintBody}" title="ComplaintBody" cols="50" rows="10" required="true" requiredMessage="The ComplaintBody field is required."/>
+                                
+                            </h:panelGroup>
+                            <h:message class="errorMessage col-sm-5" for="complaintBody"/>
                            
-                            <h:outputLabel value="Complaint text:" for="complaintBody" />
-                            <h:inputTextarea id="complaintBody" value="#{complaintsManagedBean.complaint.complaintBody}" title="ComplaintBody" cols="50" rows="10" required="true" requiredMessage="The ComplaintBody field is required."/>
-                            <h:message for="complaintBody"/>
-                            
-                            <h:commandButton  action="#{complaintsManagedBean.submitComplaint(facesContext.externalContext.userPrincipal)}" value="Submit complaint"/>
-                           
-                           
-                            
-                        </h:panelGrid>
+                        </h:panelGroup>
+ <h:commandButton  action="#{complaintsManagedBean.submitComplaint(facesContext.externalContext.userPrincipal)}" value="Submit complaint" class="btn btn-default"/>
+
+
                     </h:form>
                 </f:view>
 

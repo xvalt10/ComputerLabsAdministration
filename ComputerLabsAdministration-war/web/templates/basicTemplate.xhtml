@@ -12,43 +12,38 @@
         <h:outputStylesheet name="./css/bootstrap.css"/>
         <h:outputStylesheet name="./css/bootstrap-theme.css"/>
         <h:outputStylesheet name="./css/elab.css"/>
-        
-       <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"/>
+
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"/>
         <h:outputScript library="js" name="jquery.js"/>
         <h:outputScript library="js" name="bootstrap.js"/>
         <h:outputScript library="js" name="jquery-ui.min.js"/>
         <h:outputScript library="js" name="elab.js"/>
-        
-        <script>
-  $(function() {
-    $( ".datepicker" ).datepicker();
-  });
-  
- 
-  </script>
-       
-        
-        
 
-        <title>Facelets Template</title>
-        
         <script>
-            $(document).ready(function(){
-                
-                $(".nav-tabs li").on('click',function(){
+            $(function () {
+                $(".datepicker").datepicker();
+            });
+
+
+        </script>
+
+        <script>
+            $(document).ready(function () {
+
+                $(".nav-tabs li").on('click', function () {
                     $(this).closest($(".nav-tabs")).find("li").removeClass("active");
                     $(this).addClass("active");
-                    
+
                 });
-                 $("#complaints").on('click',function(){
-      alert('ji');
-     $("#submitComplaint").slideToggle(); 
-     $("#viewSubmittedComplaints").slideToggle();
-     $("#viewAssigndComplaints").slideToggle();
-      
-  });
+                $("#complaints").on('click', function () {
+
+                    $("#submitComplaint").slideToggle();
+                    $("#viewSubmittedComplaints").slideToggle();
+                    $("#viewAssigndComplaints").slideToggle();
+
+                });
             });
-            
+
         </script>
     </h:head>
 
@@ -61,8 +56,8 @@
 
                 </ui:insert>
             </div>
-            
-            
+
+
 
             <div class="row" style="padding-left: 15px;padding-right: 15px">   
                 <div id="left" class="col-sm-3" style="border:1px solid #dddddd;border-radius: 4px; width:24%;margin-right:1% ">

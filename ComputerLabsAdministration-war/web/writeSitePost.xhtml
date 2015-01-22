@@ -14,32 +14,49 @@
                 <f:view>
 
 
-                    <h:form enctype="multipart/form-data">
+                    <h:form enctype="multipart/form-data" class="form-horizontal">
                         <h:panelGroup layout="block" class="page-header">
-                        <h:outputText value="New site post (computer lab news section)" class="h2"/>
+                            <h:outputText value="New site post (computer lab news section)" class="h2"/>
                         </h:panelGroup>
                         <h:messages globalOnly="true"/>
-                        <h:panelGrid columns="2" columnClasses="text-topalign">
-                            
-                            <h:outputLabel value="PostTitle:" for="postTitle" />
-                            <h:inputText id="postTitle" value="#{sitePostManagedBean.post.postTitle}" title="PostTitle" />
-                            <h:outputLabel value="PostText:" for="postText" />
-                            <h:inputTextarea rows="10" cols="50" id="postText" value="#{sitePostManagedBean.post.postText}" title="PostText" />
-                           
-                           
-                            
-                            <h:outputLabel value="LabId:" for="labId" />
-                            <h:selectOneMenu id="labId" value="#{sitePostManagedBean.labId}" title="LabId" >
-                                <!-- TODO: update below reference to list of available items-->
-                                <f:selectItems value="#{labManagedBean.getAllComputerLabs()}" var="lab" itemLabel="#{lab.labName}" itemValue="#{lab.labId}"/>
-                            </h:selectOneMenu> 
-                            <h:outputLabel value="Attachment:" for="attachmentFileName" />
-                            <h:inputFile id="file" value="#{sitePostManagedBean.file}"/>
-                            <h:commandButton value="Publish post" action="#{sitePostManagedBean.publishPost()}" />
-                            
-                           
-                          
-                        </h:panelGrid>
+
+                        <h:panelGroup layout="block" class="form-group">
+                            <h:outputLabel value="PostTitle:" for="postTitle" class="col-sm-2 control-label"/>
+                            <h:panelGroup layout="block" class="col-sm-5">
+                                <h:inputText class="form-control" id="postTitle" value="#{sitePostManagedBean.post.postTitle}" title="PostTitle" required="true" requiredMessage="Post title field is required."/>
+                            </h:panelGroup>
+                            <h:message for="postTitle" class="col-sm-5 errorMessage"/>
+                        </h:panelGroup>
+
+
+                        <h:panelGroup layout="block" class="form-group">
+                            <h:outputLabel value="PostText:" for="postText" class="col-sm-2 control-label"/>
+                            <h:panelGroup layout="block" class="col-sm-5">
+                                <h:inputTextarea class="form-control"  id="postText" value="#{sitePostManagedBean.post.postText}" required="true" requiredMessage="Post text field is required." />
+                            </h:panelGroup>
+                            <h:message for="postText" class=" col-sm-5 errorMessage"/>
+                        </h:panelGroup>
+
+                         <h:panelGroup layout="block" class="form-group">
+                        <h:outputLabel value="LabId:" for="labId" class="col-sm-2 control-label"/>
+                          <h:panelGroup layout="block" class="col-sm-5">
+                        <h:selectOneMenu class="form-control" id="labId" value="#{sitePostManagedBean.labId}" title="LabId" >
+                            <!-- TODO: update below reference to list of available items-->
+                            <f:selectItems value="#{labManagedBean.getAllComputerLabs()}" var="lab" itemLabel="#{lab.labName}" itemValue="#{lab.labId}"/>
+                        </h:selectOneMenu> 
+                          </h:panelGroup>
+                         </h:panelGroup>
+                        
+                         <h:panelGroup layout="block" class="form-group">
+                        <h:outputLabel value="Attachment:" for="attachmentFileName" class="col-sm-2 control-label"/>
+                        <h:panelGroup layout="block" class="col-sm-5">
+                        <h:inputFile  id="file" value="#{sitePostManagedBean.file}" style="padding-top:7px;margin-left: 5px"/>
+                        </h:panelGroup>
+                        
+                         </h:panelGroup>
+<h:commandButton value="Publish post" action="#{sitePostManagedBean.publishPost()}" class="btn btn-default"/>
+
+
                     </h:form>
                 </f:view>
 

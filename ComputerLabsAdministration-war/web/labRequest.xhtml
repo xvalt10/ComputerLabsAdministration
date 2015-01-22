@@ -14,36 +14,40 @@
             <ui:define name="content">
                 <f:view>
                     <!-- Lab request form -->
-                    <h:form class="form-horizontal">
+                    <h:form class="form-horizontal" role="form" style="text-align:left">
                         <h:panelGroup layout="block" class="page-header" style="margin-top:20px">
                             <h:outputText value="Lab request" class="h2"/>
                         </h:panelGroup>
                         <h:messages infoClass="alert alert-success" errorClass="alert alert-danger" globalOnly="true"/>
-                        <h:panelGrid columns="3">
-                            <h:panelGroup class="form-group">
-                                <h:outputLabel value="LabName:" for="labName" />
+
+                        <h:panelGroup class="form-group">
+                            <h:outputLabel value="LabName:" for="labName" class="col-sm-2 control-label" style="text-align:left"/>
+                            <h:panelGroup layout="block" class="col-sm-5">
                                 <h:inputText class="form-control" id="labName" value="#{labManagedBean.computerLab.labName}" title="LabName" required="true" requiredMessage="The LabName field is required."/>
-                                <h:message for="labName"/>
+                           
+                            </h:panelGroup> 
+                            <h:message for="labName" class="col-sm-5" style="padding-top: 7px;color:red"/>
+                        </h:panelGroup>
+                      
+                        <h:panelGroup class="form-group">
+                            <h:outputLabel value="Instructor:" for="instructor" class="col-sm-2 control-label" style="text-align:left"/>
+                            <h:panelGroup layout="block" class="col-sm-5">
+                            <h:selectOneMenu class="form-control" id="instructor" value="#{labManagedBean.computerLab.instructor.userId}" title="Instructor" required="true" requiredMessage="The Instructor field is required." >
+                                <c:if test="#{userManagedBean.getUserRole().equals('admin')}">
+                                    <f:selectItems value="#{userManagedBean.getAllInstructors(userManagedBean.loadUserRole(2))}" var='instructor' itemLabel="#{instructor.name}" itemValue="#{instructor.userId}" />
+                                </c:if>
+                                <f:selectItems value="#{userManagedBean.instructorsByDepartment}" var='instructor' itemLabel="#{instructor.name}" itemValue="#{instructor.userId}" />
+                            </h:selectOneMenu>
                             </h:panelGroup>
+                            <h:message for="instructor" class="col-sm-5"/>
+                        </h:panelGroup>
 
-                            <h:panelGroup class="form-group">
-                                <h:outputLabel value="Instructor:" for="instructor" />
-                                <h:selectOneMenu class="form-control" id="instructor" value="#{labManagedBean.computerLab.instructor.userId}" title="Instructor" required="true" requiredMessage="The Instructor field is required." >
-                                    <c:if test="#{userManagedBean.getUserRole().equals('admin')}">
-                                        <f:selectItems value="#{userManagedBean.getAllInstructors(userManagedBean.loadUserRole(2))}" var='instructor' itemLabel="#{instructor.name}" itemValue="#{instructor.userId}" />
-                                    </c:if>
-                                    <f:selectItems value="#{userManagedBean.instructorsByDepartment}" var='instructor' itemLabel="#{instructor.name}" itemValue="#{instructor.userId}" />
-                                </h:selectOneMenu>
-                                <h:message for="instructor"/>
-                            </h:panelGroup>
-
-                        </h:panelGrid>
-                        <h:outputLabel value="Select timeslot:"  /><br></br>
+                        <h:outputLabel value="Select timeslot:"  class="col-sm-2" style="text-align:left;margin-top: 15px"/><br></br><br></br>
 
                         <!-- Generates computer lab schedule based on the data stored in the db -->
                         <c:forEach items="#{labManagedBean.getAvailableClassrooms()}" var="classroom">
-                            <h:outputText class="h4" value="Classroom no.#{classroom.roomNumber}"/>
-                            <table border="1" style="margin-bottom:20px" >
+                            <h:outputText class="h6" value="Classroom no.#{classroom.roomNumber}" style="margin:15px"/>
+                            <table   border="1" style="margin-bottom:20px;margin:15px" >
                                 <c:forEach items="#{labManagedBean.numberOfDaysSchoolIsOpened(classroom.classRoomId)}" var="day">
                                     <tr>
                                         <td style="padding:10px" >
@@ -65,7 +69,7 @@
                             </table>
                         </c:forEach>
 
-                        <h:commandButton value="Send request for approval" action="#{labManagedBean.saveLabRequest()}"/>
+                        <h:commandButton value="Send request for approval" action="#{labManagedBean.saveLabRequest()}" class="btn btn-default" style="margin:15px"/>
                     </h:form>
 
                     <script>

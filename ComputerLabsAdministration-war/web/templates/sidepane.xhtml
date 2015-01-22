@@ -6,9 +6,10 @@
 
     <f:view>
         <h:form prependId="false">
-
-            <ul class="nav nav-pills nav-stacked" rendered='#{facesContext.externalContext.userPrincipal!=null}'>
+          
+            <ul class="nav nav-pills nav-stacked" >
                 <li style="text-align:center;border-bottom: 1px solid #dddddd"><h3><span class="glyphicon glyphicon-list"/> Main Menu</h3></li>
+                  <h:panelGroup rendered='#{facesContext.externalContext.userPrincipal!=null}'>
                 <li id="complaint" ><h:panelGroup layout="block" class="alert alert-info" style="margin-bottom:5px;cursor: pointer;background-color: #FEFEFE;padding:5px"  ><h:outputText value="Complaints management" rendered='#{facesContext.externalContext.userPrincipal!=null}'/></h:panelGroup></li>
                 <li id="submitComplaint" style="overflow: hidden;"><h:commandLink value="Submit complaint" action="#{complaintsManagedBean.clearComplaint()}" rendered="#{userManagedBean.getUserRole().equals('instructor')||userManagedBean.getUserRole().equals('headOfDepartment')}"/>
                 </li>
@@ -19,9 +20,10 @@
                 <li id="viewAssignedComplaints"><h:commandLink value="View assigned complaints" action="#{complaintsManagedBean.getComplaintsAssignedToUser()}" rendered="#{userManagedBean.getUserRole().equals('admin')||userManagedBean.getUserRole().equals('technicalStaff')}" >
                         <f:param name='typeOfComplaints' value='Assigned Complaints'/>
                     </h:commandLink>
-                </li>
+                </li>      
+                  </h:panelGroup>
             </ul>
-
+      
             <ul class="nav nav-sidebar">
                 <li><h:panelGroup layout="block" class="alert alert-info" style="margin-bottom:5px;cursor: pointer;background-color: #FEFEFE;padding:5px" ><h:outputText value="Computer labs"/></h:panelGroup></li>
                 <li><h:link value='Pending lab requests' outcome='viewLabRequests' rendered="#{userManagedBean.getUserRole().equals('admin')}"/></li>
@@ -33,9 +35,11 @@
             </ul>
             
             <ul class="nav nav-sidebar" rendered='#{facesContext.externalContext.userPrincipal!=null}'>
+                 <h:panelGroup rendered='#{facesContext.externalContext.userPrincipal!=null}'>
                 <li><h:panelGroup layout="block" class="alert alert-info" style="margin-bottom:5px;cursor: pointer;background-color: #FEFEFE;padding:5px"><h:outputText value="Equipment management"/></h:panelGroup></li>
                 <li><h:link value='Resource management' outcome='resourcesMgmt' rendered="#{facesContext.externalContext.userPrincipal!=null}"/></li> 
-                <li><h:link value='Upload equipment documentation' outcome='documentEquipmentConditions'</li>
+                <li><h:link value='Documentation upload' outcome='documentEquipmentConditions'/></li>
+                 </h:panelGroup>
             </ul>
             
             

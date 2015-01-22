@@ -52,7 +52,7 @@ public class SitePostManagedBean implements Serializable {
     private int labId;
 
     //base path where the uploaded files will be stored to
-    private final static String UPLOAD_BASE_PATH = "C:" + File.separator + "uploads" + File.separator;
+    private final static String UPLOAD_BASE_PATH = "C:" + File.separator + "images" + File.separator;
 
     //getters and setters for private variables
     public int getLabId() {
@@ -99,11 +99,12 @@ public class SitePostManagedBean implements Serializable {
 
     // get all the files from a directory
     File[] fList = directory.listFiles();
+    if(fList.length>0){
     for (File f : fList) {
         if (f.isFile()) {
            fileNames.add(f.getName());
         } 
-    }
+    }}
     return fileNames;
     }
     
@@ -147,6 +148,20 @@ public class SitePostManagedBean implements Serializable {
         }
         }
 
+    }
+    
+    public void uploadDocumentation(){
+        try {
+            uploadFile();
+        } catch (IOException ex) {
+            Logger.getLogger(SitePostManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(file==null){
+        JsfUtil.addErrorMessage("No file has been selected for upload.");
+        }
+        else{
+    JsfUtil.addSuccessMessage("The file "+file.getSubmittedFileName()+" has been successfully uploaded.");}
+        
     }
     
     /**

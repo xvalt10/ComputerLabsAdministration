@@ -15,6 +15,11 @@ and open the template in the editor.
   }
 
 
+  .errorMessage{
+      color:red;
+      padding-top:7px;
+      
+  }
 
 
 .alert-success{

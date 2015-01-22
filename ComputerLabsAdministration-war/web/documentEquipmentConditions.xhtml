@@ -9,25 +9,25 @@
 
         <ui:composition template="./templates/basicTemplate.xhtml">
 
-            <ui:define name="content">
-                <h:panelGroup layout='block' class='page-header'>
-                    <h:outputText value='Upload equipment documentation'/>
-                </h:panelGroup>
-
-
-                <h:outputLabel value="Attachment:" for="attachmentFileName" />
-                <h:form>
-                    <h:panelGrid columns='3'>
-                    <h:outputLabel value="Upload document" for='file'/>
-                    <h:inputFile id="file" value="#{sitePostManagedBean.file}" />
-                    <h:messages for="file"/>
-                    <h:commandButton value="Upload" />
-                    </h:panelGrid>
-                </h:form>
+            <ui:define name="content"> 
                 
                 <f:view>
-                    <h:form>
-                        <h:dataTable value="#{sitePostManagedBean.listAllUploadedFiles}" var="item" class="table table-bordered">
+                <h:panelGroup layout='block' class='page-header'>
+                    <h:outputText value='Upload equipment documentation' class="h2"/>
+                </h:panelGroup>
+                    
+                    
+
+                <h:form enctype="multipart/form-data" class="form-horizontal">
+                    <h:messages infoClass="alert alert-success" errorClass="alert alert-danger" globalOnly="true"/>
+                     <h:panelGroup layout="block" class="form-group">
+                        <h:outputLabel value="Upload documentation:" for="attachmentFileName" class="col-sm-3 control-label"/>
+                        <h:panelGroup layout="block" class="col-sm-5">
+                        <h:inputFile  id="file" value="#{sitePostManagedBean.file}" style="padding-top:7px;margin-left: 5px"/>
+                        </h:panelGroup>
+                     </h:panelGroup>
+                    <h:commandButton action="#{sitePostManagedBean.uploadDocumentation()}" value="Start upload" class="btn btn-default" style="margin-left: 15px;margin-bottom:15px"/>
+                        <h:dataTable value="#{sitePostManagedBean.listAllUploadedFiles()}" var="item" class="table table-bordered">
                              <h:column>
                                 <f:facet name="header">
                                     <h:outputText value="Document name:"/>
