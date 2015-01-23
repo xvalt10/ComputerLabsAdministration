@@ -7,7 +7,7 @@
 
     <h:head>
         <h:outputStylesheet name="./css/bootstrap.css"/>
-      
+
     </h:head>
 
     <body>
@@ -23,91 +23,122 @@
                             <h:outputText value="User registration" class="h2"/>
                         </h:panelGroup>
                         <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger" style="list-style-type: none;padding-left: 0px"/>
-                        <h:panelGrid columns="3">
 
-                            <h:outputLabel value="RoleId:" for="roleId" />
-                            <h:selectOneMenu id="roleId" value="#{userManagedBean.user.roleId}" title="RoleId" required="true" requiredMessage="The RoleId field is required." converter='userCategoryConverter'>
+
+                        <h:outputLabel value="RoleId:" for="roleId" class="col-sm-2 control-label"/>
+                        <h:panelGroup layout="block" class="col-sm-5">
+                            <h:selectOneMenu class="form-control" id="roleId" value="#{userManagedBean.user.roleId}" title="RoleId" required="true" requiredMessage="The RoleId field is required." converter='userCategoryConverter'>
                                 <f:selectItem itemValue="1" itemLabel="#{userManagedBean.loadUserRole(1).roleName}"/>
                                 <f:selectItem itemValue="2" itemLabel="#{userManagedBean.loadUserRole(2).roleName}"/>
                                 <f:selectItem itemValue="3" itemLabel="#{userManagedBean.loadUserRole(3).roleName}"/>
                             </h:selectOneMenu>
-                            <h:message for="roleId"/>
+                        </h:panelGroup>
+                        <h:message for="roleId" class="errorMessage col-sm-5"/>
 
+                        <h:panelGroup layout="block" class="form-group">
                             <ui:remove>Generates Label for Name input field</ui:remove>
-                            <h:outputLabel value="Name:" for="name" />
+                            <h:outputLabel value="Name:" for="name" class="col-sm-2 control-label"/>
                             <ui:remove>Generates input field for name with prepared alert messages for empty field</ui:remove>
-                            <h:inputText id="name" value="#{userManagedBean.user.name}" title="Username" required="true" requiredMessage="The Name field is required."/>
-                            <ui:remove>Generates alert messages</ui:remove>
-                            <h:message for="name"/>
+                            <h:panelGroup layout="block" class="col-sm-5">
+                                <h:inputText class="form-control" id="name" value="#{userManagedBean.user.name}" title="Username" required="true" requiredMessage="The Name field is required."/>
+                                <ui:remove>Generates alert messages</ui:remove>
+                            </h:panelGroup>
+                            <h:message for="name" class="errorMessage col-sm-5"/>
+                        </h:panelGroup>
 
+                        <h:panelGroup layout="block" class="form-group">
                             <ui:remove>Generates Label for Username input field</ui:remove>
-                            <h:outputLabel value="Username:" for="username" />
-                            <ui:remove>Generates input field for username with prepared alert messages for empty field</ui:remove>
-                            <h:inputText id="username" value="#{userManagedBean.user.username}" title="Username" required="true" requiredMessage="The Username field is required."/>
+                            <h:outputLabel value="Username:" for="username" class="col-sm-2 control-label"/>
+                            <h:panelGroup layout="block" class="col-sm-5">
+                                <ui:remove>Generates input field for username with prepared alert messages for empty field</ui:remove>
+                                <h:inputText class="form-control" id="username" value="#{userManagedBean.user.username}" title="Username" required="true" requiredMessage="The Username field is required."/>
+                            </h:panelGroup>
                             <ui:remove>Generates alert messages</ui:remove>
-                            <h:message for="username"/>
+                            <h:message for="username" class="errorMessage col-sm-5"/>
+                        </h:panelGroup>
 
+                        <h:panelGroup layout="block" class="form-group">
                             <ui:remove>Generates Label for Password input field</ui:remove>
-                            <h:outputLabel value="Password:" for="password" />
-                            <ui:remove>Generates input field for password with prepared alert messages for empty field</ui:remove>
-                            <h:inputSecret redisplay="true" id="password" value="#{userManagedBean.user.password}" title="Password" required="true" requiredMessage="The Password field is required."/>
+                            <h:outputLabel value="Password:" for="password" class="col-sm-2 control-label"/>
+                            <h:panelGroup layout="block" class="col-sm-5">
+                                <ui:remove>Generates input field for password with prepared alert messages for empty field</ui:remove>
+                                <h:inputSecret class="form-control" redisplay="true" id="password" value="#{userManagedBean.user.password}" title="Password" required="true" requiredMessage="The Password field is required."/>
+                            </h:panelGroup>
                             <ui:remove>Generates alert messages</ui:remove>
-                            <h:message for="password" />
-                            
-                            <ui:remove>Generates Label for Password input field</ui:remove>
-                            <h:outputLabel value="Confirm password:" for="confirmPassword" />
-                            <ui:remove>Generates input field for password with prepared alert messages for empty field</ui:remove>
-                            <h:inputSecret redisplay="true" id="confirmPassword" value="#{userManagedBean.user.password}" title="Password" required="true" requiredMessage="The Password field is required.">
-                            <f:ajax event="change" onevent="checkIfPasswordsMatch"/>
-                            </h:inputSecret>
-                            <ui:remove>Generates alert messages</ui:remove>
-                            <h:message for="password" id="confirmPasswordError"/>
+                            <h:message for="password" class="errorMessage col-sm-5"/>
+                        </h:panelGroup>
 
+                        <h:panelGroup layout="block" class="form-group">
+                            <ui:remove>Generates Label for Password input field</ui:remove>
+                            <h:outputLabel value="Confirm password:" for="confirmPassword" class="col-sm-2 control-label"/>
+                            <ui:remove>Generates input field for password with prepared alert messages for empty field</ui:remove>
+                            <h:panelGroup layout="block" class="col-sm-5">
+                                <h:inputSecret class="form-control" redisplay="true" id="confirmPassword" value="#{userManagedBean.user.password}" title="Password" required="true" requiredMessage="The Password field is required.">
+                                    <f:ajax event="change" onevent="checkIfPasswordsMatch"/>
+                                </h:inputSecret>
+                            </h:panelGroup>
+                            <ui:remove>Generates alert messages</ui:remove>
+                            <h:message for="password" class="errorMessage col-sm-5" id="confirmPasswordError"/>
+                        </h:panelGroup>
+
+                        <h:panelGroup layout="block" class="form-group">
                             <ui:remove>Generates Label for Email input field</ui:remove>
-                            <h:outputLabel value="Email:" for="email" />
-                            <ui:remove>Generates input field for email with prepared alert messages for not / wrongly filled field</ui:remove>
-                            <h:inputText id="email" required="true" label="email" requiredMessage="The Email field is required." validatorMessage="Invalid email format!" title="Email" value="#{userManagedBean.user.email}">
-                                <ui:remove>Pattern for email validation</ui:remove> 
-                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-                            </h:inputText>
+                            <h:outputLabel value="Email:" for="email" class="col-sm-2 control-label"/>
+                            <h:panelGroup layout="block" class="col-sm-5">
+                                <ui:remove>Generates input field for email with prepared alert messages for not / wrongly filled field</ui:remove>
+                                <h:inputText class="form-control" id="email" required="true" label="email" requiredMessage="The Email field is required." validatorMessage="Invalid email format!" title="Email" value="#{userManagedBean.user.email}">
+                                    <ui:remove>Pattern for email validation</ui:remove> 
+                                    <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                </h:inputText>
+                            </h:panelGroup>
                             <ui:remove>Generates alert messages</ui:remove>
-                            <h:message for="email"/>
+                            <h:message for="email" class="errorMessage col-sm-5"/>
+                        </h:panelGroup>
 
+                        <h:panelGroup layout="block" class="form-group">
                             <ui:remove>Generates Label for Number input field</ui:remove>
-                            <h:outputLabel value="Mobile Number:" for="mobileNumber" />
-                            <ui:remove>Generates input field for number with prepared alert messages for not / wrongly filled field</ui:remove>
-                            <h:inputText id="mobileNumber" value="#{userManagedBean.user.mobileNumber}" title="MobileNumber" validatorMessage="Invalid number format!" >
-                                <ui:remove>Pattern for number validation</ui:remove> 
-                                <f:validateRegex pattern="^$|^\+[0-9]{12}$" />
-                            </h:inputText>
+                            <h:outputLabel value="Mobile Number:" for="mobileNumber" class="col-sm-2 control-label"/>
+                            <h:panelGroup layout="block" class="col-sm-5">
+                                <ui:remove>Generates input field for number with prepared alert messages for not / wrongly filled field</ui:remove>
+                                <h:inputText class="form-control" id="mobileNumber" value="#{userManagedBean.user.mobileNumber}" title="MobileNumber" validatorMessage="Invalid number format!" >
+                                    <ui:remove>Pattern for number validation</ui:remove> 
+                                    <f:validateRegex pattern="^$|^\+[0-9]{12}$" />
+                                </h:inputText>
+                            </h:panelGroup>
                             <ui:remove>Generates alert messages</ui:remove>
-                            <h:message for="mobileNumber"/>
+                            <h:message for="mobileNumber" class="errorMessage col-sm-5"/>
+                        </h:panelGroup>
 
+                        <h:panelGroup layout="block" class="form-group">
                             <ui:remove>Generates Label for Department input field</ui:remove>
-                            <h:outputLabel value="Department:" for="department" />
-                            <ui:remove>Generates input field for department</ui:remove>
-                            <h:inputText id="department" value="#{userManagedBean.user.department}" title="Department" />
+                            <h:outputLabel value="Department:" for="department" class="col-sm-2 control-label"/>
+                            <h:panelGroup layout="block" class="col-sm-5">
+                                <ui:remove>Generates input field for department</ui:remove>
+                                <h:inputText class="form-control" id="department" value="#{userManagedBean.user.department}" title="Department" />
+                            </h:panelGroup>
                             <ui:remove>Generates empty cell to get Submit button on next line</ui:remove>
-                            <h:message for="department"/>
+                            <h:message for="department" class="errorMessage col-sm-5"/>
+                        </h:panelGroup>
 
-                            <h:commandButton value="Register User" action="#{userManagedBean.registerUser()}"/>
+                        <h:commandButton value="Register User" action="#{userManagedBean.registerUser()}"/>
 
-                        </h:panelGrid>
+
                     </h:form>
-                      <script>
+
+                    <script>
 
 
-            function checkIfPasswordsMatch() {
+                        function checkIfPasswordsMatch() {
 
-                if ($("#password").val() !== $("#confirmPassword").val()) {
-                    $("#confirmPasswordError").text("Passwords do not match.").removeClass().addClass("label label-danger");
+                            if ($("#password").val() !== $("#confirmPassword").val()) {
+                                $("#confirmPasswordError").text("Passwords do not match.").removeClass().addClass("label label-danger");
 
-                }
-                else {
-                    $("#confirmPasswordError").text("").removeClass().addClass("label label-success");
-                }
-            }
-        </script>
+                            }
+                            else {
+                                $("#confirmPasswordError").text("").removeClass().addClass("label label-success");
+                            }
+                        }
+                    </script>
                 </f:view>
 
             </ui:define>

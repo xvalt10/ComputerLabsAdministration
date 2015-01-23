@@ -28,82 +28,92 @@
                             <h:panelGroup layout='block' class='page-header' style='margin-top:0px'>
                                 <h:outputText value="Add classroom" class="h1"/>
                             </h:panelGroup>
+
                             <h:messages id="classroomMessages" globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
-                            <h:panelGrid columns="3">
 
-                                <h:outputLabel value="NumberOfSeats:" for="numberOfSeats" />
-                                <h:inputText id="numberOfSeats" value="#{resourceManagedBean.classroom.numberOfSeats}" title="NumberOfSeats" required="true" requiredMessage="The NumberOfSeats field is required."/>
-                                <h:message for="numberOfSeats"/>
+                    </h:panelGroup>
 
-                                <h:outputLabel value="RoomNumber:" for="roomNumber" />
-                                <h:inputText id="roomNumber" value="#{resourceManagedBean.classroom.roomNumber}" title="RoomNumber" required="true" requiredMessage="The RoomNumber field is required."/>
-                                <h:message for="roomNumber"/>
+                    <h:panelGroup layout="block" class="form-group">
+                        <h:outputLabel value="NumberOfSeats:" for="numberOfSeats" class="col-sm-2 control-label"/>
+                        <h:panelGroup layout="block" class="class-col-sm-5">
+                            <h:inputText class="form-control" id="numberOfSeats" value="#{resourceManagedBean.classroom.numberOfSeats}" title="NumberOfSeats" required="true" requiredMessage="The NumberOfSeats field is required."/>
+                        </h:panelGroup> 
+                        <h:message for="numberOfSeats" class="col-sm-5 errorMessage"/>
+                    </h:panelGroup>
 
-                                <h:commandButton value="Add classroom" action="#{resourceManagedBean.addClassroom()}"/>
+                    <h:panelGroup layout="block" class="form-group">
+                        <h:outputLabel value="RoomNumber:" for="roomNumber" class="col-sm-2 control-label"/>
+                        <h:panelGroup layout="block" class="class-col-sm-5">
+                            <h:inputText class="form-control" id="roomNumber" value="#{resourceManagedBean.classroom.roomNumber}" title="RoomNumber" required="true" requiredMessage="The RoomNumber field is required."/>
+                        </h:panelGroup> 
+                        <h:message for="roomNumber" class="col-sm-5 errorMessage"/>
+                    </h:panelGroup>
 
-
-
-
-
-
-
-                            </h:panelGrid>
-                            <h:panelGroup layout='block' class='page-header'>
-                                <h:outputText value="Computer labs classrooms" class="h1"/>
-                            </h:panelGroup>
-
-
-                        </h:form>
-
-                        <h:form >
-                            <h:dataTable  id="classroomDataTable" value="#{labManagedBean.availableClassrooms}" var="item" class="table table-responsive table-bordered table-striped">
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="ClassRoomId"/>
-                                    </f:facet>
-                                    <h:outputText class="classRoomText" value="#{item.classRoomId}"/>
+                    <h:commandButton value="Add classroom" action="#{resourceManagedBean.addClassroom()}"/>
 
 
 
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="NumberOfSeats"/>
-                                    </f:facet>
-                                    <h:outputText class="seatText" value="#{item.numberOfSeats}"/>
 
 
 
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="RoomNumber"/>
-                                    </f:facet>
-                                    <h:outputText class="roomNumberText" value="#{item.roomNumber}"/>
+
+
+                    <h:panelGroup layout='block' class='page-header'>
+                        <h:outputText value="Computer labs classrooms" class="h1"/>
+                    </h:panelGroup>
+
+
+                    </h:form>
+
+                    <h:form >
+                        <h:dataTable  id="classroomDataTable" value="#{labManagedBean.availableClassrooms}" var="item" class="table table-responsive table-bordered table-striped">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="ClassRoomId"/>
+                                </f:facet>
+                                <h:outputText class="classRoomText" value="#{item.classRoomId}"/>
 
 
 
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Action"/>
-                                    </f:facet>
-
-
-                                    <h:commandLink class="btn btn-default"  value="Edit" action="#{resourceManagedBean.loadClassroom(item.classRoomId)}" style="margin-right:10px">
-                                        <f:param name="update" value="classroom"/>
-                                    </h:commandLink>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="NumberOfSeats"/>
+                                </f:facet>
+                                <h:outputText class="seatText" value="#{item.numberOfSeats}"/>
 
 
 
-                                    <h:commandButton class="btn btn-danger" value="Remove" >
-                                        <f:ajax event="click" listener="#{resourceManagedBean.deleteClassroom(item.classRoomId)}" render="@form"/>
-                                    </h:commandButton>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="RoomNumber"/>
+                                </f:facet>
+                                <h:outputText class="roomNumberText" value="#{item.roomNumber}"/>
 
 
-                                </h:column>
-                            </h:dataTable>
-                        </h:form>
+
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Action"/>
+                                </f:facet>
+
+
+                                <h:commandLink class="btn btn-default"  value="Edit" action="#{resourceManagedBean.loadClassroom(item.classRoomId)}" style="margin-right:10px">
+                                    <f:param name="update" value="classroom"/>
+                                </h:commandLink>
+
+
+
+                                <h:commandButton class="btn btn-danger" value="Remove" >
+                                    <f:ajax event="click" listener="#{resourceManagedBean.deleteClassroom(item.classRoomId)}" render="@form"/>
+                                </h:commandButton>
+
+
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
                     </h:panelGroup>
 
                     <h:panelGroup layout="block" id="addHardwareForm" class="panel panel-default" style="padding:10px">
@@ -148,8 +158,8 @@
 
 
                                 <h:commandButton value="Add hardware" action="#{resourceManagedBean.addHardware(resourceManagedBean.classroom.classRoomId)}"/>
-                                    
-                                
+
+
 
 
 
@@ -395,7 +405,7 @@
                                                         </p:overlayPanel>
 
                                                         <c:forEach items="#{resourceManagedBean.getInstalledSoftware(hardware.hardwareId)}" var='software' >
-                                                            
+
                                                             <p:commandButton value="#{software.softwareId.type}" id="infoBtnSW#{hardware.hardwareId}#{software.softwareId.softwareId}" icon="ui-icon-search" />
                                                             <p:overlayPanel id="imagePanel" for="infoBtnSW#{hardware.hardwareId}#{software.softwareId.softwareId}"  >
                                                                 <h:panelGrid columns="2" class="table table-striped">
@@ -405,7 +415,7 @@
                                                                     <h:outputText value="#{software.softwareId.dateOfPurchae}"/>
                                                                     <h:outputText value="Licence expiration:"/>
                                                                     <h:outputText value="#{software.softwareId.expirationOfLicence}"/>
-                                                                 
+
                                                                 </h:panelGrid>
                                                             </p:overlayPanel>
 
