@@ -13,10 +13,11 @@
             <ui:define name="content">
 
                 <h:panelGroup layout="block" class="page-header" style="margin-top:20px;text-align: center">
-                    <h:outputText value="ComputerLabs Administration" class="h2"/>
+                    <h:outputText value="ELab Administration" class="h2"/>
+                  
                 </h:panelGroup>
                 <h:panelGroup layout='block' class="alert alert-success" rendered="#{facesContext.externalContext.userPrincipal!=null}" style="margin-top:10px">
-                    <h:outputText value="Welcome #{facesContext.externalContext.userPrincipal}! You are logged in to the ComputerLabs administration." />
+                    <h:outputText value="Welcome #{userManagedBean.getUsersFullName()}! You are logged in to the ELabs administration." />
                 </h:panelGroup>
 
                 <!--                <h:panelGroup layout="block" style="row">

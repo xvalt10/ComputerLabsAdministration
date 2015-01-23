@@ -52,7 +52,7 @@ public class SitePostManagedBean implements Serializable {
     private int labId;
 
     //base path where the uploaded files will be stored to
-    private final static String UPLOAD_BASE_PATH = "C:" + File.separator + "images" + File.separator;
+    private final static String UPLOAD_BASE_PATH = "C:" + File.separator + "uploads" + File.separator;
 
     //getters and setters for private variables
     public int getLabId() {
@@ -99,7 +99,7 @@ public class SitePostManagedBean implements Serializable {
 
     // get all the files from a directory
     File[] fList = directory.listFiles();
-    if(fList.length>0){
+    if(fList!=null){
     for (File f : fList) {
         if (f.isFile()) {
            fileNames.add(f.getName());

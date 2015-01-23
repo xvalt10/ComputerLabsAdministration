@@ -15,11 +15,12 @@
                 </h:panelGroup>
 
                 <c:forEach items="#{sitePostManagedBean.countLabsWithPosts()}" var="labId">
-                    <h:outputText class="h3" value='#{labManagedBean.getLabNameByLabId(labId)}'/>
-                    <h:panelGroup layout="block" class="panel-group" id="accordion">
+                    
+                    <h:outputText class="h4 control-label" value='#{labManagedBean.getLabNameByLabId(labId)}' style="margin-left:5px" />
+                    <h:panelGroup layout="block" class="panel-group" >
                         <c:forEach items="#{sitePostManagedBean.postsByLabId(labId)}" var="post">
 
-                        <h:panelGroup layout="block" class="panel panel-default" id="panel1" style='margin-bottom: 10px'>
+                        <h:panelGroup layout="block" class="panel panel-default"  style='margin-bottom: 10px'>
                             <h:panelGroup layout="block" class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-target="#collapse#{post.sitePostId}" 

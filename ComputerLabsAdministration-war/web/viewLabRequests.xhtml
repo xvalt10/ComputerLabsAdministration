@@ -66,7 +66,7 @@
                             </h:column>
                         </h:dataTable>
 
-                        <h:outputText value="Current schedule:" class="h2" style="margin-bottom: 10px"/><br></br>
+                        <h:outputText value="Current schedule:" class="h4" style="margin-bottom: 10px;text-decoration: underline"/><br></br><br></br>
                         <c:forEach items="#{labManagedBean.getAvailableClassrooms()}" var="classroom">
                             <h:outputText class="h4" value="Classroom no.#{classroom.roomNumber}"/>
                             <table id="scheduleTable" border="1" style="margin-bottom:10px" >
@@ -75,8 +75,9 @@
                                         <td style="padding:10px" >
                                             <h:outputText value="#{labManagedBean.getDayOfWeek(day)}"/></td>
                                         <c:forEach items="#{labManagedBean.timeslotsPerDay(day, classroom.classRoomId)}" var="slot">
-                                            <td class="timeslot" style="padding: 10px;cursor: pointer"  >
+                                            <td class="timeslot" style="padding: 10px;font-size: 12px"  >
                                                 <h:panelGrid columns="1" onclick="#{labManagedBean.setTimeSlot(slot)}">
+                                                    <h:outputText value="#{labManagedBean.getLabNameByTimeSlot(slot)}"/>
                                                     <h:outputText value="#{userManagedBean.getInstructorNameForTimeSlot(slot)}" rendered="#{slot.isOccupied}"/>
                                                     <h:outputText value="#{labManagedBean.formatTimeFromTimeslot(slot)}"/>
                                                     <h:outputText value="#{slot.isOccupied?'Reserved':'Available'}"/>

@@ -18,13 +18,13 @@
                 <f:view>
 
 
-                    <h:form prependId="false">
+                    <h:form prependId="false" class="form-horizontal">
                         <h:panelGroup layout="block" class="page-header">
                             <h:outputText value="User registration" class="h2"/>
                         </h:panelGroup>
                         <h:messages globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger" style="list-style-type: none;padding-left: 0px"/>
 
-
+ <h:panelGroup layout="block" class="form-group">
                         <h:outputLabel value="RoleId:" for="roleId" class="col-sm-2 control-label"/>
                         <h:panelGroup layout="block" class="col-sm-5">
                             <h:selectOneMenu class="form-control" id="roleId" value="#{userManagedBean.user.roleId}" title="RoleId" required="true" requiredMessage="The RoleId field is required." converter='userCategoryConverter'>
@@ -34,6 +34,7 @@
                             </h:selectOneMenu>
                         </h:panelGroup>
                         <h:message for="roleId" class="errorMessage col-sm-5"/>
+ </h:panelGroup>
 
                         <h:panelGroup layout="block" class="form-group">
                             <ui:remove>Generates Label for Name input field</ui:remove>
@@ -41,8 +42,9 @@
                             <ui:remove>Generates input field for name with prepared alert messages for empty field</ui:remove>
                             <h:panelGroup layout="block" class="col-sm-5">
                                 <h:inputText class="form-control" id="name" value="#{userManagedBean.user.name}" title="Username" required="true" requiredMessage="The Name field is required."/>
-                                <ui:remove>Generates alert messages</ui:remove>
+                                
                             </h:panelGroup>
+                            <ui:remove>Generates alert messages</ui:remove>
                             <h:message for="name" class="errorMessage col-sm-5"/>
                         </h:panelGroup>
 
@@ -120,7 +122,7 @@
                             <h:message for="department" class="errorMessage col-sm-5"/>
                         </h:panelGroup>
 
-                        <h:commandButton value="Register User" action="#{userManagedBean.registerUser()}"/>
+                        <h:commandButton class="btn btn-default" value="Register User" action="#{userManagedBean.registerUser()}"/>
 
 
                     </h:form>
@@ -135,7 +137,7 @@
 
                             }
                             else {
-                                $("#confirmPasswordError").text("").removeClass().addClass("label label-success");
+                                $("#confirmPasswordError").text("Passwords match.").removeClass().addClass("label label-success");
                             }
                         }
                     </script>

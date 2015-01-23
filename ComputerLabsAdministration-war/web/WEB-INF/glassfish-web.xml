@@ -21,7 +21,7 @@
         <group-name>4</group-name>
     </security-role-mapping>
     
-<property name="alternatedocroot_1" value="from=/images/* dir=C:\" />
+<property name="alternatedocroot_1" value="from=/uploads/* dir=C:\" />
   <class-loader delegate="true"/>
   <jsp-config>
     <property name="keepgenerated" value="true">

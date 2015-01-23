@@ -9,11 +9,12 @@
         <ui:composition template="./templates/basicTemplate.xhtml">
             <ui:define name="content">
                 <f:view>
-                    <h:panelGroup layout="block" class="page-header"><h1>Login</h1></h:panelGroup>
+                    <h:panelGroup layout="block" class="page-header"><h:outputText value="Login" class="h2"   /></h:panelGroup>
+                  
                    
-<!--                    <h:panelGroup layout='block' class="alert alert-danger" rendered="#{facesContext.externalContext.requestParameterMap!='{}'}">
-                     <h:outputText value="Wrong username or password."  rendered="#{facesContext.externalContext.requestParameterMap!='{}'}" />
-                    </h:panelGroup>-->
+                    <h:panelGroup layout='block' class="alert alert-danger" rendered="#{param.forward!=true}" >
+                     <h:outputText value="Wrong username or password."   />
+                    </h:panelGroup>
                     
                      <!-- We are using form validation with j_security_check-->
                     <h:form id="login" onsubmit="document.getElementById('login').action = 'j_security_check'" prependId="false">

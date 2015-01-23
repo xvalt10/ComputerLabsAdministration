@@ -32,7 +32,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="Document name:"/>
                                 </f:facet>
-                                <h:outputLink value="/ComputerLabsAdministration-war/images/#{item}"><h:outputText value='#{item}'/></h:outputLink>
+                                 <h:graphicImage library="images" name="documentIcon.png" height="30"/><h:outputLink value="/ComputerLabsAdministration-war/uploads/#{item}"><h:outputText value='#{item}'/></h:outputLink>
                             </h:column>
                         </h:dataTable>
                     </h:form>

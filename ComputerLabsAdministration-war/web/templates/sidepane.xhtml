@@ -8,7 +8,7 @@
         <h:form prependId="false">
           
             <ul class="nav nav-pills nav-stacked" >
-                <li style="text-align:center;border-bottom: 1px solid #dddddd"><h3><span class="glyphicon glyphicon-list"/> Main Menu</h3></li>
+                <li style="text-align:center;"><h3><span class="glyphicon glyphicon-list"/> Main Menu</h3></li>
                   <h:panelGroup rendered='#{facesContext.externalContext.userPrincipal!=null}'>
                 <li id="complaint" ><h:panelGroup layout="block" class="alert alert-info" style="margin-bottom:5px;cursor: pointer;background-color: #FEFEFE;padding:5px"  ><h:outputText value="Complaints management" rendered='#{facesContext.externalContext.userPrincipal!=null}'/></h:panelGroup></li>
                 <li id="submitComplaint" style="overflow: hidden;"><h:commandLink value="Submit complaint" action="#{complaintsManagedBean.clearComplaint()}" rendered="#{userManagedBean.getUserRole().equals('instructor')||userManagedBean.getUserRole().equals('headOfDepartment')}"/>

@@ -24,18 +24,18 @@
 
                     </ul>
                     <h:panelGroup id="addClassroomForm" layout="block" class="panel panel-default" style="padding:10px">
-                        <h:form  prependId="false">
+                        <h:form  prependId="false" class="form-horizontal">
                             <h:panelGroup layout='block' class='page-header' style='margin-top:0px'>
                                 <h:outputText value="Add classroom" class="h1"/>
                             </h:panelGroup>
 
                             <h:messages id="classroomMessages" globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
 
-                    </h:panelGroup>
+                    
 
                     <h:panelGroup layout="block" class="form-group">
                         <h:outputLabel value="NumberOfSeats:" for="numberOfSeats" class="col-sm-2 control-label"/>
-                        <h:panelGroup layout="block" class="class-col-sm-5">
+                        <h:panelGroup layout="block" class="col-sm-5">
                             <h:inputText class="form-control" id="numberOfSeats" value="#{resourceManagedBean.classroom.numberOfSeats}" title="NumberOfSeats" required="true" requiredMessage="The NumberOfSeats field is required."/>
                         </h:panelGroup> 
                         <h:message for="numberOfSeats" class="col-sm-5 errorMessage"/>
@@ -43,13 +43,13 @@
 
                     <h:panelGroup layout="block" class="form-group">
                         <h:outputLabel value="RoomNumber:" for="roomNumber" class="col-sm-2 control-label"/>
-                        <h:panelGroup layout="block" class="class-col-sm-5">
+                        <h:panelGroup layout="block" class="col-sm-5">
                             <h:inputText class="form-control" id="roomNumber" value="#{resourceManagedBean.classroom.roomNumber}" title="RoomNumber" required="true" requiredMessage="The RoomNumber field is required."/>
                         </h:panelGroup> 
                         <h:message for="roomNumber" class="col-sm-5 errorMessage"/>
                     </h:panelGroup>
 
-                    <h:commandButton value="Add classroom" action="#{resourceManagedBean.addClassroom()}"/>
+                    <h:commandButton value="Add classroom" action="#{resourceManagedBean.addClassroom()}" class="btn btn-default"/>
 
 
 
@@ -124,6 +124,7 @@
                             <h:messages id="hardwareMessages" globalOnly="true" infoClass="alert alert-success" errorClass="alert alert-danger"/>
                             <h:panelGrid columns="3">
 
+                                
                                 <h:outputLabel value="Date of purchase:" for="dateOfPurchaseHW" />
                                 <h:inputText id="dateOfPurchaseHW" class="datepicker" value="#{resourceManagedBean.hardware.dateOfPurchase}" title="DateOfPurchase" required="true" requiredMessage="The DateOfPurchase field is required.">
                                     <f:convertDateTime pattern="MM/dd/yyyy" />
@@ -157,7 +158,7 @@
 
 
 
-                                <h:commandButton value="Add hardware" action="#{resourceManagedBean.addHardware(resourceManagedBean.classroom.classRoomId)}"/>
+                                <h:commandButton value="Add hardware" action="#{resourceManagedBean.addHardware(resourceManagedBean.classroom.classRoomId)}" class="btn btn-default"/>
 
 
 
@@ -265,7 +266,7 @@
                                 <h:inputText id="currentState" value="#{resourceManagedBean.software.currentState}" title="CurrentState" />
                                 <h:message for="currentState"/>
 
-                                <h:commandButton value="Add software" action="#{resourceManagedBean.addSoftware()}"/>
+                                <h:commandButton value="Add software" action="#{resourceManagedBean.addSoftware()}" class="btn btn-default"/>
 
 
                             </h:panelGrid>  </h:form>
@@ -353,7 +354,7 @@
                                 </h:selectOneMenu>
                                 <h:message for='computerId'/>
 
-                                <h:commandButton value='Add software to workstation' action='#{resourceManagedBean.addSofwareToComputerStation(resourceManagedBean.softwareByComputer.computerId.hardwareId, resourceManagedBean.softwareByComputer.softwareId.softwareId)}'/>
+                                <h:commandButton value='Add software to workstation' action='#{resourceManagedBean.addSofwareToComputerStation(resourceManagedBean.softwareByComputer.computerId.hardwareId, resourceManagedBean.softwareByComputer.softwareId.softwareId)}' class="btn btn-default"/>
 
                             </h:panelGrid>
                         </h:form>

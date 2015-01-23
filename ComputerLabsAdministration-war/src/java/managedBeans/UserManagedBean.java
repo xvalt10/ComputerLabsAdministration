@@ -134,7 +134,7 @@ public class UserManagedBean {
         else{
         user.setPassword(encryptPassword(user.getPassword()));
         usersFacade.create(user);
-        JsfUtil.addSuccessMessage("User " + user.getUsername() + "has been successfully registered.");
+        JsfUtil.addSuccessMessage("User " + user.getUsername() + " has been successfully registered.");
         user = new Users();}
     }
 
