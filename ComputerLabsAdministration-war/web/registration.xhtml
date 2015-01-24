@@ -102,7 +102,7 @@
                             <h:outputLabel value="Mobile Number:" for="mobileNumber" class="col-sm-2 control-label"/>
                             <h:panelGroup layout="block" class="col-sm-5">
                                 <ui:remove>Generates input field for number with prepared alert messages for not / wrongly filled field</ui:remove>
-                                <h:inputText class="form-control" id="mobileNumber" value="#{userManagedBean.user.mobileNumber}" title="MobileNumber" validatorMessage="Invalid number format!" >
+                                <h:inputText class="form-control" id="mobileNumber" value="#{userManagedBean.user.mobileNumber}" title="MobileNumber" validatorMessage="Invalid number format! Please insert international number format (+421YYYXXXZZZ)" >
                                     <ui:remove>Pattern for number validation</ui:remove> 
                                     <f:validateRegex pattern="^$|^\+[0-9]{12}$" />
                                 </h:inputText>
