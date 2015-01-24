@@ -34,7 +34,7 @@
                                 <h:panelGroup layout="block" class="panel-body"><h:outputText value="#{post.postText}"/>
                                
                                      <!-- Download attachment link is displayed when the an attachment is available for the post. -->
-                                    <h:outputLink value="/ComputerLabsAdministration-war/images/#{post.attachmentFileName}" rendered='#{post.attachmentFileName!=null}'>Download attachment</h:outputLink>
+                                    <h:outputLink value="/ComputerLabsAdministration-war/uploads/#{post.attachmentFileName}" rendered='#{post.attachmentFileName!=null}'>Download attachment</h:outputLink>
                                 </h:panelGroup>
                             </h:panelGroup>
                         </h:panelGroup>

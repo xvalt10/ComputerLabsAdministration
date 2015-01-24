@@ -111,6 +111,18 @@ function showSoftwaretoHardwareTab2(){
     
 }
 
+
+function showResourcesOverview2(){
+     activateTab("#overviewTab");
+    
+      $("#addClassroomForm").hide();
+    $("#addSoftwareForm").hide();
+    $("#addHardwareForm").hide();
+    $("#addSWtoHWForm").hide();
+    $("#overviewForm").show();
+   
+}
+
 function showResourcesOverview(){
      activateTab("#overviewTab");
     
