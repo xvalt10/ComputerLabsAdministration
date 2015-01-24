@@ -29,7 +29,10 @@
                             
 
                             <h:outputLabel value="Email:" for="email" />
-                            <h:inputText id="email" value="#{userManagedBean.user.email}" title="Email" required="true" requiredMessage="The Email field is required."/>
+                            <h:inputText class="form-control" id="email" required="true" label="email" requiredMessage="The Email field is required." validatorMessage="Invalid email format!" title="Email" value="#{userManagedBean.user.email}">
+                                    <ui:remove>Pattern for email validation</ui:remove> 
+                                    <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                            </h:inputText>
                             <h:message for='email'/>
 
                             <h:outputLabel value="MobileNumber:" for="mobileNumber" />
