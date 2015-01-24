@@ -33,7 +33,10 @@
                             <h:message for='email'/>
 
                             <h:outputLabel value="MobileNumber:" for="mobileNumber" />
-                            <h:inputText id="mobileNumber" value="#{userManagedBean.user.mobileNumber}" title="MobileNumber" />
+                            <h:inputText class="form-control" id="mobileNumber" value="#{userManagedBean.user.mobileNumber}" title="MobileNumber" validatorMessage="Invalid number format! Please insert international number format (+421YYYXXXZZZ)" >
+                                    <ui:remove>Pattern for number validation</ui:remove> 
+                                    <f:validateRegex pattern="^$|^\+[0-9]{12}$" />
+                                </h:inputText>
                             <h:message for='mobileNumber'/>
 
                             <h:outputLabel value="Department:" for="department" />
