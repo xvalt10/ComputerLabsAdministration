@@ -15,6 +15,8 @@
 
             <ui:define name="content">
                 <f:view>
+                  
+                    
                     <ul id="tabsList" class="nav nav-tabs" style="margin-top:10px;border-bottom: none"> 
                         <li id="classroomTab" class="active"><a href="#">Classrooms</a></li> 
                         <li id="hardwareTab"><a href="#">Hardware</a></li> 
@@ -24,7 +26,7 @@
 
                     </ul>
                     <h:panelGroup id="addClassroomForm" layout="block" class="panel panel-default" style="padding:10px">
-                        <h:form  prependId="false" class="form-horizontal">
+                        <h:form id="classroomForm"   prependId="false" class="form-horizontal">
                             <h:panelGroup layout='block' class='page-header' style='margin-top:0px'>
                                 <h:outputText value="Add classroom" class="h1"/>
                             </h:panelGroup>
@@ -49,7 +51,9 @@
                         <h:message for="roomNumber" class="col-sm-5 errorMessage"/>
                     </h:panelGroup>
 
-                    <h:commandButton value="Add classroom" action="#{resourceManagedBean.addClassroom()}" class="btn btn-default"/>
+                    <h:commandButton value="Add classroom"  class="btn btn-default">
+                        <f:ajax event="click" execute="numberOfSeats roomNumber" listener="#{resourceManagedBean.addClassroom()}" render="@form"/>
+                    </h:commandButton>
 
 
 
@@ -63,15 +67,23 @@
                     </h:panelGroup>
 
 
-                    </h:form>
-
-                    <h:form >
-                        <h:dataTable  id="classroomDataTable" value="#{labManagedBean.availableClassrooms}" var="item" class="table table-responsive table-bordered table-striped">
-                            <h:column>
+                    
+                        <h:dataTable binding="#{table}"  id="classroomDataTable" value="#{labManagedBean.availableClassrooms}"  var="item" class="table table-responsive table-bordered table-striped">
+<!--                            <h:column>
                                 <f:facet name="header">
                                     <h:outputText value="ClassRoomId"/>
                                 </f:facet>
-                                <h:outputText class="classRoomText" value="#{item.classRoomId}"/>
+                                <h:outputText class="classRoomText" value="#{item.classRoomId}" />
+                                
+
+
+
+                            </h:column>-->     <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="RoomNumber"/>
+                                </f:facet>
+                                <h:outputText class="roomNumberText" value="#{item.roomNumber}"/>
+                                <h:inputText id="roomNo" class="roomNumberText" value="#{item.roomNumber}" style="display:none"/>
 
 
 
@@ -80,29 +92,27 @@
                                 <f:facet name="header">
                                     <h:outputText value="NumberOfSeats"/>
                                 </f:facet>
-                                <h:outputText class="seatText" value="#{item.numberOfSeats}"/>
-
-
-
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="RoomNumber"/>
-                                </f:facet>
-                                <h:outputText class="roomNumberText" value="#{item.roomNumber}"/>
-
+                                <h:outputText class="seatText" value="#{item.numberOfSeats}"  />
+                                <h:inputText id="seats" class="seatText" value="#{item.numberOfSeats}" style="display:none"/>
 
 
                             </h:column>
+                       
                             <h:column>
                                 <f:facet name="header">
                                     <h:outputText value="Action"/>
                                 </f:facet>
 
+                                <h:commandButton value="Edit" type="button" class="btn btn-default" style="margin-right:15px" >
+                                      <f:setPropertyActionListener 
+                                          target="#{resourceManagedBean.classroom}" value="#{item}" />
+                                    <!--<f:ajax event="click" listener="#{resourceManagedBean.loadClassroom(item.classRoomId,e)}"  render="classroomDataTable"/>-->
+                                </h:commandButton>
+                               
+                                <h:commandButton value="Save" class="btn btn-default" style="margin-right:15px;display:none" >
+                                    <f:ajax event="click" execute="classroomDataTable:#{rowIndex}:seats classroomDataTable:#{rowIndex}:roomNo" listener="#{resourceManagedBean.editClassroom(e)}" render="classroomDataTable classroomMessages"/>
+                                </h:commandButton>
 
-                                <h:commandLink class="btn btn-default"  value="Edit" action="#{resourceManagedBean.loadClassroom(item.classRoomId)}" style="margin-right:10px">
-                                    <f:param name="update" value="classroom"/>
-                                </h:commandLink>
 
 
 
@@ -437,6 +447,7 @@
                         </h:form>
                     </h:panelGroup>
 
+                    
                     <script>
                         $(document).ready(loadTabs());
                     </script>

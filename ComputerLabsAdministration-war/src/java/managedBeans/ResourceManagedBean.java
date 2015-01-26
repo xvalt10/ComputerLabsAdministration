@@ -161,9 +161,9 @@ public class ResourceManagedBean {
      * @param classroomId
      * @return
      */
-    public String loadClassroom(int classroomId) {
+    public void loadClassroom(int classroomId, AjaxBehaviorEvent e) {
         classroom = classroomsFacade.find(classroomId);
-        return "updateResources";
+        
 
     }
 
@@ -216,11 +216,12 @@ public class ResourceManagedBean {
      * @return 'resourcesMgmt' String to indicate that the request should be
      * redirected to the resourcesMgmt.xhtml page
      */
-    public String editClassroom() {
+    public String editClassroom(AjaxBehaviorEvent e) {
 
+        
         classroomsFacade.edit(classroom);
         JsfUtil.addSuccessMessage("Classroom " + classroom.getRoomNumber() + " has been successfully edited.");
-        classroom = new Classrooms();
+       // classroom = new Classrooms();
 
         return "resourcesMgmt";
 
@@ -258,7 +259,9 @@ public class ResourceManagedBean {
      * @param classroomId
      */
     public void deleteClassroom(int classroomId) {
-        classroomsFacade.remove(classroomsFacade.find(classroomId));
+        Classrooms classroom=classroomsFacade.find(classroomId);
+        classroomsFacade.remove(classroom);
+        JsfUtil.addSuccessMessage("Classroom no. "+classroom.getRoomNumber()+" has been deleted.");
     }
 
     /**

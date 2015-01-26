@@ -42,6 +42,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByMobileNumber", query = "SELECT u FROM Users u WHERE u.mobileNumber = :mobileNumber"),
     @NamedQuery(name = "Users.findByDepartment", query = "SELECT u FROM Users u WHERE u.department = :department")})
 public class Users implements Serializable {
+    @Size(max = 50)
+    @Column(name = "accountStatus")
+    private String accountStatus;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<Notification> notificationCollection;
     @OneToMany(mappedBy = "submittedBy")
@@ -95,11 +98,13 @@ public class Users implements Serializable {
         this.userId = userId;
     }
 
-    public Users(Integer userId, String username, String password, String email) {
+    public Users(Integer userId, String username, String password, String email, String department, String mobile) {
         this.userId = userId;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.mobileNumber=mobile;
+        this.password=password;
     }
 
     public Integer getUserId() {
@@ -234,6 +239,14 @@ public class Users implements Serializable {
 
     public void setNotificationCollection(Collection<Notification> notificationCollection) {
         this.notificationCollection = notificationCollection;
+    }
+
+    public String getAccountStatus() {
+        return accountStatus;
+    }
+
+    public void setAccountStatus(String accountStatus) {
+        this.accountStatus = accountStatus;
     }
     
 }

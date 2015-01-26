@@ -23,27 +23,27 @@
                         <h:panelGrid columns="3">
                             
                             <h:outputLabel value="Name:" for="name" />
-                            <h:inputText id="name" value="#{userManagedBean.user.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
-                            <h:message for='name'/>
+                            <h:inputText id="name" class="form-control" value="#{userManagedBean.user.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
+                            <h:message for='name' />
 
                             
 
                             <h:outputLabel value="Email:" for="email" />
                             <h:inputText class="form-control" id="email" required="true" label="email" requiredMessage="The Email field is required." validatorMessage="Invalid email format!" title="Email" value="#{userManagedBean.user.email}">
-                                    <ui:remove>Pattern for email validation</ui:remove> 
+                                    <!--Pattern for email validation--> 
                                     <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                             </h:inputText>
                             <h:message for='email'/>
 
                             <h:outputLabel value="MobileNumber:" for="mobileNumber" />
                             <h:inputText class="form-control" id="mobileNumber" value="#{userManagedBean.user.mobileNumber}" title="MobileNumber" validatorMessage="Invalid number format! Please insert international number format (+421YYYXXXZZZ)" >
-                                    <ui:remove>Pattern for number validation</ui:remove> 
+                                    <!--Pattern for number validation--> 
                                     <f:validateRegex pattern="^$|^\+[0-9]{12}$" />
                                 </h:inputText>
                             <h:message for='mobileNumber'/>
 
                             <h:outputLabel value="Department:" for="department" />
-                            <h:inputText id="department" value="#{userManagedBean.user.department}" title="Department" />
+                            <h:inputText class="form-control" id="department" value="#{userManagedBean.user.department}" title="Department" />
                             <h:message for='department'/>
 
                             <h:commandButton value="Update profile" class="btn btn-default" action='#{userManagedBean.updateUserProfile()}'/>

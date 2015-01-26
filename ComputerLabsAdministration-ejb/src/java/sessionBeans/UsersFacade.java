@@ -65,4 +65,9 @@ public class UsersFacade extends AbstractFacade<Users> {
         return count==0;
     }  
     
+    public boolean isUserAccountActivated(String username){
+    int count=(int) em.createNativeQuery("select count(username) from Users where username=? and accountStatus='Activated'").setParameter(1, username).getSingleResult();
+    return count!=0;
+    }
+    
 }

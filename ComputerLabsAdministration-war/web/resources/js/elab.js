@@ -10,18 +10,18 @@ function get(name) {
         return decodeURIComponent(name[1]);
 }
 
-function activateTab(tabId){
-    
+function activateTab(tabId) {
+
     $("#tabsList").find("li").removeClass("active");
     $(tabId).addClass("active");
-    
+
 }
 
 function showClassroomTab() {
-    
+
     activateTab("#classroomTab");
 
-  $("#classroomMessages").hide();
+    $("#classroomMessages").hide();
     $("#addClassroomForm").show();
     $("#addSoftwareForm").hide();
     $("#addHardwareForm").hide();
@@ -29,10 +29,10 @@ function showClassroomTab() {
     $("#overviewForm").hide();
 }
 function showHardwareTab() {
-   activateTab("#hardwareTab");
-   
-   $("#hardwareMessages").hide();
-    
+    activateTab("#hardwareTab");
+
+    $("#hardwareMessages").hide();
+
     $("#addClassroomForm").hide();
     $("#addSoftwareForm").hide();
     $("#addHardwareForm").show();
@@ -41,32 +41,32 @@ function showHardwareTab() {
 
 }
 
-function showSoftwareTab(){
-    
+function showSoftwareTab() {
+
     $("#softwareMessages").hide();
     activateTab("#softwareTab");
-      $("#addClassroomForm").hide();
+    $("#addClassroomForm").hide();
     $("#addSoftwareForm").show();
     $("#addHardwareForm").hide();
     $("#addSWtoHWForm").hide();
     $("#overviewForm").hide();
-    
+
 }
 
-function showSoftwaretoHardwareTab(){
-    
+function showSoftwaretoHardwareTab() {
+
     $("#swhwMessages").hide();
     activateTab("#addSWtoHWTab");
-      $("#addClassroomForm").hide();
+    $("#addClassroomForm").hide();
     $("#addSoftwareForm").hide();
     $("#addHardwareForm").hide();
     $("#addSWtoHWForm").show();
     $("#overviewForm").hide();
-    
+
 }
 
 function showClassroomTab2() {
-    
+
     activateTab("#classroomTab");
     $("#classroomMessages").show();
     $("#addClassroomForm").show();
@@ -76,9 +76,9 @@ function showClassroomTab2() {
     $("#overviewForm").hide();
 }
 function showHardwareTab2() {
-   activateTab("#hardwareTab");
-   
-   $("#hardwareMessages").show();
+    activateTab("#hardwareTab");
+
+    $("#hardwareMessages").show();
     $("#addClassroomForm").hide();
     $("#addSoftwareForm").hide();
     $("#addHardwareForm").show();
@@ -87,96 +87,139 @@ function showHardwareTab2() {
 
 }
 
-function showSoftwareTab2(){
-    
+function showSoftwareTab2() {
+
     activateTab("#softwareTab");
     $("#softwareMessages").show();
-      $("#addClassroomForm").hide();
+    $("#addClassroomForm").hide();
     $("#addSoftwareForm").show();
     $("#addHardwareForm").hide();
     $("#addSWtoHWForm").hide();
     $("#overviewForm").hide();
-    
+
 }
 
-function showSoftwaretoHardwareTab2(){
-    
+function showSoftwaretoHardwareTab2() {
+
     activateTab("#addSWtoHWTab");
     $("#swhwMessages").show();
-      $("#addClassroomForm").hide();
+    $("#addClassroomForm").hide();
     $("#addSoftwareForm").hide();
     $("#addHardwareForm").hide();
     $("#addSWtoHWForm").show();
     $("#overviewForm").hide();
-    
+
 }
 
 
-function showResourcesOverview2(){
-     activateTab("#overviewTab");
-    
-      $("#addClassroomForm").hide();
+function showResourcesOverview2() {
+    activateTab("#overviewTab");
+
+    $("#addClassroomForm").hide();
     $("#addSoftwareForm").hide();
     $("#addHardwareForm").hide();
     $("#addSWtoHWForm").hide();
     $("#overviewForm").show();
-   
+
 }
 
-function showResourcesOverview(){
-     activateTab("#overviewTab");
-    
-      $("#addClassroomForm").hide();
+function showResourcesOverview() {
+    activateTab("#overviewTab");
+
+    $("#addClassroomForm").hide();
     $("#addSoftwareForm").hide();
     $("#addHardwareForm").hide();
     $("#addSWtoHWForm").hide();
     $("#overviewForm").show();
-   
+
 }
 
-function showComplaintPanel(){
+function showComplaintPanel() {
     activateTab("#complaintTab");
-      $("#complaintPanel").show();
+    $("#complaintPanel").show();
     $("#solutionPanel").hide();
-    
+
 }
-function showSolutionPanel(){
-    
+function showSolutionPanel() {
+
     activateTab("#solutionTab");
-      $("#complaintPanel").hide();
+    $("#complaintPanel").hide();
     $("#solutionPanel").show();
-    
+
 }
 
-function loadComplaintTabs(){
-    
-     $("#complaintTab").on("click", showComplaintPanel);
+function loadComplaintTabs() {
+
+    $("#complaintTab").on("click", showComplaintPanel);
     $("#solutionTab").on("click", showSolutionPanel);
 }
 
-function loadTabs() {
-    
-  
-     
-    switch(get('tab')) {
-       
-    case 'hardware':showHardwareTab2();
-        break;
-    case 'software':showSoftwareTab2();  
-        break;
-    case 'swTohw':showSoftwaretoHardwareTab2(); 
-        break;
-    case 'overview':showResourcesOverview2();
-    break;
-    default: showClassroomTab2();
-        break;
-       
+function showInput() {
+
+
+
+    $(this).closest("tr").find("span").hide();
+    $(this).closest("tr").find("input[type='text']").show();
+    $(this).hide();
+    $(this).closest("tr").find("input[value='Save']").show();
+
 }
+function hideInput() {
+    alert('hide');
+
+
+    $(this).closest("tr").find("span").show();
+    $(this).closest("tr").find("input[type='text']").hide();
+    $(this).closest("tr").find("input[value='Save']").hide();
+    $(this).closest("tr").find("input[value='Edit']").show();
+
+}
+
+
+
+function loadTabs() {
+
+
+$("input[value='Edit']").on('click',showInput);
+$("input[value='Save']").on('click',hideInput);
+
+
+
+    switch (get('tab')) {
+
+        case 'hardware':
+            showHardwareTab2();
+            break;
+        case 'software':
+            showSoftwareTab2();
+            break;
+        case 'swTohw':
+            showSoftwaretoHardwareTab2();
+            break;
+        case 'overview':
+            showResourcesOverview2();
+            break;
+        default:
+            showClassroomTab2();
+            break;
+
+    }
 
     $("#classroomTab").on("click", showClassroomTab);
     $("#hardwareTab").on("click", showHardwareTab);
-    $("#softwareTab").on("click", showSoftwareTab );
+    $("#softwareTab").on("click", showSoftwareTab);
     $("#addSWtoHWTab").on("click", showSoftwaretoHardwareTab);
     $("#overviewTab").on("click", showResourcesOverview);
-        
+
+}
+
+function showCheck() {
+    if ($("#check").text() === "") {
+        $("#check").hide()
+        $("#loginBtn").attr("disabled", false);
+    }
+    else {
+        $("#check").show();
+        $("#loginBtn").attr("disabled", true);
+    }
 }

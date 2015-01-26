@@ -10,29 +10,35 @@
             <ui:define name="content">
                 <f:view>
                     <h:panelGroup layout="block" class="page-header"><h:outputText value="Login" class="h2"   /></h:panelGroup>
-                  
-                   
+
+
                     <h:panelGroup layout='block' class="alert alert-danger" rendered="#{param.forward!=true}" >
-                     <h:outputText value="Wrong username or password."   />
+                        <h:outputText value="Wrong username or password."   />
                     </h:panelGroup>
-                    
-                     <!-- We are using form validation with j_security_check-->
+
+                    <!-- We are using form validation with j_security_check-->
                     <h:form id="login" onsubmit="document.getElementById('login').action = 'j_security_check'" prependId="false">
+                        <h:panelGroup layout="block" id="check" class="alert alert-danger" style="display:none">
+                        <h:outputText   value="#{userManagedBean.checkIfUserAccountIsActive()}" />
+                        </h:panelGroup>
                         <h:panelGrid columns="3">
                             <h:outputLabel value="Username:" for="j_username" />
-                            <h:inputText  title="Username" id="j_username" class="form-control"/>
-                            <h:message for="username" />
+                            <h:inputText  title="Username" id="j_username" class="form-control" value="#{userManagedBean.loginUsername}">
+                                <f:ajax event="blur" execute="j_username" render="check" onevent="showCheck"/>
+                            </h:inputText>
+                            <h:message  for="username" />
 
                             <h:outputLabel value="Password:" for="j_password" />
                             <h:inputSecret   title="Password" required="true" requiredMessage="The Password field is required." id="j_password" class="form-control"/>
                             <h:message for="password" />
 
-                            <h:commandButton class="btn btn-default" value="Login"/>
+                            <h:commandButton id="loginBtn" class="btn btn-default" value="Login"/>
                         </h:panelGrid> 
                     </h:form>
+
                 </f:view>
             </ui:define>
         </ui:composition>
     </body>
-    
+
 </html>

@@ -10,6 +10,9 @@ import entities.Timeslot;
 import entities.UserRoles;
 import entities.Users;
 import helperClasses.JsfUtil;
+import helperbeans.MailSenderBean;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
@@ -22,6 +25,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.mail.MessagingException;
+import javax.naming.NamingException;
 import sessionBeans.ComputerLabsFacade;
 import sessionBeans.ScheduleFacade;
 import sessionBeans.UserRolesFacade;
@@ -34,7 +39,10 @@ import sessionBeans.UsersFacade;
 @ManagedBean
 @SessionScoped
 public class UserManagedBean {
+    @EJB
+    private MailSenderBean mailSenderBean;
 
+    
     @EJB
     private ComputerLabsFacade computerLabsFacade;
     @EJB
@@ -44,6 +52,15 @@ public class UserManagedBean {
     @EJB
     private UsersFacade usersFacade;
 
+    private String loginUsername;
+
+    public String getLoginUsername() {
+        return loginUsername;
+    }
+
+    public void setLoginUsername(String loginUsername) {
+        this.loginUsername = loginUsername;
+    }
     private Users user;
     private List<Users> usersList;
 
@@ -132,11 +149,25 @@ public class UserManagedBean {
         JsfUtil.addErrorMessage("The username already exists. Please enter a different one.");
         }
         else{
-        user.setPassword(encryptPassword(user.getPassword()));
-        usersFacade.create(user);
-        JsfUtil.addSuccessMessage("User " + user.getUsername() + " has been successfully registered.");
-        user = new Users();}
-    }
+         
+                user.setPassword(encryptPassword(user.getPassword()));
+                user.setAccountStatus("Pending user confirmation");
+                StringBuilder builder=new StringBuilder("http://localhost:39982/ComputerLabsAdministration-war/webresources/confirmRegistration/");
+                builder.append(user.getUsername());
+                usersFacade.create(user);
+                try {
+                    mailSenderBean.sendMail(user.getEmail(), "Eadministration-Email confirmation of registration", "To activate your account click on the following link:"+builder.toString());
+                } catch (NamingException ex) {
+                    Logger.getLogger(UserManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (MessagingException ex) {
+                    Logger.getLogger(UserManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                JsfUtil.addSuccessMessage("To activate your account click on the link which has been sent to your email address: " + user.getEmail()+".");
+                user = new Users();
+            }
+}
+   
 
     /**
      * Loads user role based on roleId
@@ -209,6 +240,14 @@ public class UserManagedBean {
      */
     public boolean isUsernameUnique(){
         return usersFacade.checkIfUsernameIsUnique(user.getUsername());
+    }
+    
+    public String checkIfUserAccountIsActive(){
+    if (usersFacade.isUserAccountActivated(loginUsername)){
+        return "";
+    
+    }
+    else return "Username doesn't exist or the account hasn't been activated.";
     }
     
     /**
